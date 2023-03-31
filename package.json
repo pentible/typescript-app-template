@@ -1,0 +1,32 @@
+{
+    "name": "ptat",
+    "version": "0.0.0",
+    "private": true,
+    "license": "UNLICENSED",
+    "type": "module",
+    "workspaces": [
+        "./apps/*",
+        "./packages/*"
+    ],
+    "scripts": {
+        "prepare": "husky install",
+        "ios": "npm run -w mobile ios",
+        "android": "npm run -w mobile android",
+        "desktop": "npm run -w desktop desktop"
+    },
+    "devDependencies": {
+        "@pentible/check-package-lock": "0.87.0",
+        "@pentible/eslint-config": "0.87.0",
+        "@pentible/eslint-config-prettier": "0.87.0",
+        "@pentible/prettier": "0.87.0",
+        "@pentible/shellcheck-all": "0.87.0",
+        "@pentible/tsconfig": "0.87.0",
+        "eslint": "^8.46.0",
+        "husky": "8.0.3",
+        "lint-staged": "13.2.3",
+        "prettier": "3.0.1",
+        "tsx": "3.12.7",
+        "turbo": "1.10.12",
+        "typescript": "^5.1.6"
+    }
+}

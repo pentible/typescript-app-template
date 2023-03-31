@@ -1,0 +1,214 @@
+#!/usr/bin/env bash
+
+set -e
+
+declare script_dir
+script_dir="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
+declare repo_dir
+repo_dir="$(dirname "$script_dir")"
+
+declare local_database='ptat'
+declare planetscale_org='example'
+declare planetscale_database='ptat'
+
+# load rtx environment (in case we're run from outside the project directory)
+eval "$(cd "$repo_dir" && rtx hook-env 2> /dev/null)"
+
+dev::usage() {
+    echo 'usage: dev <command>'
+    echo '       dev initial setup    # install app and dev env dependencies'
+    echo '       dev reset            # deletes temp files and sets project back up'
+    echo '       dev start            # run dev server'
+    echo '       dev stop             # stop dev server'
+    echo '       dev lint             # run linters'
+    echo '       dev lint fix         # fix auto-fixable linter errors'
+    echo '       dev db local         # connect to local database'
+    echo '       dev db prod          # connect to production database'
+    echo '       dev db migrate local # migrate local database'
+    echo '       dev db migrate prod  # migrate production database'
+    exit 1
+}
+
+dev::initial::setup() {
+    cd "$repo_dir"
+
+    echo '==> install brew'
+    if ! type 'brew' > /dev/null 2>&1; then
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
+
+    echo '==> install dependencies'
+    brew install \
+        jdxcode/tap/rtx \
+        shellcheck \
+        homebrew/cask/docker \
+        planetscale/tap/pscale \
+        mysql
+
+    if ! type 'rustup' > /dev/null 2>&1; then
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s - -y --no-modify-path
+    fi
+
+    echo '==> create .env'
+    cp -n .env.example .env || true
+
+    echo '==> allow rtx to load project directory'
+    rtx trust
+
+    if ! docker ps >/dev/null 2>&1; then
+        echo '==> start docker'
+
+        nohup /Applications/Docker.app/Contents/MacOS/Docker >/dev/null &
+
+        echo -n 'waiting for docker'
+        while ! docker ps >/dev/null 2>&1; do
+            echo -n '.'
+            sleep 1
+        done
+        echo
+    fi
+
+    echo '==> dev reset'
+    dev::reset
+}
+
+dev::reset() {
+    cd "$repo_dir"
+
+    echo '==> stop db'
+    dev::stop
+
+    echo '==> delete git ignored files'
+    git clean -ffdX -e '!.env'
+
+    echo '==> reload rtx'
+    rtx install
+
+    echo '==> install dependencies'
+    npm install
+}
+
+dev::start() {
+    trap 'dev::stop' EXIT
+
+    dev::db::up
+    turbo dev
+}
+
+dev::stop() {
+    docker compose down -v
+}
+
+dev::lint() {
+    check-package-lock
+    shellcheck-all
+    tsc -b
+    eslint .
+    prettier --log-level warn --check .
+}
+
+dev::lint::fix() {
+    eslint --fix .
+    prettier --log-level warn --write .
+}
+
+dev::db::up() {
+    # start db if it's not running
+    if ! mysql_local -e 'SELECT true;' > /dev/null 2>&1; then
+        docker compose up -d --build --remove-orphans
+
+        wait_for_db
+    fi
+}
+
+dev::db::local() {
+    dev::db::up
+
+    mysql_local
+}
+
+dev::db::prod() {
+    planetscale_init
+
+    pscale shell "$planetscale_database" main
+}
+
+dev::db::migrate::local() {
+    dev::db::up
+    turbo db:push
+}
+
+dev::db::migrate::prod() {
+    # NOTE: inspired by: https://planetscale.com/docs/tutorials/automatic-prisma-migrations
+
+    planetscale_init
+
+    # create branch
+    declare branch="${local_database}-migrate"
+    pscale branch create "$planetscale_database" "$branch" --wait
+
+    # connect to branch
+    declare port='3309'
+    pscale connect "$planetscale_database" "$branch" --port "$port" &
+    pscale_pid="$!"
+    trap 'kill -INT "$pscale_pid"' EXIT
+
+    # wait for db
+    wait_for_db "$port"
+
+    # push schema changes
+    export DATABASE_URL="mysql://root@127.0.0.1:${port}/${planetscale_database}"
+    turbo db:push
+
+    # create deploy request
+    declare deploy_request_number
+    deploy_request_number="$(
+        pscale deploy-request create "$planetscale_database" "$branch" \
+            | tail -1 \
+            | cut -d ',' -f 2
+    )"
+
+    # deploy
+    pscale deploy-request deploy "$planetscale_database" "$deploy_request_number" --wait
+
+    # delete branch
+    pscale branch delete "$planetscale_database" "$branch"
+}
+
+mysql_local() {
+    MYSQL_PWD=password mysql -h127.0.0.1 -uroot "$local_database" "$@"
+}
+
+wait_for_db() {
+    declare port="${1:-3306}"
+
+    echo -n 'Waiting for db' >&2
+    until mysql_local --port="$port" -e 'SELECT true;' > /dev/null 2>&1; do
+        echo -n '.' >&2
+        sleep 1
+    done
+    echo >&2
+}
+
+planetscale_init() {
+    if ! pscale org list > /dev/null; then
+        pscale auth login
+    fi
+
+    # switch org
+    pscale org switch "$planetscale_org"
+}
+
+case "$*" in
+    'initial setup') dev::initial::setup ;;
+    reset) dev::reset ;;
+    start) dev::start ;;
+    stop) dev::stop ;;
+    lint) dev::lint ;;
+    'lint fix') dev::lint::fix ;;
+    'db local') dev::db::local ;;
+    'db prod') dev::db::prod ;;
+    'db migrate local') dev::db::migrate::local ;;
+    'db migrate prod') dev::db::migrate::prod ;;
+    *) dev::usage ;;
+esac

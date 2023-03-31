@@ -1,0 +1,13 @@
+{
+    "extends": "@pentible/tsconfig",
+    "compilerOptions": {
+        "outDir": "dist",
+        "baseUrl": ".",
+        "paths": {
+            "~/*": ["./src/*"]
+        },
+        "target": "ESNext",
+        // react-native requirements
+        "jsx": "react-native"
+    }
+}

@@ -1,0 +1,9 @@
+{
+    "extends": "@pentible/tsconfig/tsconfig.json",
+    "compilerOptions": {
+        "outDir": "dist",
+        "sourceMap": true,
+        "declarationMap": true,
+        "declaration": true
+    }
+}

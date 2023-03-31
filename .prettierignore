@@ -1,0 +1,16 @@
+node_modules/
+/packages/*/dist/
+/apps/*/dist/
+/.husky/_/
+*.tgz
+tsconfig.tsbuildinfo
+/.env
+/apps/web/.next/
+/apps/web/next-env.d.ts
+/apps/desktop/.next/
+/apps/desktop/next-env.d.ts
+.turbo/
+.DS_Store
+.expo/
+/target/
+/apps/desktop/out/

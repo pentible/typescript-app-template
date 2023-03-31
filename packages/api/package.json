@@ -1,0 +1,16 @@
+{
+    "name": "api",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "main": "./src/index.ts",
+    "types": "./src/index.ts",
+    "dependencies": {
+        "@trpc/client": "10.34.0",
+        "@trpc/react-query": "10.34.0",
+        "@trpc/server": "10.34.0",
+        "db": "file:../../packages/db",
+        "superjson": "1.13.1",
+        "zod": "3.21.4"
+    }
+}

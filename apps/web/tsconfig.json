@@ -1,0 +1,25 @@
+{
+    "extends": "@pentible/tsconfig",
+    "compilerOptions": {
+        "outDir": "dist",
+        "baseUrl": ".",
+        "paths": {
+            "~/*": ["./src/*"]
+        },
+        "sourceMap": true,
+        "declarationMap": true,
+        // next requirements
+        "resolveJsonModule": true,
+        "jsx": "preserve",
+        "plugins": [{ "name": "next" }],
+        // NOTE: next adds automatically, but these aren't required
+        "noEmit": true,
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "incremental": true,
+        "module": "esnext",
+        "strictNullChecks": true
+    },
+    // NOTE: next adds automatically, but these aren't required
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+    "exclude": ["node_modules"]
+}

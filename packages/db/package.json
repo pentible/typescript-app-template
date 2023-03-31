@@ -1,0 +1,24 @@
+{
+    "name": "db",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "main": "./src/index.ts",
+    "types": "./src/index.ts",
+    "scripts": {
+        "prebuild": "NODE_ENV=production tsx ./src/env.ts",
+        "db:push": "drizzle-kit push:mysql",
+        "db:seed": "tsx ./src/seed.ts"
+    },
+    "dependencies": {
+        "@paralleldrive/cuid2": "2.2.1",
+        "@planetscale/database": "1.10.0",
+        "@t3-oss/env-nextjs": "0.6.0",
+        "drizzle-orm": "0.28.1",
+        "mysql2": "3.6.0",
+        "zod": "3.21.4"
+    },
+    "devDependencies": {
+        "drizzle-kit": "0.19.12"
+    }
+}
