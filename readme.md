@@ -10,6 +10,7 @@ Built with Next.js, Expo, Tauri, tRPC, Tailwind CSS, and Drizzle ORM.
     -   mobile: `apps/mobile`
     -   desktop: `apps/desktop`
     -   web: `apps/web`
+-   remove references to any removed apps from `tsconfig.json`
 -   find/replace `ptat` with your app name
 -   find/replace `example.com` with your org domain
 -   find/replace `com.example` with your org reverse domain
