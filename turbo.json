@@ -3,11 +3,7 @@
     "pipeline": {
         "dev": {
             "cache": false,
-            "persistent": true,
-            "dependsOn": ["db:push"]
-        },
-        "db:push": {
-            "cache": false
+            "persistent": true
         },
         "db:seed": {
             "cache": false

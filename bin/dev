@@ -92,6 +92,7 @@ dev::start() {
     trap 'dev::stop' EXIT
 
     dev::db::up
+    npm run -w db db:push
     turbo dev
 }
 
@@ -135,7 +136,7 @@ dev::db::prod() {
 
 dev::db::migrate::local() {
     dev::db::up
-    turbo db:push
+    npm run -w db db:push
 }
 
 dev::db::migrate::prod() {
@@ -158,7 +159,7 @@ dev::db::migrate::prod() {
 
     # push schema changes
     export DATABASE_URL="mysql://root@127.0.0.1:${port}/${planetscale_database}"
-    turbo db:push
+    npm run -w db db:push
 
     # create deploy request
     declare deploy_request_number
