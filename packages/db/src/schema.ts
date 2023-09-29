@@ -6,12 +6,12 @@ import {
     varchar,
 } from "drizzle-orm/mysql-core";
 
-export const TABLE_PREFIX = "Ptat_";
+export const TABLE_PREFIX = "ptat_";
 
 const mysqlTable = mysqlTableCreator((name) => `${TABLE_PREFIX}${name}`);
 
 export const example = mysqlTable(
-    "Example",
+    "example",
     {
         id: varchar("id", { length: 24 }).primaryKey().notNull(),
         title: text("title").notNull(),
