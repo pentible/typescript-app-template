@@ -22,6 +22,7 @@ dev::usage() {
     echo '       dev stop             # stop dev server'
     echo '       dev lint             # run linters'
     echo '       dev lint fix         # fix auto-fixable linter errors'
+    echo '       dev db seed          # run seeds'
     echo '       dev db local         # connect to local database'
     echo '       dev db prod          # connect to production database'
     echo '       dev db migrate local # migrate local database'
@@ -122,6 +123,10 @@ dev::db::up() {
     fi
 }
 
+dev::db::seed() {
+    turbo db:seed
+}
+
 dev::db::local() {
     dev::db::up
 
@@ -207,6 +212,7 @@ case "$*" in
     stop) dev::stop ;;
     lint) dev::lint ;;
     'lint fix') dev::lint::fix ;;
+    'db seed') dev::db::seed ;;
     'db local') dev::db::local ;;
     'db prod') dev::db::prod ;;
     'db migrate local') dev::db::migrate::local ;;
