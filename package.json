@@ -9,18 +9,18 @@
         "./packages/*"
     ],
     "scripts": {
-        "prepare": "husky install",
-        "ios": "npm run -w mobile ios",
         "android": "npm run -w mobile android",
-        "desktop": "npm run -w desktop desktop"
+        "desktop": "npm run -w desktop desktop",
+        "ios": "npm run -w mobile ios",
+        "prepare": "husky install"
     },
     "devDependencies": {
-        "@pentible/check-package-lock": "0.87.0",
-        "@pentible/eslint-config": "0.87.0",
-        "@pentible/eslint-config-prettier": "0.87.0",
-        "@pentible/prettier": "0.87.0",
-        "@pentible/shellcheck-all": "0.87.0",
-        "@pentible/tsconfig": "0.87.0",
+        "@pentible/check-package-lock": "0.89.0",
+        "@pentible/eslint-config": "0.89.0",
+        "@pentible/eslint-config-prettier": "0.89.0",
+        "@pentible/prettier": "0.89.0",
+        "@pentible/shellcheck-all": "0.89.0",
+        "@pentible/tsconfig": "0.89.0",
         "eslint": "^8.46.0",
         "husky": "8.0.3",
         "lint-staged": "13.2.3",

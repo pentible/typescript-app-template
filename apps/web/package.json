@@ -26,11 +26,11 @@
         "zod": "^3.21.4"
     },
     "devDependencies": {
-        "@pentible/eslint-config-next": "0.87.0",
-        "@pentible/eslint-config-node": "0.87.0",
-        "@pentible/eslint-config-prettier": "0.87.0",
-        "@pentible/eslint-config-react": "0.87.0",
-        "@pentible/eslint-config-web": "0.87.0",
+        "@pentible/eslint-config-next": "0.89.0",
+        "@pentible/eslint-config-node": "0.89.0",
+        "@pentible/eslint-config-prettier": "0.89.0",
+        "@pentible/eslint-config-react": "0.89.0",
+        "@pentible/eslint-config-web": "0.89.0",
         "@types/eslint": "^8.44.2",
         "@types/node": "^18.15.5",
         "@types/prettier": "^2.7.3",
@@ -42,7 +42,7 @@
         "eslint-config-next": "13.4.7",
         "postcss": "^8.4.27",
         "prettier": "^3.0.1",
-        "prettier-plugin-tailwindcss": "^0.4.1",
+        "prettier-plugin-tailwindcss": "^0.5.4",
         "tailwindcss": "3.3.2",
         "typescript": "^5.1.6"
     }

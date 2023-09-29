@@ -10,6 +10,7 @@
     },
     "dependencies": {
         "@expo-google-fonts/quicksand": "0.2.3",
+        "@expo/config-plugins": "~7.2.2",
         "@expo/metro-config": "0.10.7",
         "@expo/vector-icons": "^13.0.0",
         "@react-navigation/native": "^6.1.7",
@@ -34,14 +35,13 @@
         "react-native-safe-area-context": "4.6.3",
         "react-native-screens": "~3.22.1",
         "react-native-web": "0.19.7",
-        "superjson": "1.13.1",
-        "@expo/config-plugins": "~7.2.2"
+        "superjson": "1.13.1"
     },
     "devDependencies": {
         "@babel/core": "^7.22.10",
-        "@pentible/eslint-config-expo": "0.87.0",
-        "@pentible/eslint-config-prettier": "0.87.0",
-        "@pentible/eslint-config-react": "0.87.0",
+        "@pentible/eslint-config-expo": "0.89.0",
+        "@pentible/eslint-config-prettier": "0.89.0",
+        "@pentible/eslint-config-react": "0.89.0",
         "@types/react": "^18.2.18",
         "nativewind": "^2.0.11",
         "react-test-renderer": "18.2.0",
