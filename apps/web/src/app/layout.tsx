@@ -7,6 +7,7 @@ import { TrpcProvider } from "~/utils/api";
 const quicksand = Quicksand({
     subsets: ["latin"],
     variable: "--font-quicksand",
+    display: "swap",
 });
 
 export const metadata: Metadata = {

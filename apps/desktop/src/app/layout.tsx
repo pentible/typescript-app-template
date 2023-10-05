@@ -6,6 +6,7 @@ import { TrpcProvider } from "~/utils/api";
 const quicksand = Quicksand({
     subsets: ["latin"],
     variable: "--font-quicksand",
+    display: "swap",
 });
 
 interface Props {
