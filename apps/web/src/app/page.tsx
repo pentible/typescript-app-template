@@ -7,7 +7,7 @@ export default function Home() {
     const examples = api.example.getAll.useQuery();
 
     return (
-        <main className="container mx-auto flex flex-col items-center p-4">
+        <main className={0}>
             <button
                 type="button"
                 onClick={() => {
