@@ -1,0 +1,26 @@
+name: validate
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: Install dependencies
+        run: npm install
+      # lint
+      - run: npx check-package-lock
+      - run: npx shellcheck-all
+      - run: npx tsc -b
+      - run: npx eslint .
+      - run: npx prettier --log-level warn --check .
