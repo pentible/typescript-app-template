@@ -67,7 +67,6 @@ source "$HOME/.cargo/env"
 
 ```toml
 [settings]
-missing_runtime_behavior = "autoinstall"
 trusted_config_paths = ["~/Projects"] # where ~/Projects is wherever you clone your repos
 ```
 
