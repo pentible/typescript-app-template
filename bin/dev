@@ -11,8 +11,8 @@ declare local_database='ptat'
 declare planetscale_org='example'
 declare planetscale_database='ptat'
 
-# load rtx environment (in case we're run from outside the project directory)
-eval "$(cd "$repo_dir" && rtx hook-env 2> /dev/null)"
+# load mise environment (in case we're run from outside the project directory)
+eval "$(cd "$repo_dir" && mise hook-env 2> /dev/null)"
 
 dev::usage() {
     echo 'usage: dev <command>'
@@ -40,7 +40,7 @@ dev::initial::setup() {
 
     echo '==> install dependencies'
     brew install \
-        jdxcode/tap/rtx \
+        mise \
         shellcheck \
         homebrew/cask/docker \
         planetscale/tap/pscale \
@@ -53,16 +53,16 @@ dev::initial::setup() {
     echo '==> create .env'
     cp -n .env.example .env || true
 
-    echo '==> allow rtx to load project directory'
-    rtx trust
+    echo '==> allow mise to load project directory'
+    mise trust
 
-    if ! docker ps >/dev/null 2>&1; then
+    if ! docker ps > /dev/null 2>&1; then
         echo '==> start docker'
 
-        nohup /Applications/Docker.app/Contents/MacOS/Docker >/dev/null &
+        nohup /Applications/Docker.app/Contents/MacOS/Docker > /dev/null &
 
         echo -n 'waiting for docker'
-        while ! docker ps >/dev/null 2>&1; do
+        while ! docker ps > /dev/null 2>&1; do
             echo -n '.'
             sleep 1
         done
@@ -82,8 +82,8 @@ dev::reset() {
     echo '==> delete git ignored files'
     git clean -ffdX -e '!.env'
 
-    echo '==> reload rtx'
-    rtx install
+    echo '==> reload mise'
+    mise install
 
     echo '==> install dependencies'
     npm install

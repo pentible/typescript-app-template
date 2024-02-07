@@ -1,0 +1,6 @@
+[env]
+_.file = '.env'
+_.path = ["./node_modules/.bin", "./bin"]
+
+[tools]
+node = '18'

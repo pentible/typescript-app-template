@@ -3,7 +3,7 @@ node_modules/
 /apps/*/dist/
 /.husky/_/
 *.tgz
-tsconfig.tsbuildinfo
+*.tsbuildinfo
 /.env
 /apps/web/.next/
 /apps/web/next-env.d.ts
