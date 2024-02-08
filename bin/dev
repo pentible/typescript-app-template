@@ -54,12 +54,12 @@ dev::initial::setup() {
     cp -n .env.example .env || true
 
     echo '==> allow mise to load project directory'
-    mise trust
+    mise trust --all
 
     if ! docker ps > /dev/null 2>&1; then
         echo '==> start docker'
 
-        nohup /Applications/Docker.app/Contents/MacOS/Docker > /dev/null &
+        nohup '/Applications/Docker.app/Contents/MacOS/Docker Desktop.app/Contents/MacOS/Docker Desktop' > /dev/null &
 
         echo -n 'waiting for docker'
         while ! docker ps > /dev/null 2>&1; do
