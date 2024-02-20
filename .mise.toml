@@ -1,6 +1,6 @@
 [env]
-_.file = '.env'
+_.file = [".env.local", ".env"]
 _.path = ["./node_modules/.bin", "./bin"]
 
 [tools]
-node = '18'
+node = "18"

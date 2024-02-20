@@ -51,7 +51,9 @@ dev::initial::setup() {
     fi
 
     echo '==> create .env'
-    cp -n .env.example .env || true
+    if [[ ! -f .env ]]; then
+        echo '# override defaults from .env.local' > .env
+    fi
 
     echo '==> allow mise to load project directory'
     mise trust --all
