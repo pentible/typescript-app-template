@@ -14,3 +14,7 @@ node_modules/
 .expo/
 /target/
 /apps/desktop/out/
+
+# eslint
+# NOTE: eslint ignores dotfiles by default
+!.*.cjs
