@@ -20,7 +20,12 @@ jobs:
         run: npm install
       # lint
       - run: npx check-package-lock
+        if: "!cancelled()"
       - run: npx shellcheck-all
+        if: "!cancelled()"
       - run: npx tsc -b
+        if: "!cancelled()"
       - run: npx eslint .
+        if: "!cancelled()"
       - run: npx prettier --log-level warn --check .
+        if: "!cancelled()"
