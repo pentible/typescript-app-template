@@ -60,6 +60,7 @@ Built with Next.js, Expo, Tauri, tRPC, Tailwind CSS, and Drizzle ORM.
 eval "$(mise activate zsh)"
 # or for bash
 # eval "$(mise activate bash)"
+
 source "$HOME/.cargo/env"
 ```
 
