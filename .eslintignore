@@ -1,3 +1,4 @@
+# common ignores
 node_modules/
 /packages/*/dist/
 /apps/*/dist/
@@ -9,12 +10,14 @@ node_modules/
 /apps/web/next-env.d.ts
 /apps/desktop/.next/
 /apps/desktop/next-env.d.ts
+/.vscode/settings.json
 .turbo/
 .DS_Store
+.vercel
 .expo/
 /target/
 /apps/desktop/out/
 
-# eslint
+# eslint ignores
 # NOTE: eslint ignores dotfiles by default
 !.*.cjs
