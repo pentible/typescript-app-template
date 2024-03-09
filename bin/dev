@@ -44,7 +44,8 @@ dev::initial::setup() {
         shellcheck \
         homebrew/cask/docker \
         planetscale/tap/pscale \
-        mysql
+        mysql \
+        jq
 
     if ! type 'rustup' > /dev/null 2>&1; then
         curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s - -y --no-modify-path
@@ -152,14 +153,20 @@ dev::db::migrate::prod() {
     planetscale_init
 
     # create branch
+    # TODO: create branch that matches pr branch name
     declare branch="${local_database}-migrate"
     pscale branch create "$planetscale_database" "$branch" --wait
 
     # connect to branch
-    declare port='3309'
+    declare port
+    port="$(random_port)"
     pscale connect "$planetscale_database" "$branch" --port "$port" &
     pscale_pid="$!"
-    trap 'kill -INT "$pscale_pid"' EXIT
+    trap '
+        if [[ -n "$pscale_pid" ]]; then
+            kill -INT "$pscale_pid"
+        fi
+    ' EXIT
 
     # wait for db
     wait_for_db "$port"
@@ -168,19 +175,87 @@ dev::db::migrate::prod() {
     export DATABASE_URL="mysql://root@127.0.0.1:${port}/${planetscale_database}"
     npm run -w db db:push
 
-    # create deploy request
-    declare deploy_request_number
-    deploy_request_number="$(
-        pscale deploy-request create "$planetscale_database" "$branch" \
-            | tail -1 \
-            | cut -d ',' -f 2
-    )"
+    # kill pscale connect (do this before the trap to prevent errors)
+    kill -INT "$pscale_pid"
+    pscale_pid=""
 
-    # deploy
-    pscale deploy-request deploy "$planetscale_database" "$deploy_request_number" --wait
+    # diff branch
+    # NOTE: drizzle doesn't give us a way to know if changes were made, and
+    # there's some delay on planetscale knowing, so we sleep a little to make
+    # sure the diff is available
+    sleep 5
+    echo '==> Diffing branch'
+    declare branch_diff
+    branch_diff="$(pscale branch diff "$planetscale_database" "$branch")"
+
+    # if changes, we create a deploy request
+    if [[ -z "$branch_diff" ]]; then
+        echo '==> No changes, skipping deploy'
+    else
+        echo "$branch_diff"
+
+        # create deploy request
+        echo '==> Creating deploy'
+        declare deploy_create_response
+        deploy_create_response="$(
+            pscale deploy-request create --format json "$planetscale_database" "$branch"
+        )"
+        declare deploy_request_number
+        deploy_request_number="$(jq '.number' <<< "$deploy_create_response")"
+        echo "==> Deploy created (#${deploy_request_number})"
+
+        # deploy
+        echo -n '==> Waiting on deploy'
+        declare exit_code=0
+        declare deploy_response
+        while true; do
+            deploy_response="$(
+                pscale \
+                    deploy-request deploy \
+                    "$planetscale_database" "$deploy_request_number" \
+                    --wait \
+                    --format json \
+                    2>&1
+            )" && exit_code="$?" || exit_code="$?"
+
+            declare error
+            error="$(jq -r '.error // empty' <<< "$deploy_response")"
+            if [[ "$error" != "We're currently validating that these changes are safe to deploy. Please try again in a few moments." ]]; then
+                # break once it's no longer validating
+                break
+            fi
+
+            echo -n '.'
+            sleep 1
+        done
+        echo
+
+        if [[ "$exit_code" != '0' || -n "$(jq -r '.error // empty' <<< "$deploy_response")" ]]; then
+            echo "$deploy_response" >&2
+            return "$exit_code"
+        fi
+
+        echo '==> Deploy completed'
+
+        # skip revert (if required)
+        declare deployment_state
+        deployment_state="$(
+            pscale deploy-request show \
+                "$planetscale_database" "$deploy_request_number" \
+                --format json \
+                | jq -r '.deployment_state'
+        )"
+
+        if [[ "$deployment_state" == 'complete_pending_revert' ]]; then
+            echo '==> Skipping revert'
+            pscale deploy-request skip-revert \
+                "$planetscale_database" "$deploy_request_number"
+        fi
+    fi
 
     # delete branch
-    pscale branch delete "$planetscale_database" "$branch"
+    echo '==> Deleting branch'
+    pscale branch delete "$planetscale_database" "$branch" --force
 }
 
 mysql_local() {
@@ -190,7 +265,7 @@ mysql_local() {
 wait_for_db() {
     declare port="${1:-3306}"
 
-    echo -n 'Waiting for db' >&2
+    echo -n '==> Waiting for db' >&2
     until mysql_local --port="$port" -e 'SELECT true;' > /dev/null 2>&1; do
         echo -n '.' >&2
         sleep 1
@@ -198,13 +273,37 @@ wait_for_db() {
     echo >&2
 }
 
+random_port() {
+    # NOTE: I don't love calling out to python but, doing this any other way in
+    # bash either involves much more code, or much worse semantics
+    python3 -c 'import socket; s = socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()'
+}
+
 planetscale_init() {
-    if ! pscale org list > /dev/null; then
+    # NOTE: pscale auth check doesn't work with service tokens
+    if [[ -n "$PLANETSCALE_SERVICE_TOKEN" &&
+        -n "$PLANETSCALE_SERVICE_TOKEN_ID" &&
+        -n "$PLANETSCALE_ORG" ]] \
+        ; then
+        return
+    fi
+
+    # login
+    # TODO: https://github.com/planetscale/cli/issues/836
+    # NOTE: `pscale auth check` is insufficient because when a token expires, it's still considered authenticated:
+    # pscale auth check; echo -e "\nexit: $?"
+    # You are authenticated.
+    # exit: 0
+    if ! pscale org list > /dev/null 2>&1; then
         pscale auth login
     fi
 
     # switch org
-    pscale org switch "$planetscale_org"
+    declare org_response
+    org_response="$(pscale org show --format json 2> /dev/null)"
+    if [[ "$(jq -r '.org' <<< "$org_response")" != "$planetscale_org" ]]; then
+        pscale org switch "$planetscale_org"
+    fi
 }
 
 case "$*" in
