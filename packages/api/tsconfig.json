@@ -4,7 +4,9 @@
         "outDir": "dist",
         "sourceMap": true,
         "declarationMap": true,
-        "declaration": true
+        "declaration": true,
+        // TODO: fix error: The inferred type of 'api' cannot be named without a reference to '[...]node_modules/@trpc/react-query/dist/createTRPCReact
+        "moduleResolution": "Node10"
     },
     "references": [{ "path": "../db" }]
 }

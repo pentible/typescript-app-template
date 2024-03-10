@@ -15,16 +15,16 @@
         "prepare": "husky install"
     },
     "devDependencies": {
-        "@pentible/check-package-lock": "0.89.0",
-        "@pentible/eslint-config": "0.89.0",
-        "@pentible/eslint-config-prettier": "0.89.0",
-        "@pentible/prettier": "0.89.0",
-        "@pentible/shellcheck-all": "0.89.0",
-        "@pentible/tsconfig": "0.89.0",
+        "@pentible/check-package-lock": "0.97.0",
+        "@pentible/eslint-config": "0.97.0",
+        "@pentible/eslint-config-prettier": "0.97.0",
+        "@pentible/prettier": "0.97.0",
+        "@pentible/shellcheck-all": "0.97.0",
+        "@pentible/tsconfig": "0.97.0",
         "eslint": "^8.46.0",
         "husky": "8.0.3",
         "lint-staged": "13.2.3",
-        "prettier": "3.0.1",
+        "prettier": "3.0.3",
         "tsx": "3.12.7",
         "turbo": "1.10.12",
         "typescript": "^5.1.6"

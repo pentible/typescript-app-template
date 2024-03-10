@@ -39,9 +39,9 @@
     },
     "devDependencies": {
         "@babel/core": "^7.22.10",
-        "@pentible/eslint-config-expo": "0.89.0",
-        "@pentible/eslint-config-prettier": "0.89.0",
-        "@pentible/eslint-config-react": "0.89.0",
+        "@pentible/eslint-config-expo": "0.97.0",
+        "@pentible/eslint-config-prettier": "0.97.0",
+        "@pentible/eslint-config-react": "0.97.0",
         "@types/react": "^18.2.18",
         "nativewind": "^2.0.11",
         "react-test-renderer": "18.2.0",

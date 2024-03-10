@@ -4,6 +4,8 @@
         "outDir": "dist",
         "sourceMap": true,
         "declarationMap": true,
-        "declaration": true
+        "declaration": true,
+        // TODO: fix error: The inferred type of example cannot be named without a reference to '[...]/drizzle-orm/column.d[...]'
+        "moduleResolution": "Node10"
     }
 }
