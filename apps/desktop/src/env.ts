@@ -19,4 +19,5 @@ export const env = createEnv({
         NODE_ENV: process.env.NODE_ENV,
         // NEXT_PUBLIC_CLIENT_VAR: process.env.NEXT_PUBLIC_CLIENT_VAR,
     },
+    emptyStringAsUndefined: true,
 });
