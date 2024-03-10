@@ -1,14 +1,16 @@
 import { createEnv } from "@t3-oss/env-nextjs";
 import { z } from "zod";
 
+// NOTE: non-default env vars need the `NEXT_PUBLIC_` prefix to be shared
+type SharedEnv = Record<"NODE_ENV" | `NEXT_PUBLIC_${string}`, unknown>;
+
 export const env = createEnv({
-    // NOTE: arbitrary env vars cannot be shared without the `NEXT_PUBLIC_`
-    // prefix
     shared: {
         NODE_ENV: z.enum(["development", "test", "production"]),
-    },
+    } satisfies SharedEnv,
     server: {
-        // DATABASE_URL: z.string().url(),
+        APP_URL: z.string().url(),
+        VERCEL_URL: z.string().optional(),
     },
     client: {
         // NEXT_PUBLIC_CLIENT_VAR: z.string().min(1),
@@ -19,4 +21,6 @@ export const env = createEnv({
         NODE_ENV: process.env.NODE_ENV,
         // NEXT_PUBLIC_CLIENT_VAR: process.env.NEXT_PUBLIC_CLIENT_VAR,
     },
+    // TODO: once we upgrade
+    // emptyStringAsUndefined: true,
 });

@@ -7,7 +7,7 @@ import { createTRPCReact } from "@trpc/react-query";
 import type { AppRouter } from "api";
 import type { ReactNode } from "react";
 import superjson from "superjson";
-import { APP_URL } from "~/utils/url";
+import { env } from "~/env";
 
 export const api = createTRPCReact<AppRouter>();
 
@@ -17,13 +17,13 @@ function getBaseUrl() {
         return "";
     }
 
-    return APP_URL;
+    return env.APP_URL;
 }
 
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
-            refetchOnWindowFocus: false,
+            // refetchOnWindowFocus: false,
         },
     },
 });
@@ -33,7 +33,7 @@ const trpcClient = api.createClient({
     links: [
         loggerLink({
             enabled: (opts) =>
-                process.env.NODE_ENV === "development" ||
+                env.NODE_ENV === "development" ||
                 (opts.direction === "down" && opts.result instanceof Error),
         }),
         httpBatchLink({
