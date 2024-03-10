@@ -15,6 +15,7 @@ Built with Next.js, Expo, Tauri, tRPC, Tailwind CSS, and Drizzle ORM.
 -   find/replace `example.com` with your org domain
 -   find/replace `com.example` with your org reverse domain
 -   consider replacing license in `package.json`
+-   `./bin/dev initial setup`
 
 ### mobile
 

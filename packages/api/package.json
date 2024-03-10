@@ -7,9 +7,9 @@
     "types": "./src/index.ts",
     "dependencies": {
         "@paralleldrive/cuid2": "2.2.1",
-        "@trpc/client": "10.34.0",
-        "@trpc/react-query": "10.34.0",
-        "@trpc/server": "10.34.0",
+        "@trpc/client": "11.0.0-next-beta.316",
+        "@trpc/react-query": "11.0.0-next-beta.316",
+        "@trpc/server": "11.0.0-next-beta.316",
         "db": "file:../../packages/db",
         "superjson": "1.13.1",
         "zod": "3.21.4"

@@ -42,7 +42,7 @@ export default function Home() {
                 ] as const
             ).map((fontWeight) => (
                 <p key={fontWeight} className="text-4xl" style={{ fontWeight }}>
-                    QQ mf
+                    font-weight-{fontWeight}
                 </p>
             ))}
         </main>

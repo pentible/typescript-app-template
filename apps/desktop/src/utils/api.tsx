@@ -31,7 +31,6 @@ const queryClient = new QueryClient({
 });
 
 const trpcClient = api.createClient({
-    transformer: superjson,
     links: [
         loggerLink({
             enabled: (opts) =>
@@ -40,6 +39,7 @@ const trpcClient = api.createClient({
         }),
         httpBatchLink({
             url: `${getBaseUrl()}/api/trpc`,
+            transformer: superjson,
         }),
     ],
 });
