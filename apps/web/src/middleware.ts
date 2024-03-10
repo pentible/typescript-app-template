@@ -2,7 +2,12 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { env } from "~/env";
 
-const ALLOWED_ORIGINS = [env.APP_URL, env.VERCEL_URL];
+const TAURI_APP_URL =
+    env.NODE_ENV === "production"
+        ? "tauri://localhost"
+        : "http://localhost:3001";
+
+const ALLOWED_ORIGINS = [env.APP_URL, env.VERCEL_URL, TAURI_APP_URL];
 
 export const config = {
     matcher: "/api/:path*",

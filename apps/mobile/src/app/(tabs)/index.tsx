@@ -21,7 +21,7 @@ export default function TabOneScreen() {
                     </Text>
                 ))
             ) : (
-                <Text className="text-2xl">no guys?</Text>
+                <Text className="text-2xl">no examples?</Text>
             )}
             <Link href="/nope">
                 <Feather

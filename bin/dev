@@ -19,6 +19,9 @@ dev::usage() {
     echo '       dev initial setup    # install app and dev env dependencies'
     echo '       dev reset            # deletes temp files and sets project back up'
     echo '       dev start            # run dev server'
+    echo '       dev desktop          # run desktop app'
+    echo '       dev android          # run android mobile app'
+    echo '       dev ios              # run ios mobile app'
     echo '       dev stop             # stop dev server'
     echo '       dev lint             # run linters'
     echo '       dev lint fix         # fix auto-fixable linter errors'
@@ -61,10 +64,9 @@ dev::initial::setup() {
 
     if ! docker ps > /dev/null 2>&1; then
         echo '==> start docker'
+        open -a 'Docker'
 
-        nohup '/Applications/Docker.app/Contents/MacOS/Docker Desktop.app/Contents/MacOS/Docker Desktop' > /dev/null &
-
-        echo -n 'waiting for docker'
+        echo -n '==> waiting for docker'
         while ! docker ps > /dev/null 2>&1; do
             echo -n '.'
             sleep 1
@@ -95,9 +97,29 @@ dev::reset() {
 dev::start() {
     trap 'dev::stop' EXIT
 
+    # start db
     dev::db::up
+
+    # push schema to db
     npm run -w db db:push
+
+    # run seeds
+    dev::db::seed
+
+    # run dev
     turbo dev
+}
+
+dev::desktop() {
+    npm run -w desktop desktop
+}
+
+dev::android() {
+    npm run -w mobile android
+}
+
+dev::ios() {
+    npm run -w mobile ios
 }
 
 dev::stop() {
@@ -310,6 +332,9 @@ case "$*" in
     'initial setup') dev::initial::setup ;;
     reset) dev::reset ;;
     start) dev::start ;;
+    desktop) dev::desktop ;;
+    android) dev::android ;;
+    ios) dev::ios ;;
     stop) dev::stop ;;
     lint) dev::lint ;;
     'lint fix') dev::lint::fix ;;

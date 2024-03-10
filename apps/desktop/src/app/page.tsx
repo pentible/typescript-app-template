@@ -24,7 +24,7 @@ export default function Home() {
                     </p>
                 ))
             ) : (
-                <p className="text-2xl">no guys?</p>
+                <p className="text-2xl">no examples?</p>
             )}
             {(
                 [
