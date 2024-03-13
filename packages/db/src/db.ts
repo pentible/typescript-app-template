@@ -1,4 +1,4 @@
-import { connect } from "@planetscale/database";
+import { Client } from "@planetscale/database";
 import { drizzle as drizzleMysql2 } from "drizzle-orm/mysql2";
 import { drizzle as drizzlePlanetscale } from "drizzle-orm/planetscale-serverless";
 import { createConnection } from "mysql2";
@@ -8,10 +8,11 @@ import * as schema from "./schema";
 
 function connectToDb() {
     if (process.env.NODE_ENV === "production") {
-        const connection = connect({
+        const client = new Client({
             url: env.DATABASE_URL,
         });
-        const db = drizzlePlanetscale(connection, {
+
+        const db = drizzlePlanetscale(client, {
             schema,
             logger: true,
         });
