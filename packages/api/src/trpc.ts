@@ -9,7 +9,7 @@
 
 import { TRPCError, initTRPC } from "@trpc/server";
 import { db } from "db";
-import type { NextRequest } from "next/server";
+import type { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
@@ -24,32 +24,43 @@ import { ZodError } from "zod";
 // eslint-disable-next-line import/no-unused-modules
 export type TrpcContext = Awaited<ReturnType<typeof createTrpcContext>>;
 
+interface CreateTrpcContextInput {
+    req: { headers: Headers };
+    res: { headers: Headers };
+    cookies: ReadonlyRequestCookies;
+}
+
 /**
  * This is the actual context you will use in your router. It will be used to process every request
  * that goes through your tRPC endpoint.
  *
- * @see https://trpc.io/docs/context
+ * @see https://trpc.io/docs/server/context
  */
-export function createTrpcContext(req: NextRequest, resHeaders: Headers) {
-    const session = getSession(req);
+export async function createTrpcContext({
+    req,
+    res,
+    cookies,
+}: CreateTrpcContextInput) {
+    const session = await getSession(cookies);
 
     return {
         db,
         session,
         req,
-        res: { headers: resHeaders },
+        res,
+        cookies,
     };
 }
 
 const APP_TOKEN = "APP_TOKEN";
-function getSession(req: NextRequest) {
-    const token = req.cookies.get(APP_TOKEN);
+async function getSession(cookies: ReadonlyRequestCookies) {
+    const token = cookies.get(APP_TOKEN);
     if (!token) {
         return null;
     }
 
     // TODO: instead of an empty object, fetch a user/session based on the token (depends on how you implement auth, but could be as simple as `SELECT * FROM sessions WHERE token = ?`)
-    return {};
+    return await Promise.resolve({});
 }
 
 /**
@@ -98,16 +109,23 @@ export const createTrpcRouter = t.router;
  */
 export const publicProcedure = t.procedure;
 
+/**
+ * Protected (authenticated) procedure
+ *
+ * If you want a query or mutation to ONLY be accessible to logged in users, use this. It verifies
+ * the session is valid and guarantees `ctx.session.user` is not null.
+ *
+ * @see https://trpc.io/docs/procedures
+ */
 // eslint-disable-next-line import/no-unused-modules
-export const authedProcedure = t.procedure.use(async ({ ctx, next }) => {
+export const protectedProcedure = t.procedure.use(async ({ ctx, next }) => {
     if (!ctx.session) {
         throw new TRPCError({ code: "UNAUTHORIZED" });
     }
 
     return await next({
         ctx: {
-            ...ctx,
-            // infers that `session` is non-nullable to downstream resolvers
+            // infers the `session` as non-nullable
             session: { ...ctx.session },
         },
     });

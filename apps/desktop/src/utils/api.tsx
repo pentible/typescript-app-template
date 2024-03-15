@@ -1,7 +1,6 @@
 "use client";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryStreamedHydration } from "@tanstack/react-query-next-experimental";
 import { httpBatchLink, loggerLink } from "@trpc/client";
 import { createTRPCReact } from "@trpc/react-query";
 import type { AppRouter } from "api";
@@ -51,11 +50,9 @@ interface Props {
 export function TrpcProvider({ children }: Props) {
     return (
         <QueryClientProvider client={queryClient}>
-            <ReactQueryStreamedHydration>
-                <api.Provider client={trpcClient} queryClient={queryClient}>
-                    {children}
-                </api.Provider>
-            </ReactQueryStreamedHydration>
+            <api.Provider client={trpcClient} queryClient={queryClient}>
+                {children}
+            </api.Provider>
         </QueryClientProvider>
     );
 }

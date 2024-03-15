@@ -18,5 +18,18 @@ module.exports = {
     rules: {
         // TODO: fix
         "compat/compat": "off",
+        // TODO: drop
+        "import/no-unassigned-import": [
+            "error",
+            {
+                allow: [
+                    "**/*.css",
+                    "**/*.scss",
+                    "@fontsource/**",
+                    "expo-router/entry",
+                    "server-only",
+                ],
+            },
+        ],
     },
 };

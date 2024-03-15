@@ -2,7 +2,7 @@ import "~/styles/globals.css";
 import type { Metadata } from "next";
 import { Quicksand } from "next/font/google";
 import type { ReactNode } from "react";
-import { TrpcProvider } from "~/utils/api";
+import { TrpcReactProvider } from "~/trpc/react";
 
 const quicksand = Quicksand({
     subsets: ["latin"],
@@ -25,7 +25,7 @@ export default function Layout({ children }: Props) {
             <body
                 className={`${quicksand.variable} bg-indigo-900 font-sans text-indigo-50`}
             >
-                <TrpcProvider>{children}</TrpcProvider>
+                <TrpcReactProvider>{children}</TrpcReactProvider>
             </body>
         </html>
     );
