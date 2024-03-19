@@ -18,7 +18,6 @@ module.exports = function config(api) {
                     ),
                 },
             ],
-            "expo-router/babel",
         ],
     };
 };

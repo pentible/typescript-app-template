@@ -24,9 +24,6 @@
                 "backgroundColor": "#312E81"
             }
         },
-        "experiments": {
-            "tsconfigPaths": true
-        },
-        "plugins": ["expo-router", "./expo-plugins/with-modify-gradle.js"]
+        "plugins": ["expo-router"]
     }
 }

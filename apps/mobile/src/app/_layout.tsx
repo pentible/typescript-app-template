@@ -12,7 +12,11 @@ import {
     ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { SplashScreen, Stack } from "expo-router";
+import { Stack } from "expo-router";
+import {
+    hideAsync as hideSplashAsync,
+    preventAutoHideAsync as preventAutoHideSplashAsync,
+} from "expo-splash-screen";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
 import { TrpcProvider } from "~/utils/api";
@@ -26,7 +30,7 @@ export const unstable_settings = {
 };
 
 // Keep the splash screen visible while we fetch resources
-SplashScreen.preventAutoHideAsync();
+void preventAutoHideSplashAsync();
 
 export default function RootLayout() {
     const [loaded, error] = useFonts({
@@ -49,7 +53,7 @@ export default function RootLayout() {
         if (loaded) {
             // Hide the splash screen after the fonts have loaded and the
             // UI is ready.
-            SplashScreen.hideAsync();
+            void hideSplashAsync();
         }
     }, [loaded]);
 

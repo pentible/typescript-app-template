@@ -15,12 +15,4 @@ module.exports = {
             },
         },
     },
-    overrides: [
-        {
-            files: ["expo-plugins/with-modify-gradle.js"],
-            rules: {
-                "no-param-reassign": "off",
-            },
-        },
-    ],
 };
