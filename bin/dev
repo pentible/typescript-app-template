@@ -30,6 +30,8 @@ dev::usage() {
     echo '       dev db prod          # connect to production database'
     echo '       dev db migrate local # migrate local database'
     echo '       dev db migrate prod  # migrate production database'
+    echo '       dev env edit prod    # edit encrypted prod env vars'
+    echo '       dev env edit preview # edit encrypted preview env vars'
     exit 1
 }
 
@@ -45,6 +47,7 @@ dev::initial::setup() {
     brew install \
         mise \
         shellcheck \
+        sops age \
         homebrew/cask/docker \
         planetscale/tap/pscale \
         mysql \
@@ -328,6 +331,14 @@ planetscale_init() {
     fi
 }
 
+dev::env::edit::prod() {
+    sops "$@" .env.production.yml
+}
+
+dev::env::edit::preview() {
+    sops "$@" .env.preview.yml
+}
+
 case "$*" in
     'initial setup') dev::initial::setup ;;
     reset) dev::reset ;;
@@ -343,5 +354,7 @@ case "$*" in
     'db prod') dev::db::prod ;;
     'db migrate local') dev::db::migrate::local ;;
     'db migrate prod') dev::db::migrate::prod ;;
+    'env edit prod'*) dev::env::edit::prod "${@:4}" ;;
+    'env edit preview'*) dev::env::edit::preview "${@:4}" ;;
     *) dev::usage ;;
 esac
