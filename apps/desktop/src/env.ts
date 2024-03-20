@@ -2,14 +2,14 @@ import { createEnv } from "@t3-oss/env-nextjs";
 import { z } from "zod";
 
 export const env = createEnv({
-    // NOTE: arbitrary env vars cannot be shared without the `NEXT_PUBLIC_`
-    // prefix
+    // NOTE: shared should only be used for "default" env vars available everywhere
     shared: {
         NODE_ENV: z.enum(["development", "test", "production"]),
     },
     server: {
         // DATABASE_URL: z.string().url(),
     },
+    // NOTE: client is for public env vars, available on the client and the server
     client: {
         // NEXT_PUBLIC_CLIENT_VAR: z.string().min(1),
     },
