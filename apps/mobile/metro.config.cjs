@@ -1,6 +1,9 @@
+"use strict";
+
 // Learn more: https://docs.expo.dev/guides/monorepos/
 const path = require("path");
 const { getDefaultConfig } = require("@expo/metro-config");
+const { withNativeWind } = require("nativewind/metro");
 
 const projectRoot = __dirname;
 const workspaceRoot = path.resolve(projectRoot, "../..");
@@ -18,4 +21,7 @@ config.resolver.nodeModulesPaths = [
 // 3. Force Metro to resolve (sub)dependencies only from the `nodeModulesPaths`
 config.resolver.disableHierarchicalLookup = true;
 
-module.exports = config;
+module.exports = withNativeWind(config, {
+    input: "./src/styles/globals.css",
+    configPath: "./tailwind.config.cjs",
+});

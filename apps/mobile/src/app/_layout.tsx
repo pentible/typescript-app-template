@@ -1,3 +1,4 @@
+import "~/styles/globals.css";
 import Feather from "@expo/vector-icons/Feather";
 import {
     Quicksand_300Light,
