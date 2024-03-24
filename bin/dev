@@ -121,6 +121,11 @@ dev::android() {
 }
 
 dev::ios() {
+    # NOTE: we kill the expo app when the server closes so that when we restart
+    # the expo server, it'll actually relaunch the app (otherwise it just sits
+    # there with the previous version of the app, not connected to the server)
+    trap 'xcrun simctl terminate booted host.exp.Exponent 2>/dev/null' EXIT
+
     npm run -w mobile ios
 }
 
