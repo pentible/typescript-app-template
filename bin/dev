@@ -56,9 +56,9 @@ dev::initial::setup() {
         curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s - -y --no-modify-path
     fi
 
-    echo '==> create .env'
-    if [[ ! -f .env ]]; then
-        echo '# override defaults from .env.local' > .env
+    echo '==> create .env.local'
+    if [[ ! -f .env.local ]]; then
+        echo '# override defaults from .env' > .env.local
     fi
 
     echo '==> allow mise to load project directory'
@@ -87,7 +87,7 @@ dev::reset() {
     dev::stop
 
     echo '==> delete git ignored files'
-    git clean -ffdX -e '!.env'
+    git clean -ffdX -e '!.env.local'
 
     echo '==> reload mise'
     mise install

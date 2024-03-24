@@ -5,7 +5,7 @@ node_modules/
 /.husky/_/
 *.tgz
 *.tsbuildinfo
-/.env
+/.env*.local
 /apps/web/.next/
 /apps/desktop/.next/
 /.vscode/settings.json
