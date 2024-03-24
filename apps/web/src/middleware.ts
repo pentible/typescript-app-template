@@ -7,7 +7,11 @@ const TAURI_APP_URL =
         ? "tauri://localhost"
         : "http://localhost:3001";
 
-const ALLOWED_ORIGINS = [env.APP_URL, env.VERCEL_URL, TAURI_APP_URL];
+const ALLOWED_ORIGINS = [
+    env.APP_URL,
+    env.VERCEL_URL != null ? `https://${env.VERCEL_URL}` : undefined,
+    TAURI_APP_URL,
+];
 
 export const config = {
     matcher: "/api/:path*",

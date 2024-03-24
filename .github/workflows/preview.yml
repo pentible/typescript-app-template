@@ -1,0 +1,55 @@
+name: preview
+on:
+  pull_request:
+    branches:
+      - main
+concurrency:
+  group: preview-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  preview:
+    name: Preview
+    environment:
+      name: Preview
+      url: ${{ steps.deploy.outputs.app_url }}
+    # TODO: remove, you don't need this (it's just here to prevent the template repo itself trying to deploy)
+    if: github.repository != 'pentible/typescript-app-template'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+
+      # update db
+      - name: Install pscale
+        uses: planetscale/setup-pscale-action@v1
+      - name: Update db
+        id: db
+        env:
+          PLANETSCALE_ORG: ${{ vars.PLANETSCALE_ORG }}
+          PLANETSCALE_SERVICE_TOKEN_ID:
+            ${{ secrets.PLANETSCALE_SERVICE_TOKEN_ID }}
+          PLANETSCALE_SERVICE_TOKEN: ${{ secrets.PLANETSCALE_SERVICE_TOKEN }}
+        run: ./bin/dev ci db migrate preview
+      - name: Comment PR with db diff
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: ${{ steps.db.outputs.diff_message || 'delete' }}
+          comment_tag: db_diff
+          mode:
+            ${{ steps.db.outputs.diff_message == null && 'delete' || 'upsert' }}
+
+      # deploy
+      - name: Install sops
+        uses: mdgreenwald/mozilla-sops-action@v1.5.0
+      - name: Deploy
+        id: deploy
+        env:
+          SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_SCOPE: ${{ vars.VERCEL_SCOPE }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ github.event.repository.name }}
+        run: ./bin/dev ci deploy preview

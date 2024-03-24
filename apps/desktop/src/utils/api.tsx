@@ -10,6 +10,7 @@ import superjson from "superjson";
 export const api = createTRPCReact<AppRouter>();
 
 function getBaseUrl() {
+    // TODO: should use env.APP_URL
     // TODO: determine if local dev or not (likely just use an env var)
     // TODO: replace with prod app url
     // return "https://ptat.example.com";

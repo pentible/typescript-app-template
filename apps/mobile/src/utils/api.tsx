@@ -9,6 +9,7 @@ import superjson from "superjson";
 export const api = createTRPCReact<AppRouter>();
 
 function getBaseUrl() {
+    // TODO: should use env.APP_URL
     const localhost = constants.expoConfig?.hostUri?.split(":")[0];
     if (!localhost) {
         // TODO: replace with prod app url

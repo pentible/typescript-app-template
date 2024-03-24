@@ -1,21 +1,25 @@
 name: deploy
 on:
-  # TODO: preview environment
-  # pull_request:
-  #   branches:
-  #     - main
-  push:
+  pull_request:
     branches:
       - main
+    types:
+      - closed
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  # cancel-in-progress: true # TODO: consider
+  group: ${{ github.workflow }}
 jobs:
   deploy:
     name: Deploy
+    environment:
+      name: Production
+      url: https://ptat.example.com
+    # TODO: remove github.repository check, you don't need it (it's just here to prevent the template repo itself trying to deploy)
+    if: |
+      ${{
+        github.repository != 'pentible/typescript-app-template' &&
+        github.event.pull_request.merged
+      }}
     runs-on: ubuntu-latest
-    # TODO: remove, you don't need this (it's just here to prevent the template repo itself trying to deploy)
-    if: github.repository != 'pentible/typescript-app-template'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -24,25 +28,20 @@ jobs:
       - run: npm ci
 
       # update db
-      # TODO: skip on prs/push if diff to main/github.event.before doesn't contain changes to schema
       - name: Install pscale
         uses: planetscale/setup-pscale-action@v1
-      # TODO: pushes to main from a pr should use the existing deploy request
       - name: Update db
         env:
           PLANETSCALE_ORG: ${{ vars.PLANETSCALE_ORG }}
           PLANETSCALE_SERVICE_TOKEN_ID:
             ${{ secrets.PLANETSCALE_SERVICE_TOKEN_ID }}
           PLANETSCALE_SERVICE_TOKEN: ${{ secrets.PLANETSCALE_SERVICE_TOKEN }}
-        run: |
-          ./bin/dev db migrate prod
+        run: ./bin/dev ci db migrate prod
 
       # decrypt env
-      # TODO: .env.preview.yml for prs
       - name: Install sops
         uses: mdgreenwald/mozilla-sops-action@v1.5.0
       - name: Decrypt environment variables
-        id: env
         env:
           SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
         run: |
@@ -53,18 +52,16 @@ jobs:
           echo "APP_ENVS=${envs}" >> "$GITHUB_ENV"
 
       # deploy
-      - name: Deploy to vercel
+      - name: Deploy
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          # ie. Vercel ID from https://vercel.com/account
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ github.event.repository.name }}
-        # TODO: deploy to preview for prs
         run: |
           readarray -t env_lines < <(jq --raw-output 'to_entries[] | "\(.key)=\(.value)"' <<< "$APP_ENVS")
           declare -a args=()
           for env_line in "${env_lines[@]}"; do
-              args+=(-b "$env_line" -e "$env_line")
+            args+=(-b "$env_line" -e "$env_line")
           done
 
           vercel --token="$VERCEL_TOKEN" deploy --prod "${args[@]}"
