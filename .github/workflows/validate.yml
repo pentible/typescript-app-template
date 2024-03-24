@@ -1,4 +1,4 @@
-name: validate
+name: lint
 on:
   pull_request:
     branches:
@@ -7,8 +7,8 @@ on:
     branches:
       - main
 jobs:
-  validate:
-    name: Validate
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

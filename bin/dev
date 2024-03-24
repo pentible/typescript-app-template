@@ -22,7 +22,6 @@ dev::usage() {
     echo '       dev desktop          # run desktop app'
     echo '       dev android          # run android mobile app'
     echo '       dev ios              # run ios mobile app'
-    echo '       dev stop             # stop dev server'
     echo '       dev lint             # run linters'
     echo '       dev lint fix         # fix auto-fixable linter errors'
     echo '       dev db seed          # run seeds'
@@ -346,7 +345,6 @@ case "$*" in
     desktop) dev::desktop ;;
     android) dev::android ;;
     ios) dev::ios ;;
-    stop) dev::stop ;;
     lint) dev::lint ;;
     'lint fix') dev::lint::fix ;;
     'db seed') dev::db::seed ;;

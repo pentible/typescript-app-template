@@ -90,13 +90,20 @@ Built with Next.js, Expo, Tauri, tRPC, Tailwind CSS, and Drizzle ORM.
                 -   branch -> read_branch
                 -   branch -> delete_branch
                 -   branch -> connect_branch
+                -   branch -> delete_branch_password
                 -   deploy_request -> create_deploy_request
                 -   deploy_request -> read_deploy_request
-    -   `PLANETSCALE_ORG` (your planetscale org name from
-        https://app.planetscale.com/)
     -   `SOPS_AGE_KEY` (your sops private key, created above)
     -   `VERCEL_ORG_ID` (aka `Vercel ID` from https://vercel.com/account)
     -   `VERCEL_TOKEN` (create here https://vercel.com/account/tokens)
+-   setup github actions vars (for deploy script)
+
+    > NOTE: we setup these values as vars because they show up in urls/etc, so
+    > it's pretty annoying if they get masked out
+
+    -   `PLANETSCALE_ORG` (your planetscale org name from
+        https://app.planetscale.com/)
+    -   `VERCEL_SCOPE` (your vercel team, or personal account name)
 
 ### desktop
 

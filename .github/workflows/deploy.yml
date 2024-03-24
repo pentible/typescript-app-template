@@ -30,7 +30,7 @@ jobs:
       # TODO: pushes to main from a pr should use the existing deploy request
       - name: Update db
         env:
-          PLANETSCALE_ORG: ${{ secrets.PLANETSCALE_ORG }}
+          PLANETSCALE_ORG: ${{ vars.PLANETSCALE_ORG }}
           PLANETSCALE_SERVICE_TOKEN_ID:
             ${{ secrets.PLANETSCALE_SERVICE_TOKEN_ID }}
           PLANETSCALE_SERVICE_TOKEN: ${{ secrets.PLANETSCALE_SERVICE_TOKEN }}
