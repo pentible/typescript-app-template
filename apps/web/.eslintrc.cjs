@@ -15,8 +15,4 @@ module.exports = {
             },
         },
     },
-    rules: {
-        // TODO: drop
-        "no-negated-condition": "off",
-    },
 };

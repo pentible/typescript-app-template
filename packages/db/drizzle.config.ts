@@ -2,7 +2,7 @@ import type { Config } from "drizzle-kit";
 import { TABLE_PREFIX } from "./src/schema";
 
 const DATABASE_URL = process.env.DATABASE_URL;
-if (!DATABASE_URL) {
+if (DATABASE_URL == null) {
     throw new Error("missing required env var: DATABASE_URL");
 }
 

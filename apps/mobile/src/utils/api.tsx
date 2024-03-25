@@ -11,7 +11,7 @@ export const api = createTRPCReact<AppRouter>();
 function getBaseUrl() {
     // TODO: should use env.APP_URL
     const localhost = constants.expoConfig?.hostUri?.split(":")[0];
-    if (!localhost) {
+    if (localhost == null) {
         // TODO: replace with prod app url
         // return "https://ptat.example.com";
         throw new Error(

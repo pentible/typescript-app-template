@@ -12,12 +12,12 @@
         "prepare": "husky"
     },
     "devDependencies": {
-        "@pentible/check-package-lock": "0.99.0",
-        "@pentible/eslint-config": "0.99.0",
-        "@pentible/eslint-config-prettier": "0.99.0",
-        "@pentible/prettier": "0.99.0",
-        "@pentible/shellcheck-all": "0.99.0",
-        "@pentible/tsconfig": "0.99.0",
+        "@pentible/check-package-lock": "0.100.0",
+        "@pentible/eslint-config": "0.100.0",
+        "@pentible/eslint-config-prettier": "0.100.0",
+        "@pentible/prettier": "0.100.0",
+        "@pentible/shellcheck-all": "0.100.0",
+        "@pentible/tsconfig": "0.100.0",
         "@types/eslint": "8.56.5",
         "@types/prettier": "3.0.0",
         "eslint": "8.57.0",

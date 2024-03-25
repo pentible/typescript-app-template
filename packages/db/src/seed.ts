@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unused-modules
 import { createId } from "@paralleldrive/cuid2";
 import { db, disconnect } from "./db";
 import { example } from "./schema";
