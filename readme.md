@@ -143,7 +143,7 @@ trusted_config_paths = ["~/Projects"] # where ~/Projects is wherever you clone y
 
 ## Misc
 
-### git diff decrypted env vales
+### Diff decrypted env vales
 
 -   add private key from <!-- TODO: replace name/link  -->
     [your password manager](https://start.1password.com/open) into
@@ -156,5 +156,14 @@ git -c 'diff.sops.textconv=sops -d' diff .env.preview.yml
 # OR
 git -c 'diff.sops.textconv=sops -d' show
 ```
+
+### Disable pre-commit hooks (husky)
+
+> We understand some find pre-commit hooks more annoying than useful, you're
+> welcome to disable them as you see fit (checks will still run on pull requests
+> & pushes to main)
+
+-   for an individual commit: `git commit -m "..." -n`
+-   permanently: `echo 'HUSKY=0' >> .env.local`
 
 ###### Bootstrapped with [pentible/typescript-app-template](https://github.com/pentible/typescript-app-template)
