@@ -156,7 +156,7 @@ dev::db::up() {
 }
 
 dev::db::seed() {
-    turbo db:seed
+    npm run -w db db:seed
 }
 
 dev::db::local() {
