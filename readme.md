@@ -141,6 +141,38 @@ trusted_config_paths = ["~/Projects"] # where ~/Projects is wherever you clone y
 
 -   `dev start`
 
+### vscode (optional)
+
+-   if you use vscode, we have some recommended extensions and settings
+-   when you open the project in vscode, you should be prompted automatically to
+    install the recommended extensions
+-   settings can either be configured:
+
+    -   globally, via the `Preferences: Open User Settings (JSON)` command
+    -   just for this project, via the
+        `Preferences: Open Workspace Settings (JSON)` command
+
+    ```jsonc
+    {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": "explicit",
+        },
+        "eslint.problems.shortenToSingleLine": true,
+        "eslint.rules.customizations": [
+            // set all eslint errors/warnings to show as warnings
+            { "rule": "*", "severity": "warn" },
+            // disable some rules in editor (they're just annoying while coding)
+            { "rule": "import/no-unused-modules", "severity": "off" },
+        ],
+        "typescript.preferences.importModuleSpecifier": "non-relative",
+        "javascript.preferences.importModuleSpecifier": "non-relative",
+        "typescript.tsdk": "./node_modules/typescript/lib",
+        "typescript.enablePromptUseWorkspaceTsdk": true,
+    }
+    ```
+
 ## Misc
 
 ### Diff decrypted env vales
