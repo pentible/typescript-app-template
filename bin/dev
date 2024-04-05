@@ -12,7 +12,7 @@ declare planetscale_org='example'
 declare planetscale_database='ptat'
 
 # load mise environment (in case we're run from outside the project directory)
-eval "$(cd "$repo_dir" && mise hook-env 2> /dev/null)"
+eval "$(mise --cd "$repo_dir" hook-env --shell 'bash' 2> /dev/null)"
 
 dev::usage() {
     echo 'usage: dev <command>'
@@ -39,7 +39,7 @@ dev::initial::setup() {
 
     echo '==> install brew'
     if ! type 'brew' > /dev/null 2>&1; then
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        /bin/bash -c "$(curl -fsSL --tlsv1.2 https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
 
     echo '==> install dependencies'
@@ -53,7 +53,7 @@ dev::initial::setup() {
         jq
 
     if ! type 'rustup' > /dev/null 2>&1; then
-        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s - -y --no-modify-path
+        curl -fsS --tlsv1.2 https://sh.rustup.rs | sh -s - -y --no-modify-path
     fi
 
     echo '==> create .env.local'
