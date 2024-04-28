@@ -16,7 +16,7 @@ eval "$(mise --cd "$repo_dir" hook-env --shell 'bash' 2> /dev/null)"
 
 dev::usage() {
     echo 'usage: dev <command>'
-    echo '       dev initial setup    # install app and dev env dependencies'
+    echo '       dev setup            # install system dependencies & reset app'
     echo '       dev reset            # deletes temp files and sets project back up'
     echo '       dev start            # run dev server'
     echo '       dev desktop          # run desktop app'
@@ -34,7 +34,7 @@ dev::usage() {
     exit 1
 }
 
-dev::initial::setup() {
+dev::setup() {
     cd "$repo_dir"
 
     echo '==> install brew'
@@ -476,7 +476,7 @@ dev::env::edit::preview() {
 }
 
 case "$*" in
-    'initial setup') dev::initial::setup ;;
+    setup) dev::setup ;;
     reset) dev::reset ;;
     start) dev::start ;;
     desktop) dev::desktop ;;

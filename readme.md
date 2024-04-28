@@ -15,7 +15,7 @@ Built with Next.js, Expo, Tauri, tRPC, Tailwind CSS, and Drizzle ORM.
 -   find/replace `example.com` with your org domain
 -   find/replace `com.example` with your org reverse domain
 -   consider replacing license in `package.json`
--   `./bin/dev initial setup`
+-   `./bin/dev setup`
 
 ### mobile
 
@@ -121,7 +121,7 @@ Built with Next.js, Expo, Tauri, tRPC, Tailwind CSS, and Drizzle ORM.
 
 ## Local dev
 
--   `./bin/dev initial setup`
+-   `./bin/dev setup`
 -   run the following commands AND append to your shell configs (ie. `~/.zshrc`
     or `~/.bashrc`/`~/.bash_profile`)
 
