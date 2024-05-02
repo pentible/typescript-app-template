@@ -11,7 +11,7 @@ concurrency:
 jobs:
   preview-close:
     name: Close preview
-    # TODO: remove github.repository check, you don't need it (it's just here to prevent the template repo itself trying to deploy)
+    # TODO: remove github.repository check (and NOT the merged check), you don't need it (it's just here to prevent the template repo itself trying to deploy)
     if: |
       ${{
         github.repository != 'pentible/typescript-app-template' &&
@@ -19,14 +19,10 @@ jobs:
       }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Install pscale
-        uses: planetscale/setup-pscale-action@v1
-      - name: Close preview
-        env:
-          PLANETSCALE_ORG: ${{ vars.PLANETSCALE_ORG }}
-          PLANETSCALE_SERVICE_TOKEN_ID:
-            ${{ secrets.PLANETSCALE_SERVICE_TOKEN_ID }}
-          PLANETSCALE_SERVICE_TOKEN: ${{ secrets.PLANETSCALE_SERVICE_TOKEN }}
-        run: ./bin/dev ci db close preview
+      - name: Delete Preview Branch
+        uses: neondatabase/delete-branch-action@v3.1.3
+        with:
+          project_id: ${{ vars.NEON_PROJECT_ID }}
+          api_key: ${{ secrets.NEON_API_KEY }}
+          branch: |-
+            preview/pr-${{ github.event.number }}-${{ github.event.pull_request.head.ref }}

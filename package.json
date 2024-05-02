@@ -9,7 +9,7 @@
         "./packages/*"
     ],
     "scripts": {
-        "prepare": "husky"
+        "prepare": "husky && prisma generate"
     },
     "devDependencies": {
         "@pentible/check-package-lock": "0.100.0",
@@ -19,7 +19,6 @@
         "@pentible/shellcheck-all": "0.100.0",
         "@pentible/tsconfig": "0.100.0",
         "@types/eslint": "8.56.5",
-        "@types/prettier": "3.0.0",
         "eslint": "8.57.0",
         "husky": "9.0.11",
         "lint-staged": "15.2.2",

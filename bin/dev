@@ -7,10 +7,6 @@ script_dir="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 declare repo_dir
 repo_dir="$(dirname "$script_dir")"
 
-declare local_database='ptat'
-declare planetscale_org='example'
-declare planetscale_database='ptat'
-
 # load mise environment (in case we're run from outside the project directory)
 eval "$(mise --cd "$repo_dir" hook-env --shell 'bash' 2> /dev/null)"
 
@@ -30,7 +26,6 @@ dev::usage() {
     echo '       dev db migrate local # migrate local database'
     echo '       dev env edit prod    # edit encrypted prod env vars'
     echo '       dev env edit preview # edit encrypted preview env vars'
-    echo '       dev ci ...           # commands for use in ci only'
     exit 1
 }
 
@@ -48,8 +43,8 @@ dev::setup() {
         shellcheck \
         sops age \
         homebrew/cask/docker \
-        planetscale/tap/pscale \
-        mysql \
+        neonctl \
+        postgresql \
         jq
 
     if ! type 'rustup' > /dev/null 2>&1; then
@@ -103,7 +98,7 @@ dev::start() {
     dev::db::up
 
     # push schema to db
-    npm run -w db db:push
+    prisma migrate deploy
 
     # run seeds
     dev::db::seed
@@ -148,323 +143,40 @@ dev::lint::fix() {
 
 dev::db::up() {
     # start db if it's not running
-    if ! mysql_local -e 'SELECT true;' > /dev/null 2>&1; then
+    if ! psql "$DATABASE_URL" -c 'SELECT true;' > /dev/null 2>&1; then
         docker compose up -d --build --remove-orphans
 
-        wait_for_db
+        echo -n '==> Waiting for db' >&2
+        until psql "$DATABASE_URL" -c 'SELECT true;' > /dev/null 2>&1; do
+            echo -n '.' >&2
+            sleep 1
+        done
+        echo >&2
     fi
 }
 
 dev::db::seed() {
-    npm run -w db db:seed
+    tsx ./packages/db/src/seed.ts
 }
 
 dev::db::local() {
     dev::db::up
 
-    mysql_local
+    psql "$DATABASE_URL"
 }
 
 dev::db::prod() {
-    planetscale_init
+    if ! neonctl me > /dev/null 2>&1; then
+        neonctl auth
+    fi
 
-    pscale shell "$planetscale_database" main
+    psql "$(neonctl connection-string 'main' --database-name 'ptat')"
 }
 
 dev::db::migrate::local() {
     dev::db::up
-    npm run -w db db:push
-}
 
-dev::ci::db::migrate::prod() {
-    declare branch
-    branch="$(ci_safe_branch_name)"
-
-    # find the deploy request for the current pr
-    declare deploy_request_number
-    deploy_request_number="$(
-        pscale deploy-request show "$planetscale_database" "$branch" \
-            --format json 2> /dev/null \
-            | jq '.number // empty'
-    )"
-
-    # if there's a deploy request for this branch, we deploy it
-    if [[ -n "$deploy_request_number" ]]; then
-        echo '==> Diffing deploy request'
-        declare deploy_request_diff
-        deploy_request_diff="$(
-            pscale deploy-request diff "$planetscale_database" "$deploy_request_number"
-        )"
-
-        # if changes, we deploy
-        if [[ -z "$deploy_request_diff" ]]; then
-            echo '==> No changes, skipping db deploy'
-        else
-            echo "$deploy_request_diff"
-
-            # deploy
-            echo -n '==> Waiting on deploy'
-            declare exit_code=0
-            declare deploy_response
-            while true; do
-                deploy_response="$(
-                    pscale \
-                        deploy-request deploy \
-                        "$planetscale_database" "$deploy_request_number" \
-                        --wait \
-                        --format json \
-                        2>&1
-                )" && exit_code="$?" || exit_code="$?"
-
-                declare error
-                error="$(jq -r '.error // empty' <<< "$deploy_response")"
-                if [[ "$error" != "We're currently validating that these changes are safe to deploy. Please try again in a few moments." ]]; then
-                    # break once it's no longer validating
-                    break
-                fi
-
-                echo -n '.'
-                sleep 1
-            done
-            echo
-
-            if [[ "$exit_code" != '0' || -n "$(jq -r '.error // empty' <<< "$deploy_response")" ]]; then
-                echo "$deploy_response" >&2
-                return "$exit_code"
-            fi
-
-            echo '==> Deploy completed'
-
-            # skip revert (if required)
-            declare deployment_state
-            deployment_state="$(
-                pscale deploy-request show \
-                    "$planetscale_database" "$deploy_request_number" \
-                    --format json \
-                    | jq -r '.deployment_state'
-            )"
-
-            if [[ "$deployment_state" == 'complete_pending_revert' ]]; then
-                echo '==> Skipping revert'
-                pscale deploy-request skip-revert \
-                    "$planetscale_database" "$deploy_request_number"
-            fi
-        fi
-    fi
-
-    # delete branch
-    echo '==> Deleting branch'
-    pscale branch delete "$planetscale_database" "$branch" --force
-}
-
-dev::ci::db::migrate::preview() {
-    declare branch
-    branch="$(ci_safe_branch_name)"
-
-    planetscale_init
-
-    # create branch for pr
-    echo '==> Push branch'
-
-    # create branch (if it doesn't already exist)
-    if ! pscale branch show "$planetscale_database" "$branch" > /dev/null 2>&1; then
-        pscale branch create "$planetscale_database" "$branch" --wait
-    fi
-
-    # push schema changes
-    pscale connect "$planetscale_database" "$branch" --port 0 \
-        --execute-env-url 'DATABASE_URL' \
-        --execute 'npm run -w db db:push'
-
-    # diff branch
-    # NOTE: drizzle doesn't give us a way to know if changes were made, and
-    # there's some delay on planetscale knowing, so we sleep a little to make
-    # sure the diff is available
-    echo '==> Diffing branch'
-    sleep 5
-    declare branch_diff
-    branch_diff="$(pscale branch diff "$planetscale_database" "$branch" --no-color)"
-
-    # if changes, we create a deploy request
-    if [[ -z "$branch_diff" ]]; then
-        echo '==> No changes, skipping deploy request'
-    else
-        echo "$branch_diff"
-
-        # get existing deploy request
-        declare exit_code=0
-        declare deploy_request
-        deploy_request="$(
-            pscale deploy-request show "$planetscale_database" "$branch" --format json
-        )" || exit_code="$?"
-        declare deploy_request_number
-        deploy_request_number="$(jq -r '.number' <<< "$deploy_request")"
-        declare deploy_request_state
-        deploy_request_state="$(jq -r '.state' <<< "$deploy_request")"
-
-        if [[ "$exit_code" == 0 && "$deploy_request_state" == 'open' ]]; then
-            echo '==> Deploy request already exists'
-        else
-            # create deploy request
-            echo '==> Creating deploy request'
-            declare deploy_create_response
-            deploy_create_response="$(
-                pscale deploy-request create "$planetscale_database" "$branch" \
-                    --format json
-            )"
-            deploy_request_number="$(jq -r '.number' <<< "$deploy_create_response")"
-            echo "==> Deploy request created (#${deploy_request_number})"
-        fi
-
-        # generate message for diff comment
-        {
-            echo 'diff_message<<EOF'
-            echo "Schema deploy request opened: https://app.planetscale.com/${PLANETSCALE_ORG}/${planetscale_database}/deploy-requests/${deploy_request_number}"
-            echo ''
-            echo '```diff'
-            echo "$branch_diff"
-            echo '```'
-            echo 'EOF'
-        } >> "$GITHUB_OUTPUT"
-    fi
-
-    # generate branch credentials
-    echo '==> Generate branch credentials'
-    declare password_response
-    password_response="$(
-        pscale password create "$planetscale_database" "$branch" \
-            "preview-${branch}-$(date '+%s')" \
-            --role readwriter \
-            -f json
-    )"
-    declare host
-    host=$(jq -r '.access_host_url' <<< "$password_response")
-    declare username
-    username=$(jq -r '.username' <<< "$password_response")
-    declare password
-    password=$(jq -r '.plain_text' <<< "$password_response")
-
-    # output the url
-    declare database_url="mysql://${username}:${password}@${host}/${planetscale_database}?sslmode=verify_identity&sslca=/etc/ssl/certs/ca-certificates.crt"
-    echo "DATABASE_URL=${database_url}" >> "$GITHUB_ENV"
-    echo "::add-mask::${database_url}"
-}
-
-dev::ci::db::close::preview() {
-    declare branch
-    branch="$(ci_safe_branch_name)"
-
-    # delete branch
-    echo '==> Deleting branch'
-    pscale branch delete "$planetscale_database" "$branch" --force
-}
-
-dev::ci::deploy::preview() {
-    declare -a required_envs=(
-        'SOPS_AGE_KEY' # for sops decrypt
-        'VERCEL_TOKEN'
-        'VERCEL_SCOPE'
-        'VERCEL_ORG_ID' # for vercel commands
-        'VERCEL_PROJECT_ID'
-        'DATABASE_URL'
-    )
-
-    # validate required envs
-    for env in "${required_envs[@]}"; do
-        if [[ -z "${!env}" ]]; then
-            echo "missing required env var: ${env}" >&2
-            return 1
-        fi
-    done
-
-    # branch url
-    declare branch_url_safe
-    branch_url_safe="$(ci_safe_branch_name)"
-    declare branch_url="${VERCEL_PROJECT_ID}-git-${branch_url_safe}-${VERCEL_SCOPE}.vercel.app"
-    declare app_url="https://${branch_url}"
-
-    # decrypt deploy envs
-    readarray -t envs < <(
-        sops --decrypt --output-type json .env.preview.yml \
-            | jq --raw-output '
-                with_entries(.key |= sub("_unencrypted$"; ""))
-                | to_entries[]
-                | "\(.key)=\(.value)"
-            '
-    )
-
-    # append dynamic envs
-    envs+=(
-        "APP_URL=${app_url}"
-        "DATABASE_URL=${DATABASE_URL}"
-    )
-
-    # build env args
-    declare -a args=()
-    for env in "${envs[@]}"; do
-        args+=(-b "$env" -e "$env")
-    done
-
-    # deploy
-    deploy_url="$(vercel --token="$VERCEL_TOKEN" deploy "${args[@]}")"
-    vercel --token="$VERCEL_TOKEN" alias set "$deploy_url" "$branch_url"
-
-    # outputs
-    echo "app_url=${app_url}" >> "$GITHUB_OUTPUT"
-}
-
-ci_safe_branch_name() {
-    # NOTE:
-    # - planetscale branches can only contain lowercase alphanumber characters, or dashes
-    # - vercel preview deploys use branches in the subdomain
-    declare branch
-    branch="$(echo -n "$GITHUB_HEAD_REF" | tr -c '[:alnum:]' '-' | tr '[:upper:]' '[:lower:]')"
-    if [[ -z "$branch" ]]; then
-        echo 'missing required env "GITHUB_HEAD_REF" (are you running outside of a github pull request workflow?)'
-        return 1
-    fi
-
-    echo "$branch"
-}
-
-mysql_local() {
-    MYSQL_PWD=password mysql -h127.0.0.1 -uroot "$local_database" "$@"
-}
-
-wait_for_db() {
-    echo -n '==> Waiting for db' >&2
-    until mysql_local -e 'SELECT true;' > /dev/null 2>&1; do
-        echo -n '.' >&2
-        sleep 1
-    done
-    echo >&2
-}
-
-planetscale_init() {
-    # NOTE: pscale auth check doesn't work with service tokens
-    if [[ -n "$PLANETSCALE_SERVICE_TOKEN" &&
-        -n "$PLANETSCALE_SERVICE_TOKEN_ID" &&
-        -n "$PLANETSCALE_ORG" ]] \
-        ; then
-        return
-    fi
-
-    # login
-    # TODO: https://github.com/planetscale/cli/issues/836
-    # NOTE: `pscale auth check` is insufficient because when a token expires, it's still considered authenticated:
-    # pscale auth check; echo -e "\nexit: $?"
-    # You are authenticated.
-    # exit: 0
-    if ! pscale org list > /dev/null 2>&1; then
-        pscale auth login
-    fi
-
-    # switch org
-    declare org_response
-    org_response="$(pscale org show --format json 2> /dev/null)"
-    if [[ "$(jq -r '.org' <<< "$org_response")" != "$planetscale_org" ]]; then
-        pscale org switch "$planetscale_org"
-    fi
+    prisma migrate dev
 }
 
 dev::env::edit::prod() {
@@ -491,9 +203,5 @@ case "$*" in
     'db migrate prod') dev::db::migrate::prod ;;
     'env edit prod'*) dev::env::edit::prod "${@:4}" ;;
     'env edit preview'*) dev::env::edit::preview "${@:4}" ;;
-    'ci db migrate preview') dev::ci::db::migrate::preview ;;
-    'ci db migrate prod') dev::ci::db::migrate::prod ;;
-    'ci db close preview') dev::ci::db::close::preview ;;
-    'ci deploy preview') dev::ci::deploy::preview ;;
     *) dev::usage ;;
 esac

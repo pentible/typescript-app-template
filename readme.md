@@ -2,7 +2,7 @@
 
 Template typescript application with a web, mobile, and desktop app.
 
-Built with Next.js, Expo, Tauri, tRPC, Tailwind CSS, and Drizzle ORM.
+Built with Next.js, Expo, Tauri, tRPC, Tailwind CSS, Prisma, and Neon DB.
 
 ## setup
 
@@ -82,17 +82,8 @@ Built with Next.js, Expo, Tauri, tRPC, Tailwind CSS, and Drizzle ORM.
         -   commit new secret files
 
 -   setup github actions secrets (for deploy script)
-    -   `PLANETSCALE_SERVICE_TOKEN`/`PLANETSCALE_SERVICE_TOKEN_ID`
-        -   create a planetscale service token with the following permissions
-            (Settings > Service tokens)
-            -   Database access
-                -   branch -> create_branch
-                -   branch -> read_branch
-                -   branch -> delete_branch
-                -   branch -> connect_branch
-                -   branch -> delete_branch_password
-                -   deploy_request -> create_deploy_request
-                -   deploy_request -> read_deploy_request
+    -   `NEON_API_KEY` (create here
+        https://console.neon.tech/app/settings/api-keys)
     -   `SOPS_AGE_KEY` (your sops private key, created above)
     -   `VERCEL_ORG_ID` (aka `Vercel ID` from https://vercel.com/account)
     -   `VERCEL_TOKEN` (create here https://vercel.com/account/tokens)
@@ -101,9 +92,15 @@ Built with Next.js, Expo, Tauri, tRPC, Tailwind CSS, and Drizzle ORM.
     > NOTE: we setup these values as vars because they show up in urls/etc, so
     > it's pretty annoying if they get masked out
 
-    -   `PLANETSCALE_ORG` (your planetscale org name from
-        https://app.planetscale.com/)
+    -   `NEON_PROJECT_ID` (in your project's `Settings`
+        https://console.neon.tech/app/projects)
+    -   `NEON_DATABASE_USERNAME` (ie. the name of one of your projects roles)
     -   `VERCEL_SCOPE` (your vercel team, or personal account name)
+
+-   setup neon db
+    -   create a database in your project `neonctl databases create --name ptat`
+    -   update the database name in `bin/dev`'s `dev::db::prod` function (if you
+        haven't already)
 
 ### desktop
 

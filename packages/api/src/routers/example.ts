@@ -1,4 +1,3 @@
-import { example } from "db";
 import { z } from "zod";
 import { createTrpcRouter, publicProcedure } from "../trpc";
 
@@ -9,6 +8,6 @@ export const exampleRouter = createTrpcRouter({
             greeting: `Hello ${input.text}`,
         })),
     getAll: publicProcedure.query(
-        async ({ ctx }) => await ctx.db.select().from(example),
+        async ({ ctx }) => await ctx.prisma.example.findMany(),
     ),
 });
