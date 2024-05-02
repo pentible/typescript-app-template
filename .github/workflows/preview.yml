@@ -23,23 +23,19 @@ jobs:
       - run: npm ci
 
       # update db
-      - name: Install pscale
-        uses: planetscale/setup-pscale-action@v1
-      - name: Update db
-        id: db
-        env:
-          PLANETSCALE_ORG: ${{ vars.PLANETSCALE_ORG }}
-          PLANETSCALE_SERVICE_TOKEN_ID:
-            ${{ secrets.PLANETSCALE_SERVICE_TOKEN_ID }}
-          PLANETSCALE_SERVICE_TOKEN: ${{ secrets.PLANETSCALE_SERVICE_TOKEN }}
-        run: ./bin/dev ci db migrate preview
-      - name: Comment PR with db diff
-        uses: thollander/actions-comment-pull-request@v2
+      - name: Create Neon Branch
+        id: branch
+        uses: neondatabase/create-branch-action@v4
         with:
-          message: ${{ steps.db.outputs.diff_message || 'delete' }}
-          comment_tag: db_diff
-          mode:
-            ${{ steps.db.outputs.diff_message == null && 'delete' || 'upsert' }}
+          project_id: ${{ vars.NEON_PROJECT_ID }}
+          api_key: ${{ secrets.NEON_API_KEY }}
+          username: ${{ vars.NEON_DATABASE_USERNAME }}
+          branch: |-
+            preview/pr-${{ github.event.number }}-${{ github.event.pull_request.head.ref }}
+      - name: Run Migrations
+        env:
+          DATABASE_URL: ${{ steps.branch.outputs.db_url }}
+        run: npx prisma migrate deploy
 
       # deploy
       - name: Install sops
@@ -52,4 +48,38 @@ jobs:
           VERCEL_SCOPE: ${{ vars.VERCEL_SCOPE }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ github.event.repository.name }}
-        run: ./bin/dev ci deploy preview
+          DATABASE_URL: ${{ steps.branch.outputs.db_url_with_pooler }}
+        run: |
+          # branch url
+          branch_url_safe="$(echo -n "$GITHUB_HEAD_REF" | tr -c '[:alnum:]' '-' | tr '[:upper:]' '[:lower:]')"
+          branch_url="${VERCEL_PROJECT_ID}-git-${branch_url_safe}-${VERCEL_SCOPE}.vercel.app"
+          app_url="https://${branch_url}"
+
+          # decrypt deploy envs
+          readarray -t envs < <(
+              sops --decrypt --output-type json .env.preview.yml \
+                  | jq --raw-output '
+                      with_entries(.key |= sub("_unencrypted$"; ""))
+                      | to_entries[]
+                      | "\(.key)=\(.value)"
+                  '
+          )
+
+          # append dynamic envs
+          envs+=(
+              "APP_URL=${app_url}"
+              "DATABASE_URL=${DATABASE_URL}"
+          )
+
+          # build env args
+          declare -a args=()
+          for env in "${envs[@]}"; do
+              args+=(-b "$env" -e "$env")
+          done
+
+          # deploy
+          deploy_url="$(vercel --token="$VERCEL_TOKEN" deploy "${args[@]}")"
+          vercel --token="$VERCEL_TOKEN" alias set "$deploy_url" "$branch_url"
+
+          # outputs
+          echo "app_url=${app_url}" >> "$GITHUB_OUTPUT"

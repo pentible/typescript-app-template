@@ -1,6 +1,7 @@
 disable=SC1090
 disable=SC1091
 disable=SC2016
+disable=SC2153
 
 enable=add-default-case
 enable=avoid-nullary-conditions

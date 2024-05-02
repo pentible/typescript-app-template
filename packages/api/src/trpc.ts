@@ -8,7 +8,7 @@
  */
 
 import { TRPCError, initTRPC } from "@trpc/server";
-import { db } from "db";
+import { prisma } from "db";
 import type { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import superjson from "superjson";
 import { ZodError } from "zod";
@@ -44,7 +44,7 @@ export async function createTrpcContext({
     const session = await getSession(cookies);
 
     return {
-        db,
+        prisma,
         session,
         req,
         res,

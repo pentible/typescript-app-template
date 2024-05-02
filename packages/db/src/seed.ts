@@ -1,11 +1,17 @@
 // eslint-disable-next-line import/no-unused-modules
 import { createId } from "@paralleldrive/cuid2";
-import { db, disconnect } from "./db";
-import { example } from "./schema";
+import { PrismaClient } from "@prisma/client";
 
-await db.insert(example).values({
-    id: createId(),
-    title: "seed me",
-});
+const prisma = new PrismaClient();
 
-disconnect();
+try {
+    // TODO: create any data we need to test
+    await prisma.example.create({
+        data: {
+            id: createId(),
+            title: "seed me",
+        },
+    });
+} finally {
+    void prisma.$disconnect();
+}

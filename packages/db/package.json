@@ -6,19 +6,16 @@
     "main": "./src/index.ts",
     "types": "./src/index.ts",
     "scripts": {
-        "db:push": "drizzle-kit push:mysql",
-        "db:seed": "tsx ./src/seed.ts",
         "prebuild": "NODE_ENV=production tsx ./src/env.ts"
     },
     "dependencies": {
         "@paralleldrive/cuid2": "2.2.2",
-        "@planetscale/database": "1.16.0",
+        "@prisma/client": "5.13.0",
         "@t3-oss/env-nextjs": "0.9.1",
-        "drizzle-orm": "0.30.1",
         "mysql2": "3.9.2",
         "zod": "3.22.4"
     },
     "devDependencies": {
-        "drizzle-kit": "0.20.14"
+        "prisma": "5.13.0"
     }
 }

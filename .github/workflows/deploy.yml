@@ -28,15 +28,21 @@ jobs:
       - run: npm ci
 
       # update db
-      - name: Install pscale
-        uses: planetscale/setup-pscale-action@v1
-      - name: Update db
+      - name: Install neonctl
+        run: npm i -g neonctl@1
+      - name: Fetch database credentials
         env:
-          PLANETSCALE_ORG: ${{ vars.PLANETSCALE_ORG }}
-          PLANETSCALE_SERVICE_TOKEN_ID:
-            ${{ secrets.PLANETSCALE_SERVICE_TOKEN_ID }}
-          PLANETSCALE_SERVICE_TOKEN: ${{ secrets.PLANETSCALE_SERVICE_TOKEN }}
-        run: ./bin/dev ci db migrate prod
+          NEON_PROJECT_ID: ${{ vars.NEON_PROJECT_ID }}
+          NEON_API_KEY: ${{ secrets.NEON_API_KEY }}
+        run: |
+          echo "DATABASE_URL=$(
+            neonctl connection-string \
+              'main' \
+              --project-id "$NEON_PROJECT_ID" \
+              --database-name 'ptat'
+          )" >> "$GITHUB_ENV"
+      - name: Run Migrations
+        run: npx prisma migrate deploy
 
       # decrypt env
       - name: Install sops
