@@ -15,8 +15,3 @@ node_modules/
 .expo/
 /target/
 /apps/desktop/out/
-
-# prettier
-# TODO: remove with next sops release (has indent size configuration)
-.env.production.yml
-.env.preview.yml
