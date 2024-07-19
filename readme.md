@@ -157,6 +157,7 @@ trusted_config_paths = ["~/Projects"] # where ~/Projects is wherever you clone y
         "editor.codeActionsOnSave": {
             "source.fixAll.eslint": "explicit",
         },
+        "editor.acceptSuggestionOnCommitCharacter": false,
         "eslint.problems.shortenToSingleLine": true,
         "eslint.rules.customizations": [
             // set all eslint errors/warnings to show as warnings
