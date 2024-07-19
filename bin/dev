@@ -180,11 +180,21 @@ dev::db::migrate::local() {
 }
 
 dev::env::edit::prod() {
-    sops "$@" .env.production.yml
+    # TODO: unencrypted regex option can be dropped once the file is created (it won't be updated by this setting, that must be done in the file itself)
+    EDITOR="${PTAT_DEV_EDITOR:-$EDITOR}" \
+        sops \
+        --unencrypted-regex '(_unencrypted$|^EXPO_PUBLIC_|^NEXT_PUBLIC_)' \
+        "$@" \
+        .env.production.yml
 }
 
 dev::env::edit::preview() {
-    sops "$@" .env.preview.yml
+    # TODO: unencrypted regex option can be dropped once the file is created (it won't be updated by this setting, that must be done in the file itself)
+    EDITOR="${PTAT_DEV_EDITOR:-$EDITOR}" \
+        sops \
+        --unencrypted-regex '(_unencrypted$|^EXPO_PUBLIC_|^NEXT_PUBLIC_)' \
+        "$@" \
+        .env.preview.yml
 }
 
 case "$*" in
