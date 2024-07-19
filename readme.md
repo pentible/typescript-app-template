@@ -63,23 +63,24 @@ Built with Next.js, Expo, Tauri, tRPC, Tailwind CSS, Prisma, and Neon DB.
 
     -   replace `age-key` in `.sops.yaml` with your public key
 
-    -   create env files for preview/production
-
-        -   prepare your secrets per environment, ie. each should look something
-            like this:
+    -   create production env file: `dev env edit prod` (or in vscode:
+        `EDITOR='code --wait' dev env edit prod`)
 
         ```yaml
-        DATABASE_URL: mysql://root:password@localhost:3306/ptat
+        DATABASE_URL: postgres://ptat:password@localhost:5432/ptat
         # NOTE: you can append `_unencrypted` to keys which you don't want encrypted
         APP_URL_unencrypted: https://ptat.example.com
         ```
 
-        -   write secrets to preview env: `dev env edit preview` (or in vscode:
-            `EDITOR='code --wait' dev env ...`)
+    -   create preview env file: `dev env edit preview` (or in vscode:
+        `EDITOR='code --wait' dev env edit preview`)
 
-        -   write secrets to production env: `dev env edit prod`
+        ```yaml
+        # NOTE: DATABASE_URL & APP_URL are generated dynamically for the preview env and don't need to be here, thus you can just enter `{}` until you have actual envs to enter
+        {}
+        ```
 
-        -   commit new secret files
+    -   commit new secret files
 
 -   setup github actions secrets (for deploy script)
     -   `NEON_API_KEY` (create here
