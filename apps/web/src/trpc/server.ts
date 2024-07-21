@@ -55,6 +55,8 @@ export const api = createTRPCClient<AppRouter>({
                             observer.next({ result: { data } });
                             observer.complete();
                         })
+                        // TODO: fix
+                        // eslint-disable-next-line @typescript-eslint/use-unknown-in-catch-callback-variable
                         .catch((cause: TRPCErrorResponse) => {
                             observer.error(TRPCClientError.from(cause));
                         });
