@@ -1,8 +1,11 @@
 name: lint
 on:
+  # NOTE: The ref for pull request triggered events defaults to
+  # `refs/pull/<pr-number>/merge`, this is essentially the virtual merge ref
+  # that would be created if the pr was merged. This means your linting checks
+  # actually gives you a much better idea of whether the linting will pass once
+  # merged.
   pull_request:
-    branches:
-      - main
   push:
     branches:
       - main
