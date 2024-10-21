@@ -1,6 +1,6 @@
 "use strict";
 
-/** @type {import("@babel/core").ConfigFunction} */
+/** @satisfies {import("@babel/core").ConfigFunction} */
 module.exports = function config(api) {
     api.cache.forever();
 

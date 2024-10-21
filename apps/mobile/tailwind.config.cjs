@@ -1,6 +1,6 @@
 "use strict";
 
-/** @type {import('tailwindcss').Config} */
+/** @satisfies {import('tailwindcss').Config} */
 module.exports = {
     content: ["./src/**/*.{js,ts,jsx,tsx}"],
     presets: [require("nativewind/preset")],

@@ -1,4 +1,4 @@
-/** @type {import("next").NextConfig} */
+/** @satisfies {import("next").NextConfig} */
 const config = {
     reactStrictMode: true,
     transpilePackages: ["api", "db"],
