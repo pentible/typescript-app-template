@@ -1,7 +1,7 @@
 import "server-only";
 
 import { createTRPCClient, loggerLink, TRPCClientError } from "@trpc/client";
-import { callProcedure } from "@trpc/server";
+import { callTRPCProcedure } from "@trpc/server";
 import { observable } from "@trpc/server/observable";
 import type { TRPCErrorResponse } from "@trpc/server/rpc";
 import type { AppRouter } from "api";
@@ -42,7 +42,7 @@ export const api = createTRPCClient<AppRouter>({
                 observable((observer) => {
                     createContext()
                         .then(async (ctx) => {
-                            return await callProcedure({
+                            return await callTRPCProcedure({
                                 procedures: appRouter._def.procedures,
                                 path: op.path,
                                 // eslint-disable-next-line @typescript-eslint/require-await

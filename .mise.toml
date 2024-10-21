@@ -6,4 +6,4 @@ _.file = [".env", ".env.local"]
 _.path = ["./node_modules/.bin", "./bin"]
 
 [tools]
-node = "20"
+node = "20.18.0"
