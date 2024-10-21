@@ -1,29 +1,26 @@
 {
-    "$schema": "https://raw.githubusercontent.com/expo/vscode-expo/schemas/schema/expo-xdl.json",
-    "expo": {
-        "name": "ptat",
-        "slug": "ptat",
-        "scheme": "ptat",
-        "version": "1.0.0",
-        "orientation": "portrait",
-        "icon": "./assets/images/icon.png",
-        "userInterfaceStyle": "light",
-        "splash": {
-            "image": "./assets/images/splash.png",
-            "resizeMode": "contain",
+    "name": "ptat",
+    "slug": "ptat",
+    "scheme": "ptat",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+        "image": "./assets/images/splash.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#312E81"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+        "supportsTablet": true,
+        "bundleIdentifier": "com.example.ptat"
+    },
+    "android": {
+        "adaptiveIcon": {
+            "foregroundImage": "./assets/images/adaptive-icon.png",
             "backgroundColor": "#312E81"
-        },
-        "assetBundlePatterns": ["**/*"],
-        "ios": {
-            "supportsTablet": true,
-            "bundleIdentifier": "com.example.ptat"
-        },
-        "android": {
-            "adaptiveIcon": {
-                "foregroundImage": "./assets/images/adaptive-icon.png",
-                "backgroundColor": "#312E81"
-            }
-        },
-        "plugins": ["expo-router"]
-    }
+        }
+    },
+    "plugins": ["expo-router", "expo-font"]
 }
