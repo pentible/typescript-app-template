@@ -9,7 +9,7 @@
         "./packages/*"
     ],
     "scripts": {
-        "prepare": "husky && prisma generate"
+        "prepare": "husky && prisma generate --no-hints"
     },
     "devDependencies": {
         "@pentible/check-package-lock": "0.103.0",
