@@ -10,7 +10,8 @@ import type { ReactNode } from "react";
 import superjson from "superjson";
 import { env } from "~/env";
 
-export const api = createTRPCReact<AppRouter>();
+export const api: ReturnType<typeof createTRPCReact<AppRouter>> =
+    createTRPCReact<AppRouter>();
 
 const createQueryClient = () => new QueryClient();
 

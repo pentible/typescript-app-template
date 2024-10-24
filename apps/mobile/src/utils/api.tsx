@@ -6,7 +6,8 @@ import constants from "expo-constants";
 import type { ReactNode } from "react";
 import superjson from "superjson";
 
-export const api = createTRPCReact<AppRouter>();
+export const api: ReturnType<typeof createTRPCReact<AppRouter>> =
+    createTRPCReact<AppRouter>();
 
 function getBaseUrl() {
     // TODO: should use env.APP_URL
