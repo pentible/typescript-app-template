@@ -25,6 +25,7 @@ const createContext = cache(async () => {
     });
 });
 
+// TODO: switch to @trpc/next helpers?
 // eslint-disable-next-line import/no-unused-modules
 export const api = createTRPCClient<AppRouter>({
     links: [
@@ -42,13 +43,15 @@ export const api = createTRPCClient<AppRouter>({
                 observable((observer) => {
                     createContext()
                         .then(async (ctx) => {
+                            // eslint-disable-next-line @typescript-eslint/no-unsafe-return
                             return await callTRPCProcedure({
                                 procedures: appRouter._def.procedures,
                                 path: op.path,
-                                // eslint-disable-next-line @typescript-eslint/require-await
-                                getRawInput: async () => op.input,
+                                getRawInput: async () =>
+                                    await Promise.resolve(op.input),
                                 ctx,
                                 type: op.type,
+                                signal: undefined,
                             });
                         })
                         .then((data) => {
