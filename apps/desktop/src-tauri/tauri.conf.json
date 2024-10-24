@@ -2,7 +2,7 @@
     "$schema": "../../../node_modules/@tauri-apps/cli/schema.json",
     "build": {
         "beforeBuildCommand": "next build",
-        "beforeDevCommand": "next dev -p 3001",
+        "beforeDevCommand": "next dev --turbo -p 3001",
         "devPath": "http://localhost:3001",
         "distDir": "../out"
     },
