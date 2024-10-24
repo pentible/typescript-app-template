@@ -5,10 +5,10 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { httpBatchLink, loggerLink } from "@trpc/client";
 import { createTRPCReact } from "@trpc/react-query";
 import type { AppRouter } from "api";
-import { useMemo } from "react";
 import type { ReactNode } from "react";
 import superjson from "superjson";
 import { env } from "~/env";
+import { useConst } from "~/utils/use-const";
 
 export const api: ReturnType<typeof createTRPCReact<AppRouter>> =
     createTRPCReact<AppRouter>();
@@ -42,7 +42,7 @@ interface Props {
 export function TrpcReactProvider({ children }: Props) {
     const queryClient = getQueryClient();
 
-    const trpcClient = useMemo(() => {
+    const trpcClient = useConst(() => {
         return api.createClient({
             links: [
                 loggerLink({
@@ -57,7 +57,7 @@ export function TrpcReactProvider({ children }: Props) {
                 }),
             ],
         });
-    }, []);
+    });
 
     return (
         <QueryClientProvider client={queryClient}>
