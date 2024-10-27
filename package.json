@@ -12,12 +12,12 @@
         "prepare": "husky && prisma generate --no-hints"
     },
     "devDependencies": {
-        "@pentible/check-package-lock": "0.103.0",
-        "@pentible/eslint-config": "0.103.0",
-        "@pentible/eslint-config-prettier": "0.103.0",
-        "@pentible/prettier": "0.103.0",
-        "@pentible/shellcheck-all": "0.103.0",
-        "@pentible/tsconfig": "0.103.0",
+        "@pentible/check-package-lock": "0.105.0",
+        "@pentible/eslint-config": "0.105.0",
+        "@pentible/eslint-config-prettier": "0.105.0",
+        "@pentible/prettier": "0.105.0",
+        "@pentible/shellcheck-all": "0.105.0",
+        "@pentible/tsconfig": "0.105.0",
         "@types/eslint": "8.56.10",
         "eslint": "8.57.0",
         "husky": "9.1.6",
