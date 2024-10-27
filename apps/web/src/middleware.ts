@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { env } from "~/env";
+import { env } from "#src/env";
 
 const TAURI_APP_URL =
     env.NODE_ENV === "production"

@@ -7,8 +7,8 @@ import { createTRPCReact } from "@trpc/react-query";
 import type { AppRouter } from "api";
 import type { ReactNode } from "react";
 import superjson from "superjson";
-import { env } from "~/env";
-import { useConst } from "~/utils/use-const";
+import { env } from "#src/env";
+import { useConst } from "#src/utils/use-const";
 
 export const api: ReturnType<typeof createTRPCReact<AppRouter>> =
     createTRPCReact<AppRouter>();

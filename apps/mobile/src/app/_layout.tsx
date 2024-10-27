@@ -1,4 +1,4 @@
-import "~/styles/globals.css";
+import "#src/styles/globals.css";
 import Feather from "@expo/vector-icons/Feather";
 import {
     Quicksand_300Light,
@@ -20,7 +20,7 @@ import {
 } from "expo-splash-screen";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
-import { TrpcProvider } from "~/utils/api";
+import { TrpcProvider } from "#src/utils/api";
 
 // Catch any errors thrown by the Layout component.
 export { ErrorBoundary } from "expo-router";

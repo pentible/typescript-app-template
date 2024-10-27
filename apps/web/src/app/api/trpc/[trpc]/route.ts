@@ -2,7 +2,7 @@ import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import { appRouter, createTrpcContext } from "api";
 import { cookies } from "next/headers";
 import type { NextRequest } from "next/server";
-import { env } from "~/env";
+import { env } from "#src/env";
 
 async function handler(req: NextRequest) {
     return await fetchRequestHandler({

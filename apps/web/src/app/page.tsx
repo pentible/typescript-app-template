@@ -1,7 +1,7 @@
 "use client";
 
 import { FiRefreshCw } from "react-icons/fi";
-import { api } from "~/trpc/react";
+import { api } from "#src/trpc/react";
 
 export default function Home() {
     const examples = api.example.getAll.useQuery();

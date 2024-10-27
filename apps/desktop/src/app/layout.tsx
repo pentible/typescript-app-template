@@ -1,7 +1,7 @@
-import "~/styles/globals.css";
+import "#src/styles/globals.css";
 import { Quicksand } from "next/font/google";
 import type { ReactNode } from "react";
-import { TrpcProvider } from "~/utils/api";
+import { TrpcProvider } from "#src/utils/api";
 
 const quicksand = Quicksand({
     subsets: ["latin"],

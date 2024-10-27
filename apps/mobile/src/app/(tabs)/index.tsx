@@ -2,7 +2,7 @@ import { Feather } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import { Text, View } from "react-native";
 import colors from "tailwindcss/colors";
-import { api } from "~/utils/api";
+import { api } from "#src/utils/api";
 
 export default function TabOneScreen() {
     const examples = api.example.getAll.useQuery();

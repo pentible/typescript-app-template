@@ -1,8 +1,8 @@
 import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
-import type { AppRouter } from "./root";
+import type { AppRouter } from "#src/root";
 
-export { appRouter, type AppRouter } from "./root";
-export { createTrpcContext } from "./trpc";
+export { appRouter, type AppRouter } from "#src/root";
+export { createTrpcContext } from "#src/trpc";
 
 /**
  * @example type HelloInput = RouterInputs['example']['hello']
