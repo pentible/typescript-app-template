@@ -96,6 +96,7 @@ Built with Next.js, Expo, Tauri, tRPC, Tailwind CSS, Prisma, and Neon DB.
     -   `NEON_PROJECT_ID` (in your project's `Settings`
         https://console.neon.tech/app/projects)
     -   `NEON_DATABASE_USERNAME` (ie. the name of one of your projects roles)
+    -   `NEON_DATABASE_NAME` (ie. Database name in connection details)
     -   `VERCEL_SCOPE` (your vercel team, or personal account name)
 
 -   setup neon db

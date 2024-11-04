@@ -180,7 +180,6 @@ dev::db::migrate::local() {
 }
 
 dev::env::edit::prod() {
-    # TODO: unencrypted regex option can be dropped once the file is created (it won't be updated by this setting, that must be done in the file itself)
     EDITOR="${PTAT_DEV_EDITOR:-$EDITOR}" \
         sops \
         --unencrypted-regex '(_unencrypted$|^EXPO_PUBLIC_|^NEXT_PUBLIC_)' \
@@ -189,7 +188,6 @@ dev::env::edit::prod() {
 }
 
 dev::env::edit::preview() {
-    # TODO: unencrypted regex option can be dropped once the file is created (it won't be updated by this setting, that must be done in the file itself)
     EDITOR="${PTAT_DEV_EDITOR:-$EDITOR}" \
         sops \
         --unencrypted-regex '(_unencrypted$|^EXPO_PUBLIC_|^NEXT_PUBLIC_)' \

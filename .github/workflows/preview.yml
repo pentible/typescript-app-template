@@ -30,7 +30,8 @@ jobs:
           project_id: ${{ vars.NEON_PROJECT_ID }}
           api_key: ${{ secrets.NEON_API_KEY }}
           username: ${{ vars.NEON_DATABASE_USERNAME }}
-          branch: |-
+          database: ${{ vars.NEON_DATABASE_NAME }}
+          branch_name: |-
             preview/pr-${{ github.event.number }}-${{ github.event.pull_request.head.ref }}
       - name: Run Migrations
         env:
