@@ -58,7 +58,7 @@ jobs:
 
           # decrypt deploy envs
           readarray -t envs < <(
-              sops --decrypt --output-type json .env.preview.yml \
+              sops --decrypt --output-type json .env.preview.yaml \
                   | jq --raw-output '
                       with_entries(.key |= sub("_unencrypted$"; ""))
                       | to_entries[]

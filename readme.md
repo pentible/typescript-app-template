@@ -175,7 +175,7 @@ trusted_config_paths = ["~/Projects"] # where ~/Projects is wherever you clone y
 
 ## Misc
 
-### Diff decrypted env vales
+### Diff decrypted env values
 
 -   add private key from <!-- TODO: replace name/link  -->
     [your password manager](https://start.1password.com/open) into
@@ -184,7 +184,7 @@ trusted_config_paths = ["~/Projects"] # where ~/Projects is wherever you clone y
 -   diff decrypted values
 
 ```bash
-git -c 'diff.sops.textconv=sops -d' diff .env.preview.yml
+git -c 'diff.sops.textconv=sops -d' diff .env.preview.yaml
 # OR
 git -c 'diff.sops.textconv=sops -d' show
 ```

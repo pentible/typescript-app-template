@@ -1,1 +1,1 @@
-.env.*.yml diff=sops
+.env.*.yaml diff=sops

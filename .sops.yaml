@@ -1,5 +1,5 @@
 creation_rules:
-  - path_regex: \.env\..*\.yml$
+  - path_regex: \.env\..*\.yaml$
     age: age-key
 
 stores:

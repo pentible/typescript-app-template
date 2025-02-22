@@ -24,8 +24,9 @@ dev::usage() {
     echo '       dev db local         # connect to local database'
     echo '       dev db prod          # connect to production database'
     echo '       dev db migrate local # migrate local database'
-    echo '       dev env edit prod    # edit encrypted prod env vars'
+    echo '       dev env edit dev     # edit encrypted local development env vars'
     echo '       dev env edit preview # edit encrypted preview env vars'
+    echo '       dev env edit prod    # edit encrypted production env vars'
     exit 1
 }
 
@@ -176,12 +177,12 @@ dev::db::migrate::local() {
     prisma migrate dev
 }
 
-dev::env::edit::prod() {
+dev::env::edit::dev() {
     EDITOR="${PTAT_DEV_EDITOR:-$EDITOR}" \
         sops \
         --unencrypted-regex '(_unencrypted$|^EXPO_PUBLIC_|^NEXT_PUBLIC_)' \
         "$@" \
-        .env.production.yml
+        .env.development.yaml
 }
 
 dev::env::edit::preview() {
@@ -189,7 +190,15 @@ dev::env::edit::preview() {
         sops \
         --unencrypted-regex '(_unencrypted$|^EXPO_PUBLIC_|^NEXT_PUBLIC_)' \
         "$@" \
-        .env.preview.yml
+        .env.preview.yaml
+}
+
+dev::env::edit::prod() {
+    EDITOR="${PTAT_DEV_EDITOR:-$EDITOR}" \
+        sops \
+        --unencrypted-regex '(_unencrypted$|^EXPO_PUBLIC_|^NEXT_PUBLIC_)' \
+        "$@" \
+        .env.production.yaml
 }
 
 case "$*" in
@@ -206,7 +215,8 @@ case "$*" in
     'db prod') dev::db::prod ;;
     'db migrate local') dev::db::migrate::local ;;
     'db migrate prod') dev::db::migrate::prod ;;
-    'env edit prod'*) dev::env::edit::prod "${@:4}" ;;
+    'env edit dev'*) dev::env::edit::dev "${@:4}" ;;
     'env edit preview'*) dev::env::edit::preview "${@:4}" ;;
+    'env edit prod'*) dev::env::edit::prod "${@:4}" ;;
     *) dev::usage ;;
 esac

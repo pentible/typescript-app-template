@@ -50,7 +50,7 @@ jobs:
           SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
         run: |
           envs="$(
-            sops --decrypt --output-type json .env.production.yml \
+            sops --decrypt --output-type json .env.production.yaml \
             | jq --compact-output 'with_entries(.key |= sub("_unencrypted$"; ""))'
           )"
           echo "APP_ENVS=${envs}" >> "$GITHUB_ENV"

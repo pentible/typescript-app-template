@@ -1,8 +1,9 @@
 [settings]
 status.missing_tools = "always"
+sops.rops = false
 
 [env]
-_.file = [".env", ".env.local"]
+_.file = [".env", ".env.development.yaml", ".env.local"]
 _.path = ["./node_modules/.bin", "./bin"]
 
 [tools]
