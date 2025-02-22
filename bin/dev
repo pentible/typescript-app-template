@@ -40,12 +40,9 @@ dev::setup() {
     echo '==> install dependencies'
     brew install \
         mise \
-        shellcheck \
-        sops age \
         homebrew/cask/docker \
         neonctl \
-        postgresql \
-        jq
+        postgresql
 
     if ! type 'rustup' > /dev/null 2>&1; then
         curl -fsS --tlsv1.2 https://sh.rustup.rs | sh -s - -y --no-modify-path

@@ -7,3 +7,7 @@ _.path = ["./node_modules/.bin", "./bin"]
 
 [tools]
 node = "20.18.0"
+shellcheck = "0.10.0"
+sops = "3.9.4"
+age = "1.2.1"
+jq = "1.7.1"
