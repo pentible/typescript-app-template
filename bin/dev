@@ -45,10 +45,6 @@ dev::setup() {
         neonctl \
         postgresql
 
-    if ! type 'rustup' > /dev/null 2>&1; then
-        curl -fsS --tlsv1.2 https://sh.rustup.rs | sh -s - -y --no-modify-path
-    fi
-
     echo '==> create .env.local'
     if [[ ! -f .env.local ]]; then
         echo '# override defaults from .env' > .env.local
