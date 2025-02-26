@@ -56,6 +56,10 @@ jobs:
           echo "APP_ENVS=${envs}" >> "$GITHUB_ENV"
 
       # deploy
+      - name: Install Vercel CLI
+        run: |
+          npm install --global vercel@latest
+          vercel --version
       - name: Deploy
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
