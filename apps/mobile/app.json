@@ -22,5 +22,6 @@
             "backgroundColor": "#312E81"
         }
     },
+    "newArchEnabled": true,
     "plugins": ["expo-router", "expo-font"]
 }
