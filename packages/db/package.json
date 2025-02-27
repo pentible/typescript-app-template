@@ -17,9 +17,8 @@
     "dependencies": {
         "@paralleldrive/cuid2": "2.2.2",
         "@prisma/client": "5.21.1",
-        "@t3-oss/env-nextjs": "0.9.1",
-        "mysql2": "3.11.3",
-        "zod": "3.23.8"
+        "@t3-oss/env-nextjs": "0.12.0",
+        "zod": "3.24.2"
     },
     "devDependencies": {
         "prisma": "5.21.1"

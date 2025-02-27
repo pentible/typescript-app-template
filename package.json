@@ -27,8 +27,8 @@
         "lint-staged": "15.4.3",
         "prettier": "3.5.2",
         "prettier-plugin-tailwindcss": "0.6.8",
-        "tsx": "4.19.1",
-        "turbo": "2.2.1",
+        "tsx": "4.19.3",
+        "turbo": "2.4.4",
         "typescript": "5.7.3"
     },
     "packageManager": "npm@10.8.2",
