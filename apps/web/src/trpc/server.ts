@@ -45,7 +45,7 @@ export const api = createTRPCClient<AppRouter>({
                         .then(async (ctx) => {
                             // eslint-disable-next-line @typescript-eslint/no-unsafe-return
                             return await callTRPCProcedure({
-                                procedures: appRouter._def.procedures,
+                                router: appRouter,
                                 path: op.path,
                                 getRawInput: async () =>
                                     await Promise.resolve(op.input),
