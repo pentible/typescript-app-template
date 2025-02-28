@@ -15,6 +15,7 @@ node_modules/
 .expo/
 /target/
 /apps/desktop/out/
+/apps/desktop/src-tauri/gen/schemas/
 
 # eslint ignores
 # NOTE: eslint ignores dotfiles by default

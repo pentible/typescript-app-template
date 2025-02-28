@@ -27,7 +27,7 @@ jobs:
 
       # update db
       - name: Install neonctl
-        run: npm i -g neonctl@1
+        run: npm i -g neonctl@2.9.0
       - name: Fetch database credentials
         env:
           NEON_PROJECT_ID: ${{ vars.NEON_PROJECT_ID }}
