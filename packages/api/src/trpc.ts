@@ -52,9 +52,9 @@ export async function createTrpcContext({
     };
 }
 
-const APP_TOKEN = "APP_TOKEN";
+const appToken = "APP_TOKEN";
 async function getSession(cookies: ReadonlyRequestCookies) {
-    const token = cookies.get(APP_TOKEN);
+    const token = cookies.get(appToken);
     if (!token) {
         return null;
     }
