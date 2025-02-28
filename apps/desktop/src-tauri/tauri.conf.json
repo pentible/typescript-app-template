@@ -1,66 +1,63 @@
 {
-    "$schema": "../../../node_modules/@tauri-apps/cli/schema.json",
+    "$schema": "../../../node_modules/@tauri-apps/cli/config.schema.json",
     "build": {
         "beforeBuildCommand": "next build",
         "beforeDevCommand": "next dev --turbo -p 3001",
-        "devPath": "http://localhost:3001",
-        "distDir": "../out"
+        "frontendDist": "../out",
+        "devUrl": "http://localhost:3001"
     },
-    "package": {
-        "productName": "ptat",
-        "version": "0.1.0"
-    },
-    "tauri": {
-        "allowlist": {
-            "all": false
+    "bundle": {
+        "active": true,
+        "category": "DeveloperTool",
+        "copyright": "",
+        "targets": "all",
+        "externalBin": [],
+        "icon": [
+            "icons/32x32.png",
+            "icons/128x128.png",
+            "icons/128x128@2x.png",
+            "icons/icon.icns",
+            "icons/icon.ico"
+        ],
+        "windows": {
+            "certificateThumbprint": null,
+            "digestAlgorithm": "sha256",
+            "timestampUrl": ""
         },
-        "bundle": {
-            "active": true,
-            "category": "DeveloperTool",
-            "copyright": "",
+        "longDescription": "",
+        "macOS": {
+            "entitlements": null,
+            "exceptionDomain": "",
+            "frameworks": [],
+            "providerShortName": null,
+            "signingIdentity": null
+        },
+        "resources": [],
+        "shortDescription": "",
+        "linux": {
             "deb": {
                 "depends": []
-            },
-            "externalBin": [],
-            "icon": [
-                "icons/32x32.png",
-                "icons/128x128.png",
-                "icons/128x128@2x.png",
-                "icons/icon.icns",
-                "icons/icon.ico"
-            ],
-            "identifier": "com.example.ptat",
-            "longDescription": "",
-            "macOS": {
-                "entitlements": null,
-                "exceptionDomain": "",
-                "frameworks": [],
-                "providerShortName": null,
-                "signingIdentity": null
-            },
-            "resources": [],
-            "shortDescription": "",
-            "targets": "all",
-            "windows": {
-                "certificateThumbprint": null,
-                "digestAlgorithm": "sha256",
-                "timestampUrl": ""
             }
-        },
-        "security": {
-            "csp": null
-        },
-        "updater": {
-            "active": false
-        },
+        }
+    },
+    "productName": "ptat",
+    "mainBinaryName": "ptat",
+    "version": "0.1.0",
+    "identifier": "com.example.ptat",
+    "plugins": {},
+    "app": {
         "windows": [
             {
                 "fullscreen": false,
                 "height": 600,
                 "resizable": true,
                 "title": "ptat",
-                "width": 800
+                "width": 800,
+                "useHttpsScheme": true
             }
-        ]
+        ],
+        "security": {
+            "csp": null
+        }
     }
 }
