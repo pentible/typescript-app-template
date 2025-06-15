@@ -13,7 +13,7 @@ async function handler(req: NextRequest) {
             return await createTrpcContext({
                 req: { headers: req.headers },
                 res: { headers: resHeaders },
-                cookies: cookies(),
+                cookies: await cookies(),
             });
         },
         onError:

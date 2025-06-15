@@ -4,20 +4,18 @@
     "private": true,
     "type": "module",
     "imports": {
-        "#src/*": [
-            "./src/*.js",
-            "./src/*.ts"
-        ]
+        "#src/*": "./src/*.ts"
     },
-    "main": "./src/index.ts",
-    "types": "./src/index.ts",
+    "exports": {
+        ".": "./src/index.ts"
+    },
     "dependencies": {
         "@paralleldrive/cuid2": "2.2.2",
         "@trpc/client": "11.4.1",
         "@trpc/react-query": "11.4.1",
         "@trpc/server": "11.4.1",
-        "db": "file:../../packages/db",
-        "next": "14.2.24",
+        "db": "*",
+        "next": "15.3.3",
         "superjson": "2.2.2",
         "zod": "3.24.2"
     }

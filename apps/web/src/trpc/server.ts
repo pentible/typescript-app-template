@@ -6,7 +6,7 @@ import { observable } from "@trpc/server/observable";
 import type { TRPCErrorResponse } from "@trpc/server/rpc";
 import type { AppRouter } from "api";
 import { appRouter, createTrpcContext } from "api";
-import { cookies, headers as getHeaders } from "next/headers";
+import { cookies as getCookies, headers as getHeaders } from "next/headers";
 import { cache } from "react";
 
 /**
@@ -14,14 +14,15 @@ import { cache } from "react";
  * handling a tRPC call from a React Server Component.
  */
 const createContext = cache(async () => {
-    const headers = getHeaders();
+    const headers = await getHeaders();
+    const cookies = await getCookies();
 
     return await createTrpcContext({
         req: { headers },
         // NOTE: RSCs cannot set headers, only server actions (and routes, but
         // they set their own request context)
         res: { headers },
-        cookies: cookies(),
+        cookies,
     });
 });
 
