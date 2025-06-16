@@ -8,6 +8,7 @@ export const env = createEnv({
     },
     server: {
         // DATABASE_URL: z.string().url(),
+        APP_URL: z.string().url(),
     },
     // NOTE: client is for public env vars, available on the client and the server
     client: {

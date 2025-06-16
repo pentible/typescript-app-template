@@ -21,17 +21,17 @@
         "@pentible/prettier": "0.106.0",
         "@pentible/shellcheck-all": "0.106.0",
         "@pentible/tsconfig": "0.106.0",
-        "@types/eslint": "8.56.12",
-        "eslint": "8.57.0",
+        "@types/eslint": "9.6.1",
+        "eslint": "9.29.0",
         "husky": "9.1.7",
-        "lint-staged": "15.4.3",
-        "prettier": "3.5.2",
-        "prettier-plugin-tailwindcss": "0.6.11",
-        "tsx": "4.19.3",
-        "turbo": "2.4.4",
+        "lint-staged": "16.1.2",
+        "prettier": "3.5.3",
+        "prettier-plugin-tailwindcss": "0.6.12",
+        "tsx": "4.20.3",
+        "turbo": "2.5.4",
         "typescript": "5.7.3"
     },
-    "packageManager": "npm@10.8.2",
+    "packageManager": "npm@11.4.2",
     "engines": {
         "node": "^22"
     }

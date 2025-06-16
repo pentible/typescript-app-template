@@ -6,21 +6,22 @@ import { createTRPCReact } from "@trpc/react-query";
 import type { AppRouter } from "api";
 import type { ReactNode } from "react";
 import superjson from "superjson";
+import { env } from "#src/env";
 
 export const api: ReturnType<typeof createTRPCReact<AppRouter>> =
     createTRPCReact<AppRouter>();
 
 function getBaseUrl() {
-    // TODO: should use env.APP_URL
     // TODO: determine if local dev or not (likely just use an env var)
-    // TODO: replace with prod app url
-    // return "https://ptat.example.com";
-    // throw new Error(
-    //     "Failed to get localhost. Please point to your production server.",
-    // );
-
     // dev ssr should use localhost
-    return `http://localhost:${process.env.PORT ?? 3000}`;
+    // return `http://localhost:${process.env.PORT ?? 3000}`;
+
+    if (typeof window !== "undefined") {
+        // browser should use relative url
+        return "";
+    }
+
+    return env.APP_URL;
 }
 
 const queryClient = new QueryClient({
