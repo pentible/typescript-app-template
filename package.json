@@ -15,12 +15,12 @@
         "eslint-plugin-react-hooks": "5.1.0"
     },
     "devDependencies": {
-        "@pentible/check-package-lock": "0.106.0",
-        "@pentible/eslint-config": "0.106.0",
-        "@pentible/eslint-config-prettier": "0.106.0",
-        "@pentible/prettier": "0.106.0",
-        "@pentible/shellcheck-all": "0.106.0",
-        "@pentible/tsconfig": "0.106.0",
+        "@pentible/check-package-lock": "0.107.0",
+        "@pentible/eslint-config": "0.107.0",
+        "@pentible/eslint-config-prettier": "0.107.0",
+        "@pentible/prettier": "0.107.0",
+        "@pentible/shellcheck-all": "0.107.0",
+        "@pentible/tsconfig": "0.107.0",
         "@types/eslint": "9.6.1",
         "eslint": "9.29.0",
         "husky": "9.1.7",
@@ -29,7 +29,7 @@
         "prettier-plugin-tailwindcss": "0.6.12",
         "tsx": "4.20.3",
         "turbo": "2.5.4",
-        "typescript": "5.7.3"
+        "typescript": "5.8.3"
     },
     "packageManager": "npm@11.4.2",
     "engines": {
