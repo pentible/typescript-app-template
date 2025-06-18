@@ -27,11 +27,6 @@
         "zod": "3.25.64"
     },
     "devDependencies": {
-        "@pentible/eslint-config-next": "0.107.0",
-        "@pentible/eslint-config-node": "0.107.0",
-        "@pentible/eslint-config-prettier": "0.107.0",
-        "@pentible/eslint-config-react": "0.107.0",
-        "@pentible/eslint-config-web": "0.107.0",
         "@types/node": "22.15.31",
         "@types/react": "19.0.14",
         "@types/react-dom": "19.0.6",

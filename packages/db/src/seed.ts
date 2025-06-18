@@ -1,4 +1,4 @@
-// eslint-disable-next-line import/no-unused-modules
+// eslint-disable-next-line import-x/no-unused-modules
 import { createId } from "@paralleldrive/cuid2";
 import { PrismaClient } from "@prisma/client";
 

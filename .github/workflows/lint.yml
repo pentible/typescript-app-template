@@ -28,7 +28,7 @@ jobs:
         if: "!cancelled()"
       - run: npx tsc -b
         if: "!cancelled()"
-      - run: npx eslint .
+      - run: npx eslint
         if: "!cancelled()"
       - run: npx prettier --log-level warn --check .
         if: "!cancelled()"

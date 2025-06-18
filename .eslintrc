@@ -1,0 +1,7 @@
+// import-x/no-unused-modules rule requires an .eslintrc file (even empty) to know which
+// files to ignore (even when using flat config).
+// The .eslintrc file only needs to contain "ignorePatterns", or can be empty if
+// you do not want to ignore any files.
+
+// See https://github.com/import-js/eslint-plugin-import/issues/3079
+// for additional context.

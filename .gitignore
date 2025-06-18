@@ -16,3 +16,4 @@ node_modules/
 /target/
 /apps/desktop/out/
 /apps/desktop/src-tauri/gen/schemas/
+.eslintcache

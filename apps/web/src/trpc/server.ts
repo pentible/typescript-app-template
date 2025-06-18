@@ -27,7 +27,7 @@ const createContext = cache(async () => {
 });
 
 // TODO: switch to @trpc/next helpers?
-// eslint-disable-next-line import/no-unused-modules
+// eslint-disable-next-line import-x/no-unused-modules
 export const api = createTRPCClient<AppRouter>({
     links: [
         loggerLink({

@@ -126,12 +126,12 @@ dev::lint() {
     check-package-lock
     shellcheck-all
     tsc -b
-    eslint .
+    eslint --cache
     prettier --log-level warn --check .
 }
 
 dev::lint::fix() {
-    eslint --fix .
+    eslint --cache --fix
     prettier --log-level warn --write .
 }
 

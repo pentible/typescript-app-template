@@ -11,17 +11,18 @@
     "scripts": {
         "prepare": "husky && prisma generate --no-hints"
     },
-    "resolutions": {
-        "eslint-plugin-react-hooks": "5.1.0"
-    },
     "devDependencies": {
-        "@pentible/check-package-lock": "0.107.0",
-        "@pentible/eslint-config": "0.107.0",
-        "@pentible/eslint-config-prettier": "0.107.0",
-        "@pentible/prettier": "0.107.0",
-        "@pentible/shellcheck-all": "0.107.0",
-        "@pentible/tsconfig": "0.107.0",
-        "@types/eslint": "9.6.1",
+        "@pentible/check-package-lock": "0.109.0",
+        "@pentible/eslint-config": "0.109.0",
+        "@pentible/eslint-config-expo": "0.109.0",
+        "@pentible/eslint-config-next": "0.109.0",
+        "@pentible/eslint-config-node": "0.109.0",
+        "@pentible/eslint-config-prettier": "0.109.0",
+        "@pentible/eslint-config-react": "0.109.0",
+        "@pentible/eslint-config-web": "0.109.0",
+        "@pentible/prettier": "0.109.0",
+        "@pentible/shellcheck-all": "0.109.0",
+        "@pentible/tsconfig": "0.109.0",
         "eslint": "9.29.0",
         "husky": "9.1.7",
         "lint-staged": "16.1.2",
