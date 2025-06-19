@@ -14,11 +14,11 @@
     },
     "dependencies": {
         "@paralleldrive/cuid2": "2.2.2",
-        "@prisma/client": "6.9.0",
+        "@prisma/client": "6.10.1",
         "@t3-oss/env-nextjs": "0.13.8",
-        "zod": "3.25.64"
+        "zod": "3.25.67"
     },
     "devDependencies": {
-        "prisma": "6.9.0"
+        "prisma": "6.10.1"
     }
 }
