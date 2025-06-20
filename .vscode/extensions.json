@@ -4,6 +4,7 @@
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
         "expo.vscode-expo-tools",
+        "prisma.prisma",
         "timonwong.shellcheck",
         "yoavbls.pretty-ts-errors"
     ]
