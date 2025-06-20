@@ -5,19 +5,15 @@ import type { AppRouter } from "api";
 import constants from "expo-constants";
 import type { ReactNode } from "react";
 import superjson from "superjson";
+import { env } from "#src/env";
 
 export const api: ReturnType<typeof createTRPCReact<AppRouter>> =
     createTRPCReact<AppRouter>();
 
 function getBaseUrl() {
-    // TODO: should use env.APP_URL
     const localhost = constants.expoConfig?.hostUri?.split(":")[0];
     if (localhost == null) {
-        // TODO: replace with prod app url
-        // return "https://ptat.example.com";
-        throw new Error(
-            "Failed to get localhost. Please point to your production server.",
-        );
+        return env.EXPO_PUBLIC_APP_URL;
     }
 
     return `http://${localhost}:${process.env.PORT ?? 3000}`;
