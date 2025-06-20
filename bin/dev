@@ -7,6 +7,14 @@ script_dir="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 declare repo_dir
 repo_dir="$(dirname "$script_dir")"
 
+# go to root of repo
+# NOTE: all current scripts expect to run from the root (or are indifferent). If
+# you add scripts that depend on being in (or knowing the users current
+# directory), especially scripts with take parameters which are file paths,
+# you'll need to either keep track of the current directory (ie. store $PWD), or
+# move this cd to the relevant scripts.
+cd "$repo_dir"
+
 # load mise environment (in case we're run from outside the project directory)
 eval "$(mise --cd "$repo_dir" hook-env --shell 'bash' 2> /dev/null)"
 
@@ -31,8 +39,6 @@ dev::usage() {
 }
 
 dev::setup() {
-    cd "$repo_dir"
-
     echo '==> install brew'
     if ! type 'brew' > /dev/null 2>&1; then
         /bin/bash -c "$(curl -fsSL --tlsv1.2 https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -70,8 +76,6 @@ dev::setup() {
 }
 
 dev::reset() {
-    cd "$repo_dir"
-
     echo '==> stop db'
     dev::stop
 
