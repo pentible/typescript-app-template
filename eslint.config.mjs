@@ -1,41 +1,28 @@
-import {
-    pentibleEslintConfig,
-    relativeIgnoreFile,
-} from "@pentible/eslint-config";
-import { pentibleEslintConfigExpo } from "@pentible/eslint-config-expo";
-import { pentibleEslintConfigNext } from "@pentible/eslint-config-next";
-import { pentibleEslintConfigNode } from "@pentible/eslint-config-node";
-import { pentibleEslintConfigPrettier } from "@pentible/eslint-config-prettier";
-import { pentibleEslintConfigReact } from "@pentible/eslint-config-react";
-import { pentibleEslintConfigWeb } from "@pentible/eslint-config-web";
+import { pentible, relativeIgnoreFile } from "@pentible/eslint-config";
+import { pentibleExpo } from "@pentible/eslint-config-expo";
+import { pentibleNext } from "@pentible/eslint-config-next";
+import { pentibleNode } from "@pentible/eslint-config-node";
+import { pentiblePrettier } from "@pentible/eslint-config-prettier";
+import { pentibleReact } from "@pentible/eslint-config-react";
+import { pentibleWeb } from "@pentible/eslint-config-web";
 import { defineConfig } from "eslint/config";
 
 const config = defineConfig([
     relativeIgnoreFile(".gitignore", import.meta.url),
-    pentibleEslintConfig,
-    pentibleEslintConfigPrettier,
+    pentible,
     {
         files: ["apps/web/**", "apps/desktop/**"],
-        extends: [
-            pentibleEslintConfigNode,
-            pentibleEslintConfigWeb,
-            pentibleEslintConfigReact,
-            pentibleEslintConfigNext,
-            pentibleEslintConfigPrettier,
-        ],
+        extends: [pentibleNode, pentibleWeb, pentibleReact, pentibleNext],
     },
     {
         files: ["apps/mobile/**"],
-        extends: [
-            pentibleEslintConfigReact,
-            pentibleEslintConfigExpo,
-            pentibleEslintConfigPrettier,
-        ],
+        extends: [pentibleReact, pentibleExpo],
     },
     {
         files: ["apps/db/**", "apps/api/**"],
-        extends: [pentibleEslintConfigNode, pentibleEslintConfigPrettier],
+        extends: [pentibleNode],
     },
+    pentiblePrettier,
 ]);
 
 export default config;
