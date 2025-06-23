@@ -20,7 +20,7 @@ Built with Next.js, Expo, Tauri, tRPC, Tailwind CSS, Prisma, and Neon DB.
 ### mobile
 
 - setup app icon
-    - create app icon (expo provides a figma template and icon best practises
+    - create app icon (expo provides a figma template and icon best practices
       here: https://docs.expo.dev/develop/user-interface/app-icons/)
     - replace files in `apps/mobile/assets/images/` (with files exported from
       figma)
