@@ -1,11 +1,11 @@
 import "server-only";
 
+import type { AppRouter } from "@repo/api";
+import { appRouter, createTrpcContext } from "@repo/api";
 import { createTRPCClient, loggerLink, TRPCClientError } from "@trpc/client";
 import { callTRPCProcedure } from "@trpc/server";
 import { observable } from "@trpc/server/observable";
 import type { TRPCErrorResponse } from "@trpc/server/rpc";
-import type { AppRouter } from "api";
-import { appRouter, createTrpcContext } from "api";
 import { cookies as getCookies, headers as getHeaders } from "next/headers";
 import { cache } from "react";
 

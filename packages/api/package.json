@@ -1,20 +1,30 @@
 {
-    "name": "api",
+    "name": "@repo/api",
     "version": "0.0.0",
     "private": true,
     "type": "module",
     "imports": {
-        "#src/*": "./src/*.ts"
+        "#src/*": "./dist/src/*"
     },
     "exports": {
-        ".": "./src/index.ts"
+        ".": {
+            "default": "./dist/src/index.js",
+            "types": "./dist/src/index.d.ts"
+        }
+    },
+    "scripts": {
+        "build": "tsc",
+        "dev": "tsc --watch",
+        "lint": "eslint",
+        "lint:prettier": "prettier --check --ignore-path ../../.gitignore .",
+        "typecheck": "tsc --noEmit"
     },
     "dependencies": {
         "@paralleldrive/cuid2": "2.2.2",
+        "@repo/db": "*",
         "@trpc/client": "11.4.2",
         "@trpc/react-query": "11.4.2",
         "@trpc/server": "11.4.2",
-        "db": "*",
         "next": "15.3.4",
         "superjson": "2.2.2",
         "zod": "3.25.67"

@@ -1,9 +1,7 @@
 {
-    "extends": "@pentible/tsconfig/tsconfig.json",
+    "extends": "@pentible/tsconfig",
     "compilerOptions": {
         "sourceMap": true,
-        "declarationMap": true,
-        "declaration": true
-    },
-    "references": [{ "path": "../db" }]
+        "declarationMap": true
+    }
 }

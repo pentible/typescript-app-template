@@ -1,10 +1,10 @@
 "use client";
 
+import type { AppRouter } from "@repo/api";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { httpBatchLink, loggerLink } from "@trpc/client";
 import { createTRPCReact } from "@trpc/react-query";
-import type { AppRouter } from "api";
 import type { ReactNode } from "react";
 import superjson from "superjson";
 import { env } from "#src/env";

@@ -1,1 +1,1 @@
-export * from "#src/db";
+export * from "#src/db.js";

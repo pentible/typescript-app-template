@@ -4,7 +4,45 @@
     "tasks": {
         "dev": {
             "cache": false,
-            "persistent": true
+            "persistent": true,
+            "dependsOn": ["^build"]
+        },
+        "build": {
+            "outputLogs": "errors-only",
+            "dependsOn": ["^build"]
+        },
+        "typecheck": {
+            "outputLogs": "errors-only",
+            "dependsOn": ["^build"]
+        },
+        "//#typecheck:root": {
+            "outputLogs": "errors-only",
+            "dependsOn": ["^build"],
+            "inputs": ["*.config.mjs"]
+        },
+        "lint": {
+            "outputLogs": "errors-only",
+            "with": ["lint:prettier"],
+            "dependsOn": ["^build"]
+        },
+        "//#lint:root": {
+            "outputLogs": "errors-only",
+            "with": [
+                "lint:prettier:root",
+                "lint:package-lock",
+                "lint:shellcheck"
+            ],
+            "inputs": ["*.config.mjs"]
+        },
+        "lint:prettier": { "outputLogs": "errors-only" },
+        "//#lint:prettier:root": { "outputLogs": "errors-only" },
+        "//#lint:package-lock": {
+            "outputLogs": "errors-only",
+            "inputs": ["package.json", "**/package.json", "package-lock.json"]
+        },
+        "//#lint:shellcheck": {
+            "outputLogs": "errors-only",
+            "inputs": ["bin/*", ".husky/*"]
         }
     }
 }

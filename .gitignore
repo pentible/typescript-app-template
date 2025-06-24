@@ -1,19 +1,14 @@
-# common ignores
 node_modules/
-/packages/*/dist/
-/apps/*/dist/
-/.husky/_/
-*.tgz
-*.tsbuildinfo
-/.env*.local
-/apps/web/.next/
-/apps/desktop/.next/
-/.vscode/settings.json
+dist/
 .turbo/
-.DS_Store
-.vercel
+.next/
 .expo/
+.vercel
+.eslintcache
+.DS_Store
+/.env*.local
+/.vscode/settings.json
 /target/
 /apps/desktop/out/
 /apps/desktop/src-tauri/gen/schemas/
-.eslintcache
+/.husky/_/

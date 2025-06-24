@@ -1,5 +1,5 @@
 {
-    "name": "desktop",
+    "name": "@repo/desktop",
     "version": "0.0.0",
     "private": true,
     "type": "module",
@@ -7,16 +7,18 @@
         "prebuild": "NODE_ENV=production tsx ./src/env.ts",
         "build": "tauri build",
         "desktop": "tauri dev",
-        "start": "next start"
+        "lint": "eslint",
+        "lint:prettier": "prettier --check --ignore-path ../../.gitignore .",
+        "start": "next start",
+        "typecheck": "tsc --noEmit"
     },
     "dependencies": {
+        "@repo/api": "*",
         "@t3-oss/env-nextjs": "0.13.8",
         "@tanstack/react-query": "5.80.7",
         "@trpc/client": "11.4.2",
         "@trpc/react-query": "11.4.2",
         "@trpc/server": "11.4.2",
-        "api": "*",
-        "db": "*",
         "next": "15.3.4",
         "react": "19.0.0",
         "react-dom": "19.0.0",

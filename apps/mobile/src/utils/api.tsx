@@ -1,7 +1,7 @@
+import type { AppRouter } from "@repo/api";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink, loggerLink } from "@trpc/client";
 import { createTRPCReact } from "@trpc/react-query";
-import type { AppRouter } from "api";
 import constants from "expo-constants";
 import type { ReactNode } from "react";
 import superjson from "superjson";

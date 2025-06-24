@@ -8,6 +8,5 @@
         "target": "ESNext",
         // react-native requirements
         "jsx": "react-native"
-    },
-    "references": [{ "path": "../../packages/api" }]
+    }
 }

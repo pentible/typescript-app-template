@@ -87,6 +87,9 @@ dev::reset() {
 
     echo '==> install dependencies'
     npm install
+
+    echo '==> build packages'
+    turbo run build --filter='./packages/*'
 }
 
 dev::start() {
@@ -106,11 +109,11 @@ dev::start() {
 }
 
 dev::desktop() {
-    npm run -w desktop desktop
+    npm run -w @repo/desktop desktop
 }
 
 dev::android() {
-    npm run -w mobile android
+    npm run -w @repo/mobile android
 }
 
 dev::ios() {
@@ -119,7 +122,7 @@ dev::ios() {
     # there with the previous version of the app, not connected to the server)
     trap 'xcrun simctl terminate booted host.exp.Exponent 2>/dev/null' EXIT
 
-    npm run -w mobile ios
+    npm run -w @repo/mobile ios
 }
 
 dev::stop() {
@@ -127,14 +130,11 @@ dev::stop() {
 }
 
 dev::lint() {
-    check-package-lock
-    shellcheck-all
-    tsc -b
-    eslint --cache
-    prettier --log-level warn --check .
+    turbo run lint lint:root typecheck typecheck:root --continue=dependencies-successful
 }
 
 dev::lint::fix() {
+    # TODO: lint fix with turbo?...
     eslint --cache --fix
     prettier --log-level warn --write .
 }

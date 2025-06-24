@@ -7,8 +7,8 @@
  * need to use are documented accordingly near the end.
  */
 
+import { prisma } from "@repo/db";
 import { TRPCError, initTRPC } from "@trpc/server";
-import { prisma } from "db";
 import type { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import superjson from "superjson";
 import { ZodError } from "zod";
