@@ -134,8 +134,9 @@ dev::lint() {
 }
 
 dev::lint::fix() {
-    turbo run lint lint:root --continue=dependencies-successful -- --fix
+    # TODO: really we want to run just eslint, and then prettier, and probably always both so we can fix formatting even with eslint errors
     turbo run lint:prettier lint:prettier:root --continue=dependencies-successful -- --write
+    turbo run lint lint:root --continue=dependencies-successful -- --fix
 }
 
 dev::db::up() {

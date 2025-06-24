@@ -1,5 +1,5 @@
 {
-    "$schema": "https://turbo.build/schema.json",
+    "$schema": "./node_modules/turbo/schema.json",
     "envMode": "loose",
     "tasks": {
         "dev": {
@@ -23,7 +23,8 @@
         "lint": {
             "outputLogs": "errors-only",
             "with": ["lint:prettier"],
-            "dependsOn": ["^build"]
+            "dependsOn": ["^build"],
+            "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/eslint.config.mjs"]
         },
         "//#lint:root": {
             "outputLogs": "errors-only",
