@@ -6,19 +6,16 @@ export const env = createEnv({
     shared: {
         NODE_ENV: z.enum(["development", "test", "production"]),
     },
-    server: {
-        // DATABASE_URL: z.string().url(),
-        APP_URL: z.string().url(),
-    },
+    server: {},
     // NOTE: client is for public env vars, available on the client and the server
     client: {
-        // NEXT_PUBLIC_CLIENT_VAR: z.string().min(1),
+        NEXT_PUBLIC_APP_URL: z.string().url(),
     },
     // NOTE: client side env vars must be directly referenced from `process.env`
     // for the nextjs compiler to properly inline them
     experimental__runtimeEnv: {
         NODE_ENV: process.env.NODE_ENV,
-        // NEXT_PUBLIC_CLIENT_VAR: process.env.NEXT_PUBLIC_CLIENT_VAR,
+        NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     },
     emptyStringAsUndefined: true,
 });

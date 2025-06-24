@@ -1,11 +1,13 @@
 import { Feather } from "@expo/vector-icons";
+import { useQuery } from "@tanstack/react-query";
 import { Link } from "expo-router";
 import { Text, View } from "react-native";
 import colors from "tailwindcss/colors";
-import { api } from "#src/utils/api";
+import { useTrpc } from "#src/utils/api";
 
 export default function TabOneScreen() {
-    const examples = api.example.getAll.useQuery();
+    const api = useTrpc();
+    const examples = useQuery(api.example.getAll.queryOptions());
 
     return (
         <View className="flex-1 items-center justify-center bg-indigo-900">

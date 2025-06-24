@@ -3,15 +3,17 @@
 import type { AppRouter } from "@repo/api";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { httpBatchLink, loggerLink } from "@trpc/client";
-import { createTRPCReact } from "@trpc/react-query";
+import { httpBatchLink, loggerLink, createTRPCClient } from "@trpc/client";
+import { createTRPCContext } from "@trpc/tanstack-react-query";
 import type { ReactNode } from "react";
 import superjson from "superjson";
 import { env } from "#src/env";
 import { useConst } from "#src/utils/use-const";
 
-export const api: ReturnType<typeof createTRPCReact<AppRouter>> =
-    createTRPCReact<AppRouter>();
+// TODO: consider changing, idk
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const { TRPCProvider, useTRPC } = createTRPCContext<AppRouter>();
+export { useTRPC as useTrpc };
 
 const createQueryClient = () => new QueryClient();
 
@@ -39,11 +41,11 @@ interface Props {
     children: ReactNode;
 }
 
-export function TrpcReactProvider({ children }: Props) {
+export function TrpcProvider({ children }: Props) {
     const queryClient = getQueryClient();
 
     const trpcClient = useConst(() => {
-        return api.createClient({
+        return createTRPCClient<AppRouter>({
             links: [
                 loggerLink({
                     enabled: (opts) =>
@@ -61,9 +63,9 @@ export function TrpcReactProvider({ children }: Props) {
 
     return (
         <QueryClientProvider client={queryClient}>
-            <api.Provider client={trpcClient} queryClient={queryClient}>
+            <TRPCProvider trpcClient={trpcClient} queryClient={queryClient}>
                 {children}
-            </api.Provider>
+            </TRPCProvider>
             {env.NEXT_PUBLIC_REACT_QUERY_DEVTOOLS_ENABLED ? (
                 <ReactQueryDevtools />
             ) : null}

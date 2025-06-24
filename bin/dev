@@ -48,6 +48,7 @@ dev::setup() {
     brew install \
         mise \
         homebrew/cask/docker \
+        homebrew/cask/android-studio \
         neonctl \
         postgresql
 

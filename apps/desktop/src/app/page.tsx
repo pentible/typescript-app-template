@@ -1,10 +1,12 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
 import { FiRefreshCw } from "react-icons/fi";
-import { api } from "#src/utils/api";
+import { useTrpc } from "#src/utils/api";
 
 export default function Home() {
-    const examples = api.example.getAll.useQuery();
+    const api = useTrpc();
+    const examples = useQuery(api.example.getAll.queryOptions());
 
     return (
         <main className="container mx-auto flex flex-col items-center p-4">

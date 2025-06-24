@@ -1,14 +1,15 @@
 import type { AppRouter } from "@repo/api";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { httpBatchLink, loggerLink } from "@trpc/client";
-import { createTRPCReact } from "@trpc/react-query";
+import { httpBatchLink, loggerLink, createTRPCClient } from "@trpc/client";
+import { createTRPCContext } from "@trpc/tanstack-react-query";
 import constants from "expo-constants";
 import type { ReactNode } from "react";
 import superjson from "superjson";
 import { env } from "#src/env";
 
-export const api: ReturnType<typeof createTRPCReact<AppRouter>> =
-    createTRPCReact<AppRouter>();
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const { TRPCProvider, useTRPC } = createTRPCContext<AppRouter>();
+export { useTRPC as useTrpc };
 
 function getBaseUrl() {
     const localhost = constants.expoConfig?.hostUri?.split(":")[0];
@@ -26,7 +27,7 @@ const queryClient = new QueryClient({
         },
     },
 });
-const trpcClient = api.createClient({
+const trpcClient = createTRPCClient<AppRouter>({
     links: [
         loggerLink({
             colorMode: "ansi",
@@ -48,9 +49,9 @@ interface Props {
 export function TrpcProvider({ children }: Props) {
     return (
         <QueryClientProvider client={queryClient}>
-            <api.Provider client={trpcClient} queryClient={queryClient}>
+            <TRPCProvider trpcClient={trpcClient} queryClient={queryClient}>
                 {children}
-            </api.Provider>
+            </TRPCProvider>
         </QueryClientProvider>
     );
 }
