@@ -18,7 +18,7 @@
         "//#typecheck:root": {
             "outputLogs": "errors-only",
             "dependsOn": ["^build"],
-            "inputs": ["*.config.mjs"]
+            "inputs": ["tsconfig.json", "*.config.mjs"]
         },
         "lint": {
             "outputLogs": "errors-only",
