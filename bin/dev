@@ -134,9 +134,8 @@ dev::lint() {
 }
 
 dev::lint::fix() {
-    # TODO: lint fix with turbo?...
-    eslint --cache --fix
-    prettier --log-level warn --write .
+    turbo run lint lint:root --continue=dependencies-successful -- --fix
+    turbo run lint:prettier lint:prettier:root --continue=dependencies-successful -- --write
 }
 
 dev::db::up() {

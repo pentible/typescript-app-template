@@ -12,7 +12,7 @@
         "build": "turbo run build",
         "dev": "turbo run dev",
         "lint": "turbo run lint lint:root --continue=dependencies-successful",
-        "lint:fix": "./bin/dev lint fix",
+        "lint:fix": "npm run lint -- -- --fix && npm run lint:prettier -- -- --write",
         "lint:package-lock": "check-package-lock",
         "lint:prettier": "turbo run lint:prettier lint:prettier:root --continue=dependencies-successful",
         "lint:prettier:root": "prettier --check . --ignore-path .gitignore --ignore-path .root.prettierignore",
