@@ -5,6 +5,7 @@ import { pentibleNode } from "@pentible/eslint-config-node";
 import { pentiblePrettier } from "@pentible/eslint-config-prettier";
 import { pentibleReact } from "@pentible/eslint-config-react";
 import { pentibleWeb } from "@pentible/eslint-config-web";
+import reactQuery from "@tanstack/eslint-plugin-query";
 import { defineConfig } from "eslint/config";
 
 const config = defineConfig([
@@ -12,11 +13,21 @@ const config = defineConfig([
     pentible,
     {
         files: ["apps/web/**", "apps/desktop/**"],
-        extends: [pentibleNode, pentibleWeb, pentibleReact, pentibleNext],
+        extends: [
+            pentibleNode,
+            pentibleWeb,
+            pentibleReact,
+            reactQuery.configs["flat/recommended"],
+            pentibleNext,
+        ],
     },
     {
         files: ["apps/mobile/**"],
-        extends: [pentibleReact, pentibleExpo],
+        extends: [
+            pentibleReact,
+            reactQuery.configs["flat/recommended"],
+            pentibleExpo,
+        ],
     },
     // TODO: remove & fix errors
     { rules: { "react-refresh/only-export-components": "off" } },
