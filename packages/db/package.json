@@ -13,7 +13,6 @@
         }
     },
     "scripts": {
-        "prebuild": "NODE_ENV=production tsx ./src/env.ts",
         "build": "tsc",
         "dev": "tsc --watch",
         "lint": "eslint",
