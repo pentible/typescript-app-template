@@ -17,6 +17,7 @@
         "dev": "tsc --watch",
         "lint:eslint": "eslint",
         "lint:prettier": "prettier --check --ignore-path ../../.gitignore .",
+        "lint:prisma": "prisma validate",
         "prepare": "prisma generate --no-hints",
         "typecheck": "tsc --noEmit"
     },

@@ -22,7 +22,7 @@
         },
         "lint": {
             "outputLogs": "errors-only",
-            "with": ["lint:eslint", "lint:prettier"],
+            "with": ["lint:eslint", "lint:prettier", "lint:prisma"],
             "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/eslint.config.mjs"]
         },
         "//#lint:root": {
@@ -39,6 +39,7 @@
         "//#lint:eslint:root": { "outputLogs": "errors-only" },
         "lint:prettier": { "outputLogs": "errors-only" },
         "//#lint:prettier:root": { "outputLogs": "errors-only" },
+        "lint:prisma": { "outputLogs": "errors-only", "inputs": ["prisma/**"] },
         "//#lint:package-lock": {
             "outputLogs": "errors-only",
             "inputs": ["package.json", "**/package.json", "package-lock.json"]
