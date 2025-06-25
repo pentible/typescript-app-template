@@ -7,7 +7,7 @@
         "prebuild": "NODE_ENV=production tsx ./src/env.ts",
         "build": "tauri build",
         "desktop": "tauri dev",
-        "lint": "eslint",
+        "lint:eslint": "eslint",
         "lint:prettier": "prettier --check --ignore-path ../../.gitignore .",
         "start": "next start",
         "typecheck": "tsc --noEmit"

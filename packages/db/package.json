@@ -15,7 +15,7 @@
     "scripts": {
         "build": "tsc",
         "dev": "tsc --watch",
-        "lint": "eslint",
+        "lint:eslint": "eslint",
         "lint:prettier": "prettier --check --ignore-path ../../.gitignore .",
         "typecheck": "tsc --noEmit"
     },

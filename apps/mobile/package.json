@@ -6,7 +6,7 @@
     "scripts": {
         "android": "expo start --clear --android",
         "ios": "expo start --clear --ios",
-        "lint": "eslint",
+        "lint:eslint": "eslint",
         "lint:prettier": "prettier --check --ignore-path ../../.gitignore .",
         "start": "expo start --clear",
         "typecheck": "tsc --noEmit"
