@@ -10,6 +10,12 @@ import { defineConfig } from "eslint/config";
 
 const config = defineConfig([
     relativeIgnoreFile(".gitignore", import.meta.url),
+    {
+        settings: {
+            // NOTE: required because n plugin doesn't read the root package.json
+            node: { version: "^22" },
+        },
+    },
     pentible,
     {
         files: ["apps/web/**", "apps/desktop/**"],
