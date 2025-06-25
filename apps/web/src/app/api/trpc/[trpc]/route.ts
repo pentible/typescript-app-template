@@ -1,4 +1,4 @@
-import { appRouter, createTrpcContext } from "@repo/api";
+import { appRouter, createTrpcContext } from "@repo/backend";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import { cookies } from "next/headers";
 import type { NextRequest } from "next/server";

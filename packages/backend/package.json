@@ -1,5 +1,5 @@
 {
-    "name": "@repo/db",
+    "name": "@repo/backend",
     "version": "0.0.0",
     "private": true,
     "type": "module",
@@ -17,12 +17,18 @@
         "dev": "tsc --watch",
         "lint:eslint": "eslint",
         "lint:prettier": "prettier --check --ignore-path ../../.gitignore .",
+        "prepare": "prisma generate --no-hints",
         "typecheck": "tsc --noEmit"
     },
     "dependencies": {
         "@paralleldrive/cuid2": "2.2.2",
         "@prisma/client": "6.10.1",
         "@t3-oss/env-nextjs": "0.13.8",
+        "@trpc/client": "11.4.2",
+        "@trpc/react-query": "11.4.2",
+        "@trpc/server": "11.4.2",
+        "next": "15.3.4",
+        "superjson": "2.2.2",
         "zod": "3.25.67"
     },
     "devDependencies": {

@@ -100,7 +100,7 @@ dev::start() {
     dev::db::up
 
     # push schema to db
-    prisma migrate deploy
+    npx -w @repo/backend prisma migrate deploy
 
     # run seeds
     dev::db::seed
@@ -154,7 +154,7 @@ dev::db::up() {
 }
 
 dev::db::seed() {
-    tsx ./packages/db/src/seed.ts
+    tsx ./packages/backend/src/seed.ts
 }
 
 dev::db::local() {
@@ -174,7 +174,7 @@ dev::db::prod() {
 dev::db::migrate::local() {
     dev::db::up
 
-    prisma migrate dev
+    npx -w @repo/backend prisma migrate dev
 }
 
 dev::env::edit::dev() {

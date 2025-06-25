@@ -23,7 +23,6 @@
         "lint": {
             "outputLogs": "errors-only",
             "with": ["lint:eslint", "lint:prettier"],
-            "dependsOn": ["^build"],
             "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/eslint.config.mjs"]
         },
         "//#lint:root": {
@@ -36,7 +35,7 @@
             ],
             "inputs": ["*.config.mjs"]
         },
-        "lint:eslint": { "outputLogs": "errors-only" },
+        "lint:eslint": { "outputLogs": "errors-only", "dependsOn": ["^build"] },
         "//#lint:eslint:root": { "outputLogs": "errors-only" },
         "lint:prettier": { "outputLogs": "errors-only" },
         "//#lint:prettier:root": { "outputLogs": "errors-only" },

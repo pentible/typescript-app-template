@@ -18,7 +18,7 @@
         "lint:prettier": "turbo run lint:prettier lint:prettier:root --continue=dependencies-successful",
         "lint:prettier:root": "prettier --check . --ignore-path .gitignore --ignore-path .root.prettierignore",
         "lint:shellcheck": "shellcheck-all",
-        "prepare": "husky && prisma generate --no-hints",
+        "prepare": "husky",
         "typecheck": "turbo run typecheck typecheck:root",
         "typecheck:root": "tsc --noEmit"
     },

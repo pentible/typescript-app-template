@@ -1,7 +1,0 @@
-{
-    "extends": "@pentible/tsconfig",
-    "compilerOptions": {
-        "sourceMap": true,
-        "declarationMap": true
-    }
-}

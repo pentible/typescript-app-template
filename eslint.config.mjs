@@ -38,7 +38,7 @@ const config = defineConfig([
     // TODO: remove & fix errors
     { rules: { "react-refresh/only-export-components": "off" } },
     {
-        files: ["apps/db/**", "apps/api/**"],
+        files: ["packages/backend/**"],
         extends: [pentibleNode],
     },
     pentiblePrettier,
