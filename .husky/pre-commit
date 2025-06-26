@@ -1,5 +1,4 @@
 #!/usr/bin/env sh
 
-npx check-package-lock
-npx tsc -b
+turbo run lint:package-lock typecheck typecheck:root
 npx lint-staged
