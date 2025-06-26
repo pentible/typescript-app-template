@@ -8,9 +8,12 @@ import type { ReactNode } from "react";
 import superjson from "superjson";
 import { env } from "#src/env";
 
-// TODO: consider changing, idk
+// NOTE: renamed before exporting
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const { TRPCProvider, useTRPC } = createTRPCContext<AppRouter>();
+
+// NOTE: this file shouldn't change that much, so losing fast refresh is fine
+// eslint-disable-next-line react-refresh/only-export-components
 export { useTRPC as useTrpc };
 
 const queryClient = new QueryClient({

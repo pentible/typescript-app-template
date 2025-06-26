@@ -6,13 +6,13 @@ function TabBarCodeIcon({ color }: { color: string }) {
     return <Feather size={28} name="refresh-cw" color={color} />;
 }
 
-function HeaderRight() {
+function TabOneHeaderRight() {
     return (
         <View className="mr-2 flex flex-row gap-2">
             <Link href="/modal" asChild>
                 <Feather name="info" size={28} />
             </Link>
-            <Link href="https://google.com">
+            <Link href="https://google.com" asChild>
                 <Feather name="external-link" size={28} />
             </Link>
         </View>
@@ -21,17 +21,13 @@ function HeaderRight() {
 
 export default function TabLayout() {
     return (
-        <Tabs
-            screenOptions={{
-                tabBarActiveTintColor: "black",
-            }}
-        >
+        <Tabs screenOptions={{ tabBarActiveTintColor: "black" }}>
             <Tabs.Screen
                 name="index"
                 options={{
                     title: "Tab One",
                     tabBarIcon: TabBarCodeIcon,
-                    headerRight: HeaderRight,
+                    headerRight: TabOneHeaderRight,
                 }}
             />
             <Tabs.Screen

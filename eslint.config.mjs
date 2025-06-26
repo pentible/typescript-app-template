@@ -35,8 +35,6 @@ const config = defineConfig([
             pentibleExpo,
         ],
     },
-    // TODO: remove & fix errors
-    { rules: { "react-refresh/only-export-components": "off" } },
     {
         files: ["packages/backend/**"],
         extends: [pentibleNode],

@@ -4,7 +4,7 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "prebuild": "NODE_ENV=production tsx ./src/env.ts",
+        "prebuild": "NODE_ENV=production node --experimental-strip-types ./src/env.ts",
         "build": "tauri build",
         "desktop": "tauri dev",
         "lint:eslint": "eslint",

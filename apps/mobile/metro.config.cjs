@@ -11,6 +11,7 @@ const workspaceRoot = path.resolve(projectRoot, "../..");
 // Create the default Metro config
 const config = getDefaultConfig(projectRoot);
 
+// TODO: should only watch package/* deps: https://docs.expo.dev/guides/monorepos/#1-why-do-we-need-to-watch
 // 1. Watch all files within the monorepo
 config.watchFolders = [workspaceRoot];
 // 2. Let Metro know where to resolve packages and in what order

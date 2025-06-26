@@ -25,6 +25,8 @@ import { TrpcProvider } from "#src/utils/api";
 // Catch any errors thrown by the Layout component.
 export { ErrorBoundary } from "expo-router";
 
+// NOTE: this file shouldn't change that much, so losing fast refresh is fine
+// eslint-disable-next-line react-refresh/only-export-components
 export const unstable_settings = {
     // Ensure that reloading on `/modal` keeps a back button present.
     initialRouteName: "(tabs)",

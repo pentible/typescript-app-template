@@ -9,7 +9,7 @@ const tauriAppUrl =
 
 const allowedOrigins = [
     env.APP_URL,
-    env.VERCEL_URL != null ? `https://${env.VERCEL_URL}` : undefined,
+    env.VERCEL_URL !== undefined ? `https://${env.VERCEL_URL}` : undefined,
     tauriAppUrl,
 ].filter((o) => o !== undefined);
 

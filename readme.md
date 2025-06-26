@@ -2,7 +2,8 @@
 
 Template typescript application with a web, mobile, and desktop app.
 
-Built with Next.js, Expo, Tauri, tRPC, Tailwind CSS, Prisma, and Neon DB.
+Built with Next.js, Expo, Tauri, tRPC, Turborepo, Tailwind CSS, Prisma, and Neon
+DB.
 
 ## setup
 
@@ -10,7 +11,6 @@ Built with Next.js, Expo, Tauri, tRPC, Tailwind CSS, Prisma, and Neon DB.
     - mobile: `apps/mobile`
     - desktop: `apps/desktop`
     - web: `apps/web`
-- remove references to any removed apps from `tsconfig.json`
 - find/replace `ptat` with your app name
 - find/replace `example.com` with your org domain
 - find/replace `com.example` with your org reverse domain
@@ -109,9 +109,7 @@ Built with Next.js, Expo, Tauri, tRPC, Tailwind CSS, Prisma, and Neon DB.
 - setup app icon
     - generate desktop icons
         ```bash
-        cd apps/desktop
-        npx tauri icon ~/Downloads/your-icon.png
-        cd ../..
+        npx -w @repo/desktop tauri icon ~/Downloads/your-icon.png
         ```
 
 ---
@@ -155,6 +153,7 @@ trusted_config_paths = ["~/Projects"] # where ~/Projects is wherever you clone y
     {
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "[prisma]": { "editor.defaultFormatter": "Prisma.prisma" },
         "editor.codeActionsOnSave": {
             "source.fixAll.eslint": "explicit",
         },
@@ -165,12 +164,16 @@ trusted_config_paths = ["~/Projects"] # where ~/Projects is wherever you clone y
             // set all eslint errors/warnings to show as warnings
             { "rule": "*", "severity": "warn" },
             // disable some rules in editor (they're just annoying while coding)
-            { "rule": "import/no-unused-modules", "severity": "off" },
+            { "rule": "import-x/no-unused-modules", "severity": "off" },
         ],
         "typescript.preferences.importModuleSpecifier": "non-relative",
         "javascript.preferences.importModuleSpecifier": "non-relative",
         "typescript.tsdk": "./node_modules/typescript/lib",
         "typescript.enablePromptUseWorkspaceTsdk": true,
+        "files.associations": {
+            "turbo.json": "jsonc",
+            "*.css": "tailwindcss",
+        },
     }
     ```
 

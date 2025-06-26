@@ -32,17 +32,19 @@ export default function TabOneScreen() {
                     size={32}
                 />
             </Link>
-            {[
-                "font-sans-light",
-                "font-sans",
-                "font-sans-medium",
-                "font-sans-semibold",
-                "font-sans-bold",
-            ].map((font) => (
-                <Text key={font} className={`${font} text-3xl text-indigo-50`}>
-                    Q: {font}
-                </Text>
-            ))}
+            <FontWeightPreview font="font-sans-light" />
+            <FontWeightPreview font="font-sans" />
+            <FontWeightPreview font="font-sans-medium" />
+            <FontWeightPreview font="font-sans-semibold" />
+            <FontWeightPreview font="font-sans-bold" />
         </View>
     );
+}
+
+interface FontWeightPreviewProps {
+    font: string;
+}
+
+function FontWeightPreview({ font }: FontWeightPreviewProps) {
+    return <Text className={`${font} text-3xl text-indigo-50`}>Q: {font}</Text>;
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+import type { CSSProperties } from "react";
 import { FiRefreshCw } from "react-icons/fi";
 import { useTrpc } from "#src/utils/api";
 
@@ -28,25 +29,29 @@ export default function Home() {
             ) : (
                 <p className="text-2xl">no examples?</p>
             )}
-            {(
-                [
-                    "normal",
-                    "100",
-                    "200",
-                    "300",
-                    "400",
-                    "500",
-                    "600",
-                    "700",
-                    "800",
-                    "900",
-                    "bold",
-                ] as const
-            ).map((fontWeight) => (
-                <p key={fontWeight} className="text-4xl" style={{ fontWeight }}>
-                    font-weight-{fontWeight}
-                </p>
-            ))}
+            <FontWeightPreview fontWeight="normal" />
+            <FontWeightPreview fontWeight="100" />
+            <FontWeightPreview fontWeight="200" />
+            <FontWeightPreview fontWeight="300" />
+            <FontWeightPreview fontWeight="400" />
+            <FontWeightPreview fontWeight="500" />
+            <FontWeightPreview fontWeight="600" />
+            <FontWeightPreview fontWeight="700" />
+            <FontWeightPreview fontWeight="800" />
+            <FontWeightPreview fontWeight="900" />
+            <FontWeightPreview fontWeight="bold" />
         </main>
+    );
+}
+
+interface FontWeightPreviewProps {
+    fontWeight: CSSProperties["fontWeight"];
+}
+
+function FontWeightPreview({ fontWeight }: FontWeightPreviewProps) {
+    return (
+        <p className="text-4xl" style={{ fontWeight }}>
+            font-weight-{fontWeight}
+        </p>
     );
 }

@@ -109,6 +109,10 @@ dev::start() {
     turbo dev
 }
 
+dev::stop() {
+    docker compose down -v
+}
+
 dev::desktop() {
     npm run -w @repo/desktop desktop
 }
@@ -124,10 +128,6 @@ dev::ios() {
     trap 'xcrun simctl terminate booted host.exp.Exponent 2>/dev/null' EXIT
 
     npm run -w @repo/mobile ios
-}
-
-dev::stop() {
-    docker compose down -v
 }
 
 dev::lint() {
@@ -154,7 +154,7 @@ dev::db::up() {
 }
 
 dev::db::seed() {
-    tsx ./packages/backend/src/seed.ts
+    node --experimental-strip-types ./packages/backend/src/db/seed.ts
 }
 
 dev::db::local() {
@@ -177,28 +177,23 @@ dev::db::migrate::local() {
     npx -w @repo/backend prisma migrate dev
 }
 
-dev::env::edit::dev() {
+dev::sops() {
     EDITOR="${PTAT_DEV_EDITOR:-$EDITOR}" \
         sops \
         --unencrypted-regex '(_unencrypted$|^EXPO_PUBLIC_|^NEXT_PUBLIC_)' \
-        "$@" \
-        .env.development.yaml
+        "$@"
+}
+
+dev::env::edit::dev() {
+    dev::sops "$@" .env.development.yaml
 }
 
 dev::env::edit::preview() {
-    EDITOR="${PTAT_DEV_EDITOR:-$EDITOR}" \
-        sops \
-        --unencrypted-regex '(_unencrypted$|^EXPO_PUBLIC_|^NEXT_PUBLIC_)' \
-        "$@" \
-        .env.preview.yaml
+    dev::sops "$@" .env.preview.yaml
 }
 
 dev::env::edit::prod() {
-    EDITOR="${PTAT_DEV_EDITOR:-$EDITOR}" \
-        sops \
-        --unencrypted-regex '(_unencrypted$|^EXPO_PUBLIC_|^NEXT_PUBLIC_)' \
-        "$@" \
-        .env.production.yaml
+    dev::sops "$@" .env.production.yaml
 }
 
 case "$*" in

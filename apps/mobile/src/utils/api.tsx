@@ -7,8 +7,12 @@ import type { ReactNode } from "react";
 import superjson from "superjson";
 import { env } from "#src/env";
 
+// NOTE: renamed before exporting
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const { TRPCProvider, useTRPC } = createTRPCContext<AppRouter>();
+
+// NOTE: this file shouldn't change that much, so losing fast refresh is fine
+// eslint-disable-next-line react-refresh/only-export-components
 export { useTRPC as useTrpc };
 
 function getBaseUrl() {
