@@ -49,7 +49,11 @@ DB.
         age-keygen -o "${HOME}/${name}.private"
         
         # save secret key to global sops config
+        # macos:
         declare sops_age_dir="${HOME}/Library/Application Support/sops/age"
+        # linux:
+        declare sops_age_dir="${HOME}/.config/sops/age"
+        
         mkdir -p "$sops_age_dir"
         cat "${HOME}/${name}.private" >> "${sops_age_dir}/keys.txt"
         ```
@@ -83,11 +87,13 @@ DB.
     - commit new secret files
 
 - setup github actions secrets (for deploy script)
+
     - `NEON_API_KEY` (create here
       https://console.neon.tech/app/settings/api-keys)
     - `SOPS_AGE_KEY` (your sops private key, created above)
     - `VERCEL_ORG_ID` (aka `Vercel ID` from https://vercel.com/account)
     - `VERCEL_TOKEN` (create here https://vercel.com/account/tokens)
+
 - setup github actions vars (for deploy script)
 
     > NOTE: we setup these values as vars because they show up in urls/etc, so
@@ -100,9 +106,19 @@ DB.
     - `VERCEL_SCOPE` (your vercel team, or personal account name)
 
 - setup neon db
+
     - create a database in your project `neonctl databases create --name ptat`
     - update the database name in `bin/dev`'s `dev::db::prod` function (if you
       haven't already)
+
+- setup vercel
+    - Login to https://vercel.com/
+    - Add New Project
+    - Find your new repo and click `Import`
+    - Under `Root Directory` click `Edit`
+    - Navigate to `apps/web`, select it, and continue
+    - Click `Deploy` (this may fail at this stage, that's fine)
+    - `Settings` > `Build and Deployment` > `Node.js Version` > 22
 
 ### desktop
 
