@@ -39,18 +39,47 @@ dev::usage() {
 }
 
 dev::setup() {
-    echo '==> install brew'
-    if ! type 'brew' > /dev/null 2>&1; then
-        /bin/bash -c "$(curl -fsSL --tlsv1.2 https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    fi
+    if [[ "$OSTYPE" == "linux"* ]]; then
+        declare -a dependencies=(
+            mise
+            docker
+            studio # android studio
+            neonctl
+            psql
+        )
 
-    echo '==> install dependencies'
-    brew install \
-        mise \
-        homebrew/cask/docker \
-        homebrew/cask/android-studio \
-        neonctl \
-        postgresql
+        declare -a missing_deps
+        for dependency in "${dependencies[@]}"; do
+            if ! type "$dependency" > /dev/null 2>&1; then
+                missing_deps+=("$dependency")
+            fi
+        done
+
+        if [[ "${#missing_deps}" != 0 ]]; then
+            echo "missing required dependencies:"
+            for dependency in "${missing_deps[@]}"; do
+                echo "- ${dependency}"
+            done
+
+            exit 1
+        fi
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
+        echo '==> install brew'
+        if ! type 'brew' > /dev/null 2>&1; then
+            /bin/bash -c "$(curl -fsSL --tlsv1.2 https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        fi
+
+        echo '==> install dependencies'
+        brew install \
+            mise \
+            homebrew/cask/docker \
+            homebrew/cask/android-studio \
+            neonctl \
+            postgresql
+    else
+        echo "unsupported os: ${OSTYPE}" >&2
+        exit 1
+    fi
 
     echo '==> create .env.local'
     if [[ ! -f .env.local ]]; then
@@ -110,6 +139,8 @@ dev::start() {
 }
 
 dev::stop() {
+    # TODO: detect/stop running server
+
     docker compose down -v
 }
 
