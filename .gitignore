@@ -12,3 +12,4 @@ dist/
 /apps/desktop/out/
 /apps/desktop/src-tauri/gen/schemas/
 /.husky/_/
+.swc/

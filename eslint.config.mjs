@@ -13,7 +13,7 @@ const config = defineConfig([
     {
         settings: {
             // NOTE: required because n plugin doesn't read the root package.json
-            node: { version: "^22" },
+            node: { version: "^24" },
         },
     },
     pentible,

@@ -39,18 +39,32 @@ dev::usage() {
 }
 
 dev::setup() {
-    echo '==> install brew'
-    if ! type 'brew' > /dev/null 2>&1; then
-        /bin/bash -c "$(curl -fsSL --tlsv1.2 https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    fi
+    os="$(uname -s)"
+    if [[ "$os" == "Linux" ]]; then
+        declare -a missing_deps
+        if ! type 'mise' > /dev/null; then
+            missing_deps+=("mise")
+        fi
+        if ! type 'psql' > /dev/null; then
+            missing_deps+=("psql")
+        fi
+        if ! type 'docker' > /dev/null; then
+            missing_deps+=("docker")
+        fi
+    else
+        echo '==> install brew'
+        if ! type 'brew' > /dev/null 2>&1; then
+            /bin/bash -c "$(curl -fsSL --tlsv1.2 https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        fi
 
-    echo '==> install dependencies'
-    brew install \
-        mise \
-        homebrew/cask/docker \
-        homebrew/cask/android-studio \
-        neonctl \
-        postgresql
+        echo '==> install dependencies'
+        brew install \
+            mise \
+            homebrew/cask/docker \
+            homebrew/cask/android-studio \
+            neonctl \
+            postgresql
+    fi
 
     echo '==> create .env.local'
     if [[ ! -f .env.local ]]; then
@@ -85,6 +99,7 @@ dev::reset() {
 
     echo '==> reload mise'
     mise install
+    eval "$(mise --cd "$repo_dir" hook-env --shell 'bash' 2> /dev/null)"
 
     echo '==> install dependencies'
     npm install
@@ -98,12 +113,6 @@ dev::start() {
 
     # start db
     dev::db::up
-
-    # push schema to db
-    npx -w @repo/backend prisma migrate deploy
-
-    # run seeds
-    dev::db::seed
 
     # run dev
     turbo dev
@@ -150,6 +159,12 @@ dev::db::up() {
             sleep 1
         done
         echo >&2
+
+        # push schema to db
+        npx -w @repo/backend prisma migrate deploy
+
+        # run seeds
+        dev::db::seed
     fi
 }
 

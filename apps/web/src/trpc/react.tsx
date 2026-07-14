@@ -2,6 +2,7 @@
 
 import type { AppRouter } from "@repo/backend";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import type { QueryClientConfig } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { httpBatchLink, loggerLink, createTRPCClient } from "@trpc/client";
 import { createTRPCContext } from "@trpc/tanstack-react-query";
@@ -18,17 +19,18 @@ const { TRPCProvider, useTRPC } = createTRPCContext<AppRouter>();
 // eslint-disable-next-line react-refresh/only-export-components
 export { useTRPC as useTrpc };
 
-const createQueryClient = () => new QueryClient();
+const createQueryClient = (options: QueryClientConfig) =>
+    new QueryClient(options);
 
 let clientQueryClientSingleton: QueryClient | undefined = undefined;
-const getQueryClient = () => {
+const getQueryClient = (options: QueryClientConfig) => {
     if (typeof window === "undefined") {
         // Server: always make a new query client
-        return createQueryClient();
+        return createQueryClient(options);
     }
 
     // Browser: use singleton pattern to keep the same query client
-    return (clientQueryClientSingleton ??= createQueryClient());
+    return (clientQueryClientSingleton ??= createQueryClient(options));
 };
 
 function getBaseUrl() {
@@ -45,7 +47,7 @@ interface Props {
 }
 
 export function TrpcProvider({ children }: Props) {
-    const queryClient = getQueryClient();
+    const queryClient = getQueryClient({});
 
     const trpcClient = useConst(() => {
         return createTRPCClient<AppRouter>({

@@ -6,7 +6,6 @@
             "#src/*": ["./src/*"]
         },
         "sourceMap": true,
-        "declarationMap": true,
         // next requirements
         "resolveJsonModule": true,
         "jsx": "preserve",

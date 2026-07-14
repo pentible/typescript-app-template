@@ -34,12 +34,10 @@ DB.
 ### web
 
 - setup app icon
-
     - create `favicon.ico` from your app icon (many tools exist online to do
       this): `apps/web/src/app/favicon.ico`
 
 - setup sops (for encrypted env vars)
-
     - create secret key
 
         ```bash
@@ -56,7 +54,6 @@ DB.
 
     - save secret key to your password manager (so you don't lose it, and can
       share with your team)
-
         - replace `your password manager` below in readme with the name of your
           password manager (ie. `1password`) as well as updating the associated
           link to point at the shared secret key
@@ -92,7 +89,6 @@ DB.
 
     > NOTE: we setup these values as vars because they show up in urls/etc, so
     > it's pretty annoying if they get masked out
-
     - `NEON_PROJECT_ID` (in your project's `Settings`
       https://console.neon.tech/app/projects)
     - `NEON_DATABASE_USERNAME` (ie. the name of one of your projects roles)
@@ -144,7 +140,6 @@ trusted_config_paths = ["~/Projects"] # where ~/Projects is wherever you clone y
 - when you open the project in vscode, you should be prompted automatically to
   install the recommended extensions
 - settings can either be configured:
-
     - globally, via the `Preferences: Open User Settings (JSON)` command
     - just for this project, via the
       `Preferences: Open Workspace Settings (JSON)` command
