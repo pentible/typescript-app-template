@@ -1,7 +1,6 @@
 {
     "extends": "@pentible/tsconfig",
     "compilerOptions": {
-        "baseUrl": ".",
         "paths": {
             "#src/*": ["./src/*"]
         },

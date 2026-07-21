@@ -134,6 +134,13 @@ trusted_config_paths = ["~/Projects"] # where ~/Projects is wherever you clone y
 
 - `dev start`
 
+## Android
+
+- Launch android studio
+    - run through the android sdk setup wizard
+    - create a virtual device (emulator)
+- `dev android`
+
 ### vscode (optional)
 
 - if you use vscode, we have some recommended extensions and settings

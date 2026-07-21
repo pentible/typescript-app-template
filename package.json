@@ -34,14 +34,14 @@
         "@pentible/prettier": "0.115.0",
         "@pentible/shellcheck-all": "0.115.0",
         "@pentible/tsconfig": "0.115.0",
-        "@tanstack/eslint-plugin-query": "5.81.2",
-        "eslint": "9.29.0",
+        "@tanstack/eslint-plugin-query": "5.101.2",
+        "eslint": "9.39.5",
         "husky": "9.1.7",
         "lint-staged": "16.1.2",
         "prettier": "3.8.3",
         "prettier-plugin-tailwindcss": "0.6.12",
         "turbo": "2.8.14",
-        "typescript": "5.8.3"
+        "typescript": "6.0.3"
     },
     "packageManager": "npm@10.9.2",
     "engines": {

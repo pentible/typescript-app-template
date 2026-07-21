@@ -11,6 +11,8 @@ export const env = createEnv({
     // expo compiler to properly inline them.
     // SEE: https://docs.expo.dev/guides/environment-variables/
     runtimeEnvStrict: {
+        // NOTE: expo is breaking these types with ExpoProcessEnv
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         EXPO_PUBLIC_APP_URL: process.env.EXPO_PUBLIC_APP_URL,
     },
     emptyStringAsUndefined: true,

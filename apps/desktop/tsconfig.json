@@ -1,12 +1,10 @@
 {
     "extends": "@pentible/tsconfig",
     "compilerOptions": {
-        "baseUrl": ".",
         "paths": {
             "#src/*": ["./src/*"]
         },
         "sourceMap": true,
-        "declarationMap": true,
         // next requirements
         "resolveJsonModule": true,
         "jsx": "preserve",

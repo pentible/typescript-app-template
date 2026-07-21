@@ -1,10 +1,7 @@
 import Feather from "@expo/vector-icons/Feather";
 import { Link, Tabs } from "expo-router";
 import { View } from "react-native";
-
-function TabBarCodeIcon({ color }: { color: string }) {
-    return <Feather size={28} name="refresh-cw" color={color} />;
-}
+import type { ColorValue } from "react-native";
 
 function TabOneHeaderRight() {
     return (
@@ -20,13 +17,25 @@ function TabOneHeaderRight() {
 }
 
 export default function TabLayout() {
+    const tabBarIcon = ({
+        color,
+        size,
+    }: {
+        // TODO: idk maaaan
+        // focused: boolean;
+        color: ColorValue;
+        size: number;
+    }) => {
+        return <Feather size={size} name="refresh-cw" color={color} />;
+    };
+
     return (
         <Tabs screenOptions={{ tabBarActiveTintColor: "black" }}>
             <Tabs.Screen
                 name="index"
                 options={{
                     title: "Tab One",
-                    tabBarIcon: TabBarCodeIcon,
+                    tabBarIcon,
                     headerRight: TabOneHeaderRight,
                 }}
             />
@@ -34,7 +43,7 @@ export default function TabLayout() {
                 name="two"
                 options={{
                     title: "Tab Two",
-                    tabBarIcon: TabBarCodeIcon,
+                    tabBarIcon,
                 }}
             />
         </Tabs>
