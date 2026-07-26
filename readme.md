@@ -165,8 +165,13 @@ trusted_config_paths = ["~/Projects"] # where ~/Projects is wherever you clone y
         "eslint.rules.customizations": [
             // set all eslint errors/warnings to show as warnings
             { "rule": "*", "severity": "warn" },
-            // disable some rules in editor (they're just annoying while coding)
+            // hide warnings for some rules in editor (they're just annoying while coding)
             { "rule": "import-x/no-unused-modules", "severity": "off" },
+        ],
+        "eslint.codeActionsOnSave.rules": [
+            // disable autofix for some rules in editor (they're just annoying while coding)
+            "!@typescript-eslint/no-confusing-void-expression",
+            "*",
         ],
         "typescript.preferences.importModuleSpecifier": "non-relative",
         "javascript.preferences.importModuleSpecifier": "non-relative",
