@@ -2,8 +2,7 @@
 
 Template typescript application with a web, mobile, and desktop app.
 
-Built with Next.js, Expo, Tauri, tRPC, Turborepo, Tailwind CSS, Prisma, and Neon
-DB.
+Built with Next.js, Expo, Tauri, tRPC, Mise, Tailwind CSS, Prisma, and Neon DB.
 
 ## setup
 
@@ -98,7 +97,6 @@ DB.
 
     > NOTE: we setup these values as vars because they show up in urls/etc, so
     > it's pretty annoying if they get masked out
-
     - `NEON_PROJECT_ID` (in your project's `Settings`
       https://console.neon.tech/app/projects)
     - `NEON_DATABASE_USERNAME` (ie. the name of one of your projects roles)
@@ -187,7 +185,6 @@ trusted_config_paths = ["~/Projects"] # where ~/Projects is wherever you clone y
         "typescript.tsdk": "./node_modules/typescript/lib",
         "typescript.enablePromptUseWorkspaceTsdk": true,
         "files.associations": {
-            "turbo.json": "jsonc",
             "*.css": "tailwindcss",
         },
     }

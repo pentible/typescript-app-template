@@ -1,12 +1,13 @@
 {
     "extends": "@pentible/tsconfig",
     "compilerOptions": {
-        "baseUrl": ".",
+        "composite": true,
         "paths": {
-            "#src/*": ["./src/*"]
+            "#/*": ["./src/*"]
         },
         "target": "ESNext",
         // react-native requirements
         "jsx": "react-native"
-    }
+    },
+    "references": [{ "path": "../../packages/backend" }]
 }

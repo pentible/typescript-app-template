@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import type { CSSProperties } from "react";
 import { FiRefreshCw } from "react-icons/fi";
-import { useTrpc } from "#src/trpc/react";
+import { useTrpc } from "#/trpc/react";
 
 export default function Home() {
     const api = useTrpc();

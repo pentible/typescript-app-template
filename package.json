@@ -9,42 +9,30 @@
         "./packages/*"
     ],
     "scripts": {
-        "build": "turbo run build",
-        "dev": "turbo run dev",
-        "lint": "turbo run lint lint:root --continue=dependencies-successful",
-        "lint:eslint:root": "eslint --ignore-pattern '{packages,apps}/'",
-        "lint:fix": "npm run lint:eslint -- -- --fix && npm run lint:prettier -- -- --write",
-        "lint:package-lock": "check-package-lock",
-        "lint:prettier": "turbo run lint:prettier lint:prettier:root --continue=dependencies-successful",
-        "lint:prettier:root": "prettier --check . --ignore-path .gitignore --ignore-path .root.prettierignore",
-        "lint:shellcheck": "shellcheck-all",
-        "prepare": "husky",
-        "typecheck": "turbo run typecheck typecheck:root",
-        "typecheck:root": "tsc --noEmit"
+        "prepare": "husky"
     },
     "devDependencies": {
-        "@pentible/check-package-lock": "0.114.0",
-        "@pentible/eslint-config": "0.114.0",
-        "@pentible/eslint-config-expo": "0.114.0",
-        "@pentible/eslint-config-next": "0.114.0",
-        "@pentible/eslint-config-node": "0.114.0",
-        "@pentible/eslint-config-prettier": "0.114.0",
-        "@pentible/eslint-config-react": "0.114.0",
-        "@pentible/eslint-config-web": "0.114.0",
-        "@pentible/prettier": "0.114.0",
-        "@pentible/shellcheck-all": "0.114.0",
-        "@pentible/tsconfig": "0.114.0",
+        "@pentible/check-package-lock": "0.123.0",
+        "@pentible/eslint-config": "0.123.0",
+        "@pentible/eslint-config-expo": "0.123.0",
+        "@pentible/eslint-config-next": "0.123.0",
+        "@pentible/eslint-config-node": "0.123.0",
+        "@pentible/eslint-config-prettier": "0.123.0",
+        "@pentible/eslint-config-react": "0.123.0",
+        "@pentible/eslint-config-web": "0.123.0",
+        "@pentible/prettier": "0.123.0",
+        "@pentible/shellcheck-all": "0.123.0",
+        "@pentible/tsconfig": "0.123.0",
         "@tanstack/eslint-plugin-query": "5.81.2",
-        "eslint": "9.29.0",
+        "eslint": "9.39.5",
         "husky": "9.1.7",
-        "lint-staged": "16.1.2",
-        "prettier": "3.5.3",
-        "prettier-plugin-tailwindcss": "0.6.12",
-        "turbo": "2.5.4",
-        "typescript": "5.8.3"
+        "lint-staged": "17.3.0",
+        "prettier": "3.9.6",
+        "prettier-plugin-tailwindcss": "0.8.1",
+        "typescript": "6.0.3",
+        "typescript-eslint": "8.65.0"
     },
-    "packageManager": "npm@10.9.2",
     "engines": {
-        "node": "^22"
+        "node": "^24"
     }
 }

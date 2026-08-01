@@ -5,7 +5,7 @@ import { createTRPCContext } from "@trpc/tanstack-react-query";
 import constants from "expo-constants";
 import type { ReactNode } from "react";
 import superjson from "superjson";
-import { env } from "#src/env";
+import { env } from "#/env";
 
 // NOTE: renamed before exporting
 // eslint-disable-next-line @typescript-eslint/naming-convention

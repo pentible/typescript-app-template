@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "expo-router";
 import { Text, View } from "react-native";
 import colors from "tailwindcss/colors";
-import { useTrpc } from "#src/utils/api";
+import { useTrpc } from "#/utils/api";
 
 export default function TabOneScreen() {
     const api = useTrpc();

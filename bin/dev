@@ -117,9 +117,6 @@ dev::reset() {
 
     echo '==> install dependencies'
     npm install
-
-    echo '==> build packages'
-    turbo run build --filter='./packages/*'
 }
 
 dev::start() {
@@ -135,7 +132,11 @@ dev::start() {
     dev::db::seed
 
     # run dev
-    turbo dev
+    FORCE_COLOR=1 \
+        MISE_TASK_TIMINGS=0 \
+        mise run \
+        --continue-on-error \
+        dev
 }
 
 dev::stop() {
@@ -162,12 +163,29 @@ dev::ios() {
 }
 
 dev::lint() {
-    turbo run lint lint:root typecheck typecheck:root --continue=dependencies-successful
+    # NOTE: using MISE_TASK_TIMINGS=0 because --no-timings doesn't seem to work...
+    # NOTE: eslint only respects FORCE_COLOR, prettier only respects COLOR
+    COLOR=1 \
+        FORCE_COLOR=1 \
+        MISE_TASK_TIMINGS=0 \
+        mise run \
+        --continue-on-error \
+        --output keep-order \
+        --quiet \
+        lint
 }
 
 dev::lint::fix() {
-    turbo run lint:eslint lint:eslint:root --continue=dependencies-successful -- --fix
-    turbo run lint:prettier lint:prettier:root --continue=dependencies-successful -- --write
+    # NOTE: using MISE_TASK_TIMINGS=0 because --no-timings doesn't seem to work...
+    # NOTE: eslint only respects FORCE_COLOR, prettier only respects COLOR
+    COLOR=1 \
+        FORCE_COLOR=1 \
+        MISE_TASK_TIMINGS=0 \
+        mise run \
+        --continue-on-error \
+        --output keep-order \
+        --quiet \
+        lint:fix
 }
 
 dev::db::up() {
