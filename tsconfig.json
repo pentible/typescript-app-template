@@ -1,4 +1,10 @@
 {
-    "extends": "@pentible/tsconfig/js",
-    "include": ["*.config.mjs"]
+    "extends": "@pentible/tsconfig",
+    "include": ["*.config.mjs"],
+    "references": [
+        { "path": "packages/backend" },
+        { "path": "apps/web" },
+        { "path": "apps/mobile" },
+        { "path": "apps/desktop" }
+    ]
 }

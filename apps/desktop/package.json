@@ -6,11 +6,7 @@
     "scripts": {
         "prebuild": "NODE_ENV=production node --experimental-strip-types ./src/env.ts",
         "build": "tauri build",
-        "desktop": "tauri dev",
-        "lint:eslint": "eslint",
-        "lint:prettier": "prettier --check --ignore-path ../../.gitignore .",
-        "start": "next start",
-        "typecheck": "tsc --noEmit"
+        "desktop": "tauri dev"
     },
     "dependencies": {
         "@t3-oss/env-nextjs": "0.13.8",
@@ -18,23 +14,22 @@
         "@trpc/client": "11.4.2",
         "@trpc/server": "11.4.2",
         "@trpc/tanstack-react-query": "11.4.2",
-        "next": "15.3.4",
+        "next": "16.3.0-preview.10",
         "react": "19.0.0",
         "react-dom": "19.0.0",
         "react-icons": "5.5.0",
-        "superjson": "2.2.2",
+        "superjson": "2.2.6",
         "zod": "3.25.67"
     },
     "devDependencies": {
         "@repo/backend": "*",
         "@tauri-apps/cli": "2.5.0",
-        "@types/node": "22.15.31",
+        "@types/node": "24.13.3",
         "@types/react": "19.0.14",
         "@types/react-dom": "19.0.6",
         "autoprefixer": "10.4.21",
         "babel-plugin-react-compiler": "19.0.0-beta-ebf51a3-20250411",
         "postcss": "8.4.31",
-        "tailwindcss": "3.4.17",
-        "typescript-eslint": "8.34.1"
+        "tailwindcss": "3.4.17"
     }
 }

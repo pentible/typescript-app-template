@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { env } from "#src/env";
+import { env } from "#/env";
 
 const tauriAppUrl =
     env.NODE_ENV === "production"
@@ -17,7 +17,7 @@ export const config = {
     matcher: "/api/:path*",
 };
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
     const origin = request.headers.get("origin") ?? env.APP_URL;
     const originAllowed = allowedOrigins.includes(origin);
     // TODO: review headers (current is based on trpc docs: https://trpc.io/docs/server/adapters/nextjs#handling-cors-and-other-advanced-usage)

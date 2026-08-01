@@ -7,8 +7,8 @@ import { httpBatchLink, loggerLink, createTRPCClient } from "@trpc/client";
 import { createTRPCContext } from "@trpc/tanstack-react-query";
 import type { ReactNode } from "react";
 import superjson from "superjson";
-import { env } from "#src/env";
-import { useConst } from "#src/utils/use-const";
+import { env } from "#/env";
+import { useConst } from "#/utils/use-const";
 
 // NOTE: renamed before exporting
 // eslint-disable-next-line @typescript-eslint/naming-convention

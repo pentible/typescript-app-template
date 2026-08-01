@@ -1,5 +1,0 @@
-"*":
-  - prettier --check
-  - shellcheck-all --color=always
-"*.{js,ts,mjs,cjs,jsx,tsx}":
-  - eslint --cache

@@ -1,6 +1,5 @@
 node_modules/
 dist/
-.turbo/
 .next/
 .expo/
 .vercel
@@ -12,3 +11,4 @@ dist/
 /apps/desktop/out/
 /apps/desktop/src-tauri/gen/schemas/
 /.husky/_/
+tsconfig.tsbuildinfo

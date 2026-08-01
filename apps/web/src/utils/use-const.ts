@@ -23,5 +23,8 @@ export function useConst<T>(initialValue: () => T): T {
         ref.current = { value: initialValue() };
     }
 
+    // NOTE: the ref value is stable, so we're explicitly not concerned that it
+    // won't re-rendering on change
+    // eslint-disable-next-line react-hooks/refs
     return ref.current.value;
 }

@@ -1,0 +1,2 @@
+[tasks.build]
+run = "tauri build"
