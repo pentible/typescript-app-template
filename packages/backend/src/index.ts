@@ -1,9 +1,9 @@
 import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
-import type { AppRouter } from "#src/routers/root.js";
+import type { AppRouter } from "#src/routers/root";
 
-export { prisma } from "#src/db/prisma.js";
-export { appRouter, type AppRouter } from "#src/routers/root.js";
-export { createTrpcContext } from "#src/trpc.js";
+export { prisma } from "#src/db/prisma";
+export { appRouter, type AppRouter } from "#src/routers/root";
+export { createTrpcContext } from "#src/trpc";
 
 /**
  * @example type HelloInput = RouterInputs['example']['hello']

@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { env } from "#src/env.js";
+import { env } from "#src/env";
 
 declare global {
     var prisma: PrismaClient | undefined;

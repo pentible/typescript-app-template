@@ -4,22 +4,13 @@
     "private": true,
     "type": "module",
     "imports": {
-        "#src/*": "./dist/src/*"
+        "#src/*": "./src/*.ts"
     },
     "exports": {
-        ".": {
-            "default": "./dist/src/index.js",
-            "types": "./dist/src/index.d.ts"
-        }
+        ".": "./src/index.ts"
     },
     "scripts": {
-        "build": "tsc",
-        "dev": "tsc --watch",
-        "lint:eslint": "eslint",
-        "lint:prettier": "prettier --check --ignore-path ../../.gitignore .",
-        "lint:prisma": "prisma validate",
-        "prepare": "prisma generate --no-hints",
-        "typecheck": "tsc --noEmit"
+        "prepare": "prisma generate --no-hints"
     },
     "dependencies": {
         "@paralleldrive/cuid2": "2.2.2",

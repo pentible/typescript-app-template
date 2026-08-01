@@ -117,9 +117,6 @@ dev::reset() {
 
     echo '==> install dependencies'
     npm install
-
-    echo '==> build packages'
-    turbo run build --filter='./packages/*'
 }
 
 dev::start() {
