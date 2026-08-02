@@ -44,7 +44,6 @@ dev::setup() {
             mise
             docker
             studio # android studio
-            neonctl
             psql
         )
 
@@ -74,7 +73,6 @@ dev::setup() {
             mise \
             homebrew/cask/docker \
             homebrew/cask/android-studio \
-            neonctl \
             postgresql
     else
         echo "unsupported os: ${OSTYPE}" >&2
