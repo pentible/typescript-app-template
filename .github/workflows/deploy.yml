@@ -19,15 +19,13 @@ jobs:
       github.event.pull_request.merged
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: jdx/mise-action@v4
         with:
-          node-version-file: package.json
+          github_token: ${{ secrets.GITHUB_TOKEN }}
       - run: npm ci
 
       # update db
-      - name: Install neonctl
-        run: npm i -g neonctl@2.9.0
       - name: Fetch database credentials
         env:
           NEON_PROJECT_ID: ${{ vars.NEON_PROJECT_ID }}
@@ -43,8 +41,6 @@ jobs:
         run: npx -w @repo/backend prisma migrate deploy
 
       # decrypt env
-      - name: Install sops
-        uses: mdgreenwald/mozilla-sops-action@v1.5.0
       - name: Decrypt environment variables
         env:
           SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
@@ -56,10 +52,6 @@ jobs:
           echo "APP_ENVS=${envs}" >> "$GITHUB_ENV"
 
       # deploy
-      - name: Install Vercel CLI
-        run: |
-          npm install --global vercel@latest
-          vercel --version
       - name: Deploy
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}

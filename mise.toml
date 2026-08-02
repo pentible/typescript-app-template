@@ -19,6 +19,8 @@ sops = "3.10.2"
 age = "1.2.1"
 jq = "1.8.0"
 rust = "stable"
+neonctl = "2.27.0"
+vercel = "58.4.4"
 
 [tasks.lint]
 depends = [
