@@ -49,6 +49,10 @@ silent = true
 run = "expo install --check"
 dir = "{{ config_root }}/apps/mobile"
 silent = true
+[tasks.'expo:doctor']
+run = "expo-doctor"
+dir = "{{ config_root }}/apps/mobile"
+silent = true
 
 [tasks.'lint:fix']
 depends = ["prettier:fix", "eslint:fix"]

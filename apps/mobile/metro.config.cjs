@@ -1,6 +1,6 @@
 "use strict";
 
-const { getDefaultConfig } = require("@expo/metro-config");
+const { getDefaultConfig } = require("expo/metro-config");
 const { withNativeWind } = require("nativewind/metro");
 
 // Create the default Metro config

@@ -1,8 +1,9 @@
 import Feather from "@expo/vector-icons/Feather";
 import { Link, Tabs } from "expo-router";
 import { View } from "react-native";
+import type { ColorValue } from "react-native";
 
-function TabBarCodeIcon({ color }: { color: string }) {
+function TabBarCodeIcon({ color }: { color: ColorValue }) {
     return <Feather size={28} name="refresh-cw" color={color} />;
 }
 

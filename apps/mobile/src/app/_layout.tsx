@@ -7,13 +7,13 @@ import {
     Quicksand_600SemiBold,
     Quicksand_700Bold,
 } from "@expo-google-fonts/quicksand";
+import { useFonts } from "expo-font";
+import { Stack } from "expo-router";
 import {
     DarkTheme,
     DefaultTheme,
     ThemeProvider,
-} from "@react-navigation/native";
-import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+} from "expo-router/react-navigation";
 import {
     hideAsync as hideSplashAsync,
     preventAutoHideAsync as preventAutoHideSplashAsync,
