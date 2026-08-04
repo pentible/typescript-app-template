@@ -2,10 +2,11 @@
     "name": "@repo/mobile",
     "version": "1.0.0",
     "private": true,
+    "type": "module",
     "main": "expo-router/entry",
     "scripts": {
-        "android": "expo start --clear --android",
-        "ios": "expo start --clear --ios"
+        "android": "expo start --dev-client --clear --android",
+        "ios": "expo start --dev-client --clear --ios"
     },
     "dependencies": {
         "@expo-google-fonts/quicksand": "0.4.0",
@@ -14,11 +15,11 @@
         "@tanstack/react-query": "5.80.7",
         "@trpc/client": "11.4.2",
         "@trpc/tanstack-react-query": "11.4.2",
-        "expo": "57.0.9",
+        "expo": "~57.0.10",
         "expo-constants": "~57.0.8",
         "expo-font": "~57.0.1",
-        "expo-linking": "~57.0.4",
-        "expo-router": "~57.0.9",
+        "expo-linking": "~57.0.5",
+        "expo-router": "~57.0.10",
         "expo-splash-screen": "~57.0.5",
         "expo-status-bar": "~57.0.1",
         "expo-system-ui": "~57.0.2",
@@ -39,15 +40,9 @@
         "@babel/core": "^7.26.0",
         "@repo/backend": "*",
         "@types/react": "19.2.18",
+        "expo-dev-client": "57.0.10",
         "expo-doctor": "1.20.1",
         "react-test-renderer": "19.2.3",
         "tailwindcss": "3.4.17"
-    },
-    "expo": {
-        "doctor": {
-            "reactNativeDirectoryCheck": {
-                "listUnknownPackages": false
-            }
-        }
     }
 }

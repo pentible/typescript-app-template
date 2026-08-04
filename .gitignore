@@ -12,3 +12,7 @@ dist/
 /apps/desktop/src-tauri/gen/schemas/
 /.husky/_/
 tsconfig.tsbuildinfo
+
+# NOTE: these can be committed if we have a need, but otherwise can be avoided (https://docs.expo.dev/guides/adopting-prebuild/)
+/apps/mobile/android/
+/apps/mobile/ios/

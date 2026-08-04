@@ -15,7 +15,8 @@
         "adaptiveIcon": {
             "foregroundImage": "./assets/images/adaptive-icon.png",
             "backgroundColor": "#312E81"
-        }
+        },
+        "package": "com.example.ptat"
     },
     "plugins": [
         "expo-router",

@@ -30,7 +30,7 @@ depends = [
     "shellcheck",
     "tsc",
     "prisma:validate",
-    "expo:install:check",
+    "//apps/mobile:expo:doctor",
 ]
 [tasks.prettier]
 run = "prettier --check --log-level warn ."
@@ -44,14 +44,6 @@ run = "shellcheck-all"
 run = "tsc -b"
 [tasks.'prisma:validate']
 run = "prisma validate --schema packages/backend/prisma/schema.prisma"
-silent = true
-[tasks.'expo:install:check']
-run = "expo install --check"
-dir = "{{ config_root }}/apps/mobile"
-silent = true
-[tasks.'expo:doctor']
-run = "expo-doctor"
-dir = "{{ config_root }}/apps/mobile"
 silent = true
 
 [tasks.'lint:fix']

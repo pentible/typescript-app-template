@@ -1,0 +1,7 @@
+# TODO: should probably have dedicated build:android / build:ios tasks
+[tasks.build]
+run = "npx expo prebuild --platform android && cd android && ./gradlew assembleRelease"
+
+[tasks.'expo:doctor']
+run = "expo-doctor"
+silent = true

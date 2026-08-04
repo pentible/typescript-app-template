@@ -3,10 +3,10 @@
 const { getDefaultConfig } = require("expo/metro-config");
 const { withNativeWind } = require("nativewind/metro");
 
-// Create the default Metro config
-const config = getDefaultConfig(__dirname);
-
-module.exports = withNativeWind(config, {
+const defaultConfig = getDefaultConfig(__dirname);
+const config = withNativeWind(defaultConfig, {
     input: "./src/styles/globals.css",
     configPath: "./tailwind.config.cjs",
 });
+
+module.exports = config;
