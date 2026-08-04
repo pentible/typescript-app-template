@@ -1,2 +1,3 @@
+# TODO: fix appimage build and drop the bundle filters
 [tasks.build]
-run = "tauri build"
+run = "tauri build --bundles $(if [[ $OSTYPE == 'darwin'* ]]; then echo 'app,dmg'; else echo 'deb,rpm'; fi)"
