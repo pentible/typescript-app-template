@@ -5,7 +5,7 @@ export const env = createEnv({
     clientPrefix: "EXPO_PUBLIC_",
     // NOTE: client is for public env vars, available on the client and the server
     client: {
-        EXPO_PUBLIC_APP_URL: z.string().url(),
+        EXPO_PUBLIC_APP_URL: z.url(),
     },
     // NOTE: env vars must be directly referenced from `process.env.*` for the
     // expo compiler to properly inline them.

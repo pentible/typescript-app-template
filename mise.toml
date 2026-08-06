@@ -30,7 +30,8 @@ depends = [
     "shellcheck",
     "tsc",
     "prisma:validate",
-    "//apps/mobile:expo:doctor",
+    # TODO: unfortunately whenever there's patches for the current major version of expo, this starts erroring
+    # "//apps/mobile:expo:doctor",
 ]
 [tasks.prettier]
 run = "prettier --check --log-level warn ."

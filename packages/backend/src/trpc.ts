@@ -10,7 +10,7 @@
 import { TRPCError, initTRPC } from "@trpc/server";
 import type { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import superjson from "superjson";
-import { ZodError } from "zod";
+import { z, ZodError } from "zod";
 import { prisma } from "#/db/prisma";
 
 /**
@@ -79,7 +79,7 @@ const t = initTRPC.context<typeof createTrpcContext>().create({
                 ...shape.data,
                 zodError:
                     error.cause instanceof ZodError
-                        ? error.cause.flatten()
+                        ? z.treeifyError(error.cause)
                         : null,
             },
         };

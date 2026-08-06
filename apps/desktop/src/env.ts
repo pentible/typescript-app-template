@@ -9,7 +9,7 @@ export const env = createEnv({
     server: {},
     // NOTE: client is for public env vars, available on the client and the server
     client: {
-        NEXT_PUBLIC_APP_URL: z.string().url(),
+        NEXT_PUBLIC_APP_URL: z.url(),
     },
     // NOTE: client side env vars must be directly referenced from `process.env`
     // for the nextjs compiler to properly inline them

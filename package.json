@@ -23,7 +23,7 @@
         "@pentible/prettier": "0.123.0",
         "@pentible/shellcheck-all": "0.123.0",
         "@pentible/tsconfig": "0.123.0",
-        "@tanstack/eslint-plugin-query": "5.81.2",
+        "@tanstack/eslint-plugin-query": "5.101.4",
         "eslint": "9.39.5",
         "husky": "9.1.7",
         "lint-staged": "17.3.0",
