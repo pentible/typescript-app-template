@@ -53,6 +53,7 @@ export const api = createTRPCClient<AppRouter>({
                                 ctx,
                                 type: op.type,
                                 signal: undefined,
+                                batchIndex: 0,
                             });
                         })
                         .then((data) => {
