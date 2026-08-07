@@ -1,9 +1,8 @@
-experimental_monorepo_root = true
+monorepo_root = true
 
 [settings]
 status.missing_tools = "always"
 sops.rops = false
-experimental = true
 
 [monorepo]
 config_roots = ["apps/*", "packages/*"]
