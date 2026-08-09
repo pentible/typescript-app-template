@@ -1,7 +1,7 @@
 import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 import type { AppRouter } from "#/routers/root";
 
-export { prisma } from "#/db/prisma";
+export { prisma, PrismaClient } from "#/db/prisma";
 export { appRouter, type AppRouter } from "#/routers/root";
 export { createTrpcContext } from "#/trpc";
 

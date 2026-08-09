@@ -2,6 +2,9 @@ generator client {
     provider = "prisma-client"
     output   = "../src/generated/prisma"
 
+    runtime             = "nodejs"
+    importFileExtension = "ts"
+
     previewFeatures = ["relationJoins"]
 }
 

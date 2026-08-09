@@ -4,7 +4,7 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "prebuild": "NODE_ENV=production node --experimental-strip-types ./src/env.ts",
+        "prebuild": "NODE_ENV=production node ./src/env.ts",
         "build": "next build",
         "prepare": "next typegen"
     },

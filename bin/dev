@@ -201,7 +201,7 @@ dev::db::up() {
 }
 
 dev::db::seed() {
-    node --experimental-strip-types ./packages/backend/src/db/seed.ts
+    NODE_ENV=development node ./packages/backend/src/db/seed.ts
 }
 
 dev::db::local() {

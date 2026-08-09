@@ -1,8 +1,6 @@
 // eslint-disable-next-line import-x/no-unused-modules
 import { createId } from "@paralleldrive/cuid2";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "#/db/prisma";
 
 try {
     // TODO: create any data we need to test
