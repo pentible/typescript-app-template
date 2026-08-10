@@ -11,7 +11,7 @@ import { TRPCError, initTRPC } from "@trpc/server";
 import type { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import superjson from "superjson";
 import { z, ZodError } from "zod";
-import { prisma } from "#/db/prisma";
+import { prisma } from "#backend/db/prisma";
 
 /**
  * 1. CONTEXT

@@ -1,6 +1,6 @@
 // eslint-disable-next-line import-x/no-unused-modules
 import { createId } from "@paralleldrive/cuid2";
-import { prisma } from "#/db/prisma";
+import { prisma } from "#backend/db/prisma";
 
 try {
     // TODO: create any data we need to test

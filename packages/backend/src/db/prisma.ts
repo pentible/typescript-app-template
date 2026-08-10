@@ -1,9 +1,9 @@
 import { PrismaNeon } from "@prisma/adapter-neon";
 import { PrismaPg } from "@prisma/adapter-pg";
-import { env } from "#/env";
-import { PrismaClient } from "#/generated/prisma/client";
+import { env } from "#backend/env";
+import { PrismaClient } from "#backend/generated/prisma/client";
 
-export { PrismaClient } from "#/generated/prisma/client";
+export { PrismaClient } from "#backend/generated/prisma/client";
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 const globalForPrisma = global as unknown as {
