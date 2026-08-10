@@ -222,6 +222,7 @@ dev::db::migrate::local() {
     dev::db::up
 
     npx -w @repo/backend prisma migrate dev
+    npx -w @repo/backend prisma generate --no-hints
 }
 
 dev::sops() {

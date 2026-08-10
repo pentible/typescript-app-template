@@ -9,9 +9,6 @@
     "exports": {
         ".": "./src/index.ts"
     },
-    "scripts": {
-        "prepare": "prisma generate --no-hints"
-    },
     "dependencies": {
         "@paralleldrive/cuid2": "3.3.0",
         "@prisma/adapter-neon": "7.9.1",
