@@ -116,7 +116,7 @@ Built with Next.js, Expo, Tauri, tRPC, Mise, Tailwind CSS, Prisma, and Neon DB.
     - Under `Root Directory` click `Edit`
     - Navigate to `apps/web`, select it, and continue
     - Click `Deploy` (this may fail at this stage, that's fine)
-    - `Settings` > `Build and Deployment` > `Node.js Version` > 22
+    - `Settings` > `Build and Deployment` > `Node.js Version` > 24
 
 ### desktop
 

@@ -112,6 +112,7 @@ dev::reset() {
 
     echo '==> reload mise'
     mise install
+    eval "$(mise --cd "$repo_dir" hook-env --shell 'bash' 2> /dev/null)"
 
     echo '==> install dependencies'
     npm install
@@ -122,9 +123,6 @@ dev::start() {
 
     # start db
     dev::db::up
-
-    # push schema to db
-    npx -w @repo/backend prisma migrate deploy
 
     # run seeds
     dev::db::seed
@@ -198,6 +196,9 @@ dev::db::up() {
         done
         echo >&2
     fi
+
+    # push schema to db
+    npx -w @repo/backend prisma migrate deploy
 }
 
 dev::db::seed() {

@@ -1,7 +1,8 @@
 import "server-only";
 
-import type { AppRouter } from "@repo/backend";
-import { appRouter, createTrpcContext } from "@repo/backend";
+import { appRouter } from "@repo/backend/routers/root";
+import type { AppRouter } from "@repo/backend/routers/root";
+import { createTrpcContext } from "@repo/backend/trpc";
 import { createTRPCClient, loggerLink, TRPCClientError } from "@trpc/client";
 import { callTRPCProcedure } from "@trpc/server";
 import { observable } from "@trpc/server/observable";

@@ -22,6 +22,7 @@ neonctl = "2.27.0"
 vercel = "58.4.4"
 java = "temurin-21.0.12+8.0.LTS"
 android-sdk = "22.0"
+watchexec = "2.5.1"
 
 [tasks.lint]
 depends = [

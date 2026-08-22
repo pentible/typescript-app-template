@@ -20,8 +20,6 @@ import { prisma } from "#backend/db/prisma";
  *
  * These allow you to access things when processing a request, like the database, the session, etc.
  */
-
-// eslint-disable-next-line import-x/no-unused-modules
 export type TrpcContext = Awaited<ReturnType<typeof createTrpcContext>>;
 
 interface CreateTrpcContextInput {
@@ -117,7 +115,7 @@ export const publicProcedure = t.procedure;
  *
  * @see https://trpc.io/docs/procedures
  */
-// eslint-disable-next-line import-x/no-unused-modules
+
 export const protectedProcedure = t.procedure.use(async ({ ctx, next }) => {
     if (!ctx.session) {
         throw new TRPCError({ code: "UNAUTHORIZED" });

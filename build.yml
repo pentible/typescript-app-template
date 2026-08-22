@@ -1,0 +1,26 @@
+name: build
+on:
+  # NOTE: The ref for pull request triggered events defaults to
+  # `refs/pull/<pr-number>/merge`, this is essentially the virtual merge ref
+  # that would be created if the pr was merged. This means your checks have a
+  # much better idea of passing once merged.
+  pull_request:
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: jdx/mise-action@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install dependencies
+        run: npm ci
+      - env:
+          COLOR: 1
+          FORCE_COLOR: 1
+        run: |
+          mise run \
+          --continue-on-error \
+          --output keep-order \
+          build
