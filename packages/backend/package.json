@@ -7,7 +7,8 @@
         "#backend/*": "./src/*.ts"
     },
     "exports": {
-        ".": "./src/index.ts"
+        "./*": "./src/*.ts",
+        "./*.d": null
     },
     "dependencies": {
         "@paralleldrive/cuid2": "3.3.0",

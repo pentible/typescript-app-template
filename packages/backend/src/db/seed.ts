@@ -1,4 +1,3 @@
-// eslint-disable-next-line import-x/no-unused-modules
 import { createId } from "@paralleldrive/cuid2";
 import { prisma } from "#backend/db/prisma";
 
