@@ -7,13 +7,13 @@ import { pentibleReact } from "@pentible/eslint-config-react";
 import { pentibleWeb } from "@pentible/eslint-config-web";
 import reactQuery from "@tanstack/eslint-plugin-query";
 import { defineConfig } from "eslint/config";
+import packageJson from "./package.json" with { type: "json" };
 
 const config = defineConfig([
     relativeIgnoreFile(".gitignore", import.meta.url),
     {
         settings: {
-            // NOTE: required because n plugin doesn't read the root package.json
-            node: { version: "^24" },
+            node: { version: packageJson.engines.node },
         },
     },
     pentible,
