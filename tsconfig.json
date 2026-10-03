@@ -3,6 +3,7 @@
     "include": ["*.config.mjs"],
     "references": [
         { "path": "packages/backend" },
+        { "path": "packages/shared" },
         { "path": "apps/web" },
         { "path": "apps/mobile" },
         { "path": "apps/desktop" }

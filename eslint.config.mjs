@@ -36,7 +36,7 @@ const config = defineConfig([
         ],
     },
     {
-        files: ["packages/backend/**"],
+        files: ["packages/backend/**", "packages/shared/**"],
         extends: [pentibleNode],
         rules: {
             "import-x/no-unused-modules": "off",

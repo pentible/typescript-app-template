@@ -6,7 +6,7 @@ on:
     types:
       - closed
 concurrency:
-  group: preview-${{ github.ref }}
+  group: preview-${{ github.event.number }}
   cancel-in-progress: true
 jobs:
   preview-close:
@@ -22,5 +22,4 @@ jobs:
         with:
           project_id: ${{ vars.NEON_PROJECT_ID }}
           api_key: ${{ secrets.NEON_API_KEY }}
-          branch: |-
-            preview/pr-${{ github.event.number }}-${{ github.event.pull_request.head.ref }}
+          branch: preview/pr-${{ github.event.number }}

@@ -11,5 +11,8 @@
         "jsx": "preserve",
         "plugins": [{ "name": "next" }]
     },
-    "references": [{ "path": "../../packages/backend" }]
+    "references": [
+        { "path": "../../packages/backend" },
+        { "path": "../../packages/shared" }
+    ]
 }

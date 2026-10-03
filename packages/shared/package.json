@@ -1,0 +1,16 @@
+{
+    "name": "@repo/shared",
+    "version": "0.0.0",
+    "private": true,
+    "description": "code that can be used by any other app/package, frontend/backend",
+    "type": "module",
+    "imports": {
+        "#shared/*": "./src/*.ts"
+    },
+    "exports": {
+        "./*": "./src/*.ts",
+        "./*.d": null
+    },
+    "dependencies": {},
+    "devDependencies": {}
+}

@@ -2,7 +2,7 @@ import "#/styles/globals.css";
 import type { Metadata } from "next";
 import { Quicksand } from "next/font/google";
 import type { ReactNode } from "react";
-import { TrpcProvider } from "#/trpc/react";
+import { Providers } from "#/providers";
 
 const quicksand = Quicksand({
     subsets: ["latin"],
@@ -11,7 +11,7 @@ const quicksand = Quicksand({
 });
 
 export const metadata: Metadata = {
-    title: "ptat",
+    title: "Ptat",
     description: "bootstrapped with pentible/typescript-app-template",
 };
 
@@ -21,12 +21,14 @@ interface Props {
 
 export default function Layout({ children }: Props) {
     return (
-        <html lang="en">
-            <body
-                className={`${quicksand.variable} bg-indigo-900 font-sans text-indigo-50`}
-            >
-                <TrpcProvider>{children}</TrpcProvider>
-            </body>
-        </html>
+        <Providers>
+            <html lang="en">
+                <body
+                    className={`${quicksand.variable} bg-indigo-900 font-sans text-indigo-50`}
+                >
+                    {children}
+                </body>
+            </html>
+        </Providers>
     );
 }

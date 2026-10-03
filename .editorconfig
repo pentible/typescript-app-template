@@ -10,3 +10,7 @@ trim_trailing_whitespace = true
 
 [*.{yaml,yml}]
 indent_size = 2
+
+[[shell]]
+space_redirects = true
+switch_case_indent = true

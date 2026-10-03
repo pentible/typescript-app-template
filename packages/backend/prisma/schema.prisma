@@ -5,7 +5,7 @@ generator client {
     runtime             = "nodejs"
     importFileExtension = "ts"
 
-    previewFeatures = ["relationJoins"]
+    previewFeatures = ["relationJoins", "partialIndexes"]
 }
 
 datasource db {

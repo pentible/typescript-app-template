@@ -4,7 +4,7 @@ on:
     branches:
       - main
 concurrency:
-  group: preview-${{ github.ref }}
+  group: preview-${{ github.event.number }}
   cancel-in-progress: true
 jobs:
   preview:
@@ -31,8 +31,7 @@ jobs:
           api_key: ${{ secrets.NEON_API_KEY }}
           username: ${{ vars.NEON_DATABASE_USERNAME }}
           database: ${{ vars.NEON_DATABASE_NAME }}
-          branch_name: |-
-            preview/pr-${{ github.event.number }}-${{ github.event.pull_request.head.ref }}
+          branch_name: preview/pr-${{ github.event.number }}
       - name: Run Migrations
         env:
           DATABASE_URL: ${{ steps.branch.outputs.db_url }}

@@ -1,9 +1,7 @@
-import pentible from "@pentible/prettier";
-
 /** @satisfies {import("prettier").Config} */
 const config = {
-    ...pentible,
-    plugins: [...pentible.plugins, "prettier-plugin-tailwindcss"],
+    proseWrap: "always",
+    plugins: ["prettier-plugin-packagejson", "prettier-plugin-tailwindcss"],
 };
 
 export default config;

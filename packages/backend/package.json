@@ -2,6 +2,7 @@
     "name": "@repo/backend",
     "version": "0.0.0",
     "private": true,
+    "description": "code for use in the backend only (or types only from the frontend)",
     "type": "module",
     "imports": {
         "#backend/*": "./src/*.ts"
@@ -15,15 +16,16 @@
         "@prisma/adapter-neon": "7.9.1",
         "@prisma/adapter-pg": "7.9.1",
         "@prisma/client": "7.9.1",
+        "@repo/shared": "*",
         "@t3-oss/env-nextjs": "0.13.11",
         "@trpc/client": "11.18.0",
         "@trpc/react-query": "11.18.0",
         "@trpc/server": "11.18.0",
-        "next": "16.3.0",
         "superjson": "2.2.6",
         "zod": "4.4.3"
     },
     "devDependencies": {
+        "next": "16.3.0",
         "prisma": "7.9.1"
     }
 }

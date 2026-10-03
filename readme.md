@@ -43,16 +43,16 @@ Built with Next.js, Expo, Tauri, tRPC, Mise, Tailwind CSS, Prisma, and Neon DB.
 
         ```bash
         declare name='ptat'
-        
+
         # create key
         age-keygen -o "${HOME}/${name}.private"
-        
+
         # save secret key to global sops config
         # macos:
         declare sops_age_dir="${HOME}/Library/Application Support/sops/age"
         # linux:
         declare sops_age_dir="${HOME}/.config/sops/age"
-        
+
         mkdir -p "$sops_age_dir"
         cat "${HOME}/${name}.private" >> "${sops_age_dir}/keys.txt"
         ```
@@ -116,7 +116,7 @@ Built with Next.js, Expo, Tauri, tRPC, Mise, Tailwind CSS, Prisma, and Neon DB.
     - Under `Root Directory` click `Edit`
     - Navigate to `apps/web`, select it, and continue
     - Click `Deploy` (this may fail at this stage, that's fine)
-    - `Settings` > `Build and Deployment` > `Node.js Version` > 24
+    - `Settings` > `Build and Deployment` > `Node.js Version` > 26
 
 ### desktop
 
@@ -152,43 +152,10 @@ trusted_config_paths = ["~/Projects"] # where ~/Projects is wherever you clone y
 
 - `dev start`
 
-### vscode (optional)
+### editor setup (optional)
 
-- if you use vscode, we have some recommended extensions and settings
-- when you open the project in vscode, you should be prompted automatically to
-  install the recommended extensions
-- settings can either be configured:
-
-    - globally, via the `Preferences: Open User Settings (JSON)` command
-    - just for this project, via the
-      `Preferences: Open Workspace Settings (JSON)` command
-
-    ```jsonc
-    {
-        "editor.formatOnSave": true,
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
-        "[prisma]": { "editor.defaultFormatter": "Prisma.prisma" },
-        "editor.codeActionsOnSave": {
-            "source.fixAll.eslint": "explicit",
-        },
-        "editor.acceptSuggestionOnCommitCharacter": false,
-        "eslint.useFlatConfig": true,
-        "eslint.problems.shortenToSingleLine": true,
-        "eslint.rules.customizations": [
-            // set all eslint errors/warnings to show as warnings
-            { "rule": "*", "severity": "warn" },
-            // disable some rules in editor (they're just annoying while coding)
-            { "rule": "import-x/no-unused-modules", "severity": "off" },
-        ],
-        "typescript.preferences.importModuleSpecifier": "non-relative",
-        "javascript.preferences.importModuleSpecifier": "non-relative",
-        "typescript.tsdk": "./node_modules/typescript/lib",
-        "typescript.enablePromptUseWorkspaceTsdk": true,
-        "files.associations": {
-            "*.css": "tailwindcss",
-        },
-    }
-    ```
+- depending on your editor, we have some recommended extensions and settings:
+    - [vscode](https://gist.github.com/ciiqr/216275d3622f66b9868df68d6fd463bb)
 
 ## Misc
 
